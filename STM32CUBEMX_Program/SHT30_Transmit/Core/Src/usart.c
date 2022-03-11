@@ -24,6 +24,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+
+volatile uint8_t rx_len = 0;
+uint8_t rx_buffer[255] ={0};
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -239,11 +243,48 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
-
+/**
+ * @brief This func is used for redirecting the printf func.
+ * 
+ * @param ch 
+ * @param f 
+ * @return int 
+ */
 int fputc(int ch,FILE *f)
 {
 	while ((USART1->SR & 0x40) == 0);
   USART1->DR = (uint8_t)ch;
 	return ch;
 }
+/**
+ * @brief This func is in response to serial port idle interrupt.
+ * 
+ * @param huart 
+ */
+void USER_UART_IRQHANDLER(UART_HandleTypeDef *huart)
+{
+  if (huart -> Instance == USART1)
+  {
+    if (SET == __HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE))
+    {
+      uint32_t temp=0; 
+      __HAL_UART_CLEAR_FEFLAG(&huart1);
+      HAL_UART_DMAStop(&huart1);
+      temp = huart1.Instance->SR;
+      temp = huart1.Instance->DR;
+
+      printf("\rThis is for UART1 IDLE detected");
+
+      rx_len = rxbuffersize - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
+  
+      printf("Dat length: %d\r\n",rx_len);
+      HAL_UART_Transmit(&huart1,rx_buffer,rx_len,0x1000);
+
+      memset(rx_buffer,0,rx_len);
+      rx_len = 0;
+      HAL_UART_Receive_DMA(&huart1,rx_buffer,rxbuffersize);
+    }
+  }
+}
+
 /* USER CODE END 1 */

@@ -36,14 +36,17 @@ extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN Private defines */
-
+#define rxbuffersize 255
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);
 void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+extern volatile uint8_t rx_len;
+extern uint8_t rx_buffer[255];
 
+void USER_UART_IRQHANDLER(UART_HandleTypeDef *huart);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

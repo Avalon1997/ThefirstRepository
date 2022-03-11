@@ -100,7 +100,14 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  //  HAL_Delay(100);
 
+  //设置串口空闲中断
+  __HAL_UART_ENABLE_IT(&huart1,UART_IT_RXNE);
+  __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
+  __HAL_UART_CLEAR_IDLEFLAG(&huart1);
+  //开启第一次DMA接收
+  HAL_UART_Transmit_DMA(&huart1,rx_buffer,rxbuffersize);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,7 +122,7 @@ int main(void)
 
 
 
-    InsideTemperature();
+    // InsideTemperature();
 
     
 
