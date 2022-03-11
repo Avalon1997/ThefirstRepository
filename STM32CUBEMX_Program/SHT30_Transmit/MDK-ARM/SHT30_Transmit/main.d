@@ -28,9 +28,13 @@ sht30_transmit\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 sht30_transmit\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 sht30_transmit\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h
 sht30_transmit\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+sht30_transmit\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
+sht30_transmit\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 sht30_transmit\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 sht30_transmit\main.o: ../Core/Inc/adc.h
+sht30_transmit\main.o: ../Core/Inc/dma.h
 sht30_transmit\main.o: ../Core/Inc/i2c.h
+sht30_transmit\main.o: ../Core/Inc/tim.h
 sht30_transmit\main.o: ../Core/Inc/usart.h
 sht30_transmit\main.o: ../Core/Inc/gpio.h
 sht30_transmit\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
