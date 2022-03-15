@@ -56,11 +56,22 @@ int i = 0;
 //To the system
 uint8_t U1_Spec_reset[] = {0x01,0x06,0x00,0x00,0x00,0x00,0x19,0x6F};      //reset the spectrometer
 uint8_t U1_Spec_mac[] = {0x01,0x03,0x00,0x00,0x00,0x00,0x64,0x31};        //receive the MAC version
+uint8_t U1_Spec_integ[] = {0x01,0x64};                                    //configure the integration time
+uint8_t U1_Spec_vinteg[] = {0x01,0x65,0x00,0x00,0x00,0x00,0x19,0x6F};     //view the integration time
+uint8_t U1_Spec_pul1[] = {0x01,0x68};                                     //configure the lamp pulse(command1)
+uint8_t U1_Spec_pul2[] = {0x01,0x69};                                     //configure the lamp pulse(command2)
+uint8_t U1_Spec_vpul[] = {0x01,0x6A,0x00,0x00,0x00,0x00,0x19,0x6F};       //view the lamp pulse
 
 //To the spectrometer
-uint8_t U2_Spec_reset[] = {0x52,0xBD,0x3E};                               //usart2 to reset the spectrometer
-uint8_t U2_Spec_mac[] = {0x56,0x7E,0x3F};                                 //usart2 to receive the MAC version
+uint8_t U2_Spec_reset[] = {0x52,0xBD,0x3E};                                         //usart2 to reset the spectrometer
+uint8_t U2_Spec_mac[] = {0x56,0x7E,0x3F};                                           //usart2 to receive the MAC version
+uint8_t U2_Spec_integ[] = {0x69,0x00,0x00,0x01,0xF4,0x1E,0x78};                     //usart2 to Configure the integration time
+uint8_t U2_Spec_vinteg[] = {0x3F,0x69,0x6E,0xD0};                                   //usart2 to view the integration time
+uint8_t U2_Spec_pul[] = {0x30,0x00,0x00,0x27,0x10,0x00,0x04,0x93,0xE0,0x5C,0xB5};   //usart2 to configure the lamp pulse
+uint8_t U2_Spec_vpul[] = {0x3F,0x30,0x54,0x10};                                     //usart2 to view the lamp pulse
 
+
+//
 uint8_t ErrorUsart1[] = {0xFF,0XFF,0xFF,0XFF,0xFF,0XFF,0xFF,0XFF};      //USART1's data error.
 
 uint8_t Spec_OK[] = {0x06,0x42,0x3F};                                     //spectrometer return data when the message is right.
@@ -146,8 +157,8 @@ int main(void)
 
     // InsideTemperature();
 
-    //To reset the spectrometer
-    if (memcmp(Dec,U1_Spec_reset,8) == 0)
+    //To reset the spectrometer ?? command one
+    if (memcmp(Dec,U1_Spec_reset,sizeof(U1_Spec_reset)) == 0)
       {
         //
         HAL_UART_Transmit(&huart1,U2_Spec_reset,3,0xFFFF);
@@ -158,15 +169,17 @@ int main(void)
           HAL_Delay(50);
           HAL_GPIO_TogglePin(GPIOC,LED_Pin);
         }
-        HAL_UART_Transmit(&huart1,Spec_OK,3,0xFFFF);
+        HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+        Rx2_lendemo = 0;
         memset(Data,0,sizeof(Data));
         memset(Dec,0,sizeof(Dec));
       }
-    //To view the MAC version
-    else if (memcmp(Dec,U1_Spec_mac,8) == 0)
+    
+    //To view the MAC version ?? command two
+    else if (memcmp(Dec,U1_Spec_mac,sizeof(U1_Spec_mac)) == 0)
       {
-        HAL_UART_Transmit(&huart1,U2_Spec_mac,3,0xFFFF);
-        HAL_UART_Transmit(&huart2,U2_Spec_mac,3,0xFFFF);
+        HAL_UART_Transmit(&huart1,U2_Spec_mac,sizeof(U2_Spec_mac),0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_mac,sizeof(U2_Spec_mac),0xFFFF);
         // while (memcmp(Data,Spec_mac,23) != 0)
         // {        
         //   HAL_UART_Transmit(&huart2,U2_Spec_mac,3,0xFFFF);
@@ -174,11 +187,78 @@ int main(void)
         //   HAL_GPIO_TogglePin(GPIOC,LED_Pin);
         // }
         HAL_Delay(50);
-        HAL_UART_Transmit(&huart1,Data,23,0xFFFF);
+        HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+        Rx2_lendemo = 0;
         memset(Data,0,sizeof(Data));
         memset(Dec,0,sizeof(Dec));
-        
       }
+    
+    //To configure the integration time ?? command three
+    else if (memcmp(Dec,U1_Spec_integ,sizeof(U1_Spec_integ)) == 0)
+      {
+        U2_Spec_integ[1] = Dec[2];
+        U2_Spec_integ[2] = Dec[3];
+        U2_Spec_integ[3] = Dec[4];
+        U2_Spec_integ[4] = Dec[5];
+        HAL_UART_Transmit(&huart1,U2_Spec_integ,sizeof(U2_Spec_integ),0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_integ,sizeof(U2_Spec_integ),0xFFFF);
+        // while(memcmp(Data,CRC,sizeof(CRC) != 0)
+        // {}
+        HAL_Delay(50);
+        HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+        Rx2_lendemo = 0;
+        memset(Data,0,sizeof(Data));
+        memset(Dec,0,sizeof(Dec));
+      }
+
+    //To view the integration time ?? command four
+    else if (memcmp(Dec,U1_Spec_vinteg,sizeof(U1_Spec_vinteg)) == 0)
+      {
+        HAL_UART_Transmit(&huart1,U2_Spec_vinteg,sizeof(U2_Spec_vinteg),0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_vinteg,sizeof(U2_Spec_vinteg),0xFFFF);
+        //while()
+        //{}
+        HAL_Delay(50);
+        HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+        Rx2_lendemo = 0;
+        memset(Data,0,sizeof(Data));
+        memset(Dec,0,sizeof(Dec));
+      }
+
+    //To configure the lamp pulse ?? command five
+    else if (memcmp(Dec,U1_Spec_pul1,2) == 0)
+    {
+      if (Dec[8] == 0x01 && Dec[9] == 0x69)
+      {
+        U2_Spec_pul[1] = Dec[2];
+        U2_Spec_pul[2] = Dec[3];
+        U2_Spec_pul[3] = Dec[4];
+        U2_Spec_pul[4] = Dec[5];
+        U2_Spec_pul[5] = Dec[10];
+        U2_Spec_pul[6] = Dec[11];
+        U2_Spec_pul[7] = Dec[12];
+        U2_Spec_pul[8] = Dec[13];
+        HAL_UART_Transmit(&huart1,U2_Spec_pul,sizeof(U2_Spec_pul),0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_pul,sizeof(U2_Spec_pul),0xFFFF);
+        //while()
+        //{}
+        HAL_Delay(50);
+        HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+        Rx2_lendemo = 0;
+        memset(Data,0,sizeof(Data));
+        memset(Dec,0,sizeof(Dec));
+      }
+    }    
+
+    //To view the lamp pulse ?? command six
+    else if (memcmp)
+
+
+
+
+
+
+
 
 
 

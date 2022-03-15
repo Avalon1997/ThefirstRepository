@@ -36,7 +36,7 @@ extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN Private defines */
-#define Rx1BufferSize 8
+#define Rx1BufferSize 16
 extern uint8_t Rx1_Buffer[];
 extern uint8_t Rx1_Len;
 extern uint8_t Dec[Rx1BufferSize];
@@ -45,6 +45,7 @@ extern uint8_t Dec[Rx1BufferSize];
 extern uint8_t Rx2_Buffer[];
 extern uint8_t Rx2_Len;
 extern uint8_t Data[Rx2BufferSize];
+extern uint8_t Rx2_lendemo;
 
 /* USER CODE END Private defines */
 

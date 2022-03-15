@@ -28,6 +28,7 @@ uint8_t Rx1_Len = 0;                         //每次来数据的数据长度
 
 uint8_t Rx2_Buffer[Rx2BufferSize] = {0};    //
 uint8_t Rx2_Len = 0;
+uint8_t Rx2_lendemo =0;
 
 uint8_t Dec[Rx1BufferSize] = {0};
 uint8_t Data[Rx2BufferSize] = {0};

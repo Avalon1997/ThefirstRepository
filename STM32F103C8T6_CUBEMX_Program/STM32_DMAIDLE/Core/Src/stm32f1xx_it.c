@@ -324,7 +324,7 @@ void USART2_IRQHandler(void)
       __HAL_UART_CLEAR_IDLEFLAG(&huart2);
       HAL_UART_DMAStop(&huart2);
       Rx2_Len = Rx2BufferSize - __HAL_DMA_GET_COUNTER(&hdma_usart2_rx);
-
+      Rx2_lendemo = Rx2_Len;
       memcpy(Data,Rx2_Buffer,Rx2BufferSize);
 
       Rx2_Len = 0;
