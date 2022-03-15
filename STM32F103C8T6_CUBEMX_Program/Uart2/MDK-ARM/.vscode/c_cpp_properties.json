@@ -3,16 +3,16 @@
         {
             "name": "Uart2",
             "includePath": [
-                "d:\\git_repository\\STM32CUBEMX_Program\\Uart2\\Core\\Inc",
-                "d:\\git_repository\\STM32CUBEMX_Program\\Uart2\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "d:\\git_repository\\STM32CUBEMX_Program\\Uart2\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "d:\\git_repository\\STM32CUBEMX_Program\\Uart2\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "d:\\git_repository\\STM32CUBEMX_Program\\Uart2\\Drivers\\CMSIS\\Include",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\Uart2\\Core\\Inc",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\Uart2\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\Uart2\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\Uart2\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\Uart2\\Drivers\\CMSIS\\Include",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include\\rw",
-                "d:\\git_repository\\STM32CUBEMX_Program\\Uart2\\MDK-ARM",
-                "d:\\git_repository\\STM32CUBEMX_Program\\Uart2\\Core\\Src",
-                "d:\\git_repository\\STM32CUBEMX_Program\\Uart2\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\Uart2\\MDK-ARM",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\Uart2\\Core\\Src",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\Uart2\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

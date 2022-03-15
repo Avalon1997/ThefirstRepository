@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "usart.h"
 #include <string.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,7 +61,10 @@
 extern TIM_HandleTypeDef htim2;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart1_tx;
+extern DMA_HandleTypeDef hdma_usart2_rx;
+extern DMA_HandleTypeDef hdma_usart2_tx;
 extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -232,6 +236,34 @@ void DMA1_Channel5_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles DMA1 channel6 global interrupt.
+  */
+void DMA1_Channel6_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Channel6_IRQn 0 */
+
+  /* USER CODE END DMA1_Channel6_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart2_rx);
+  /* USER CODE BEGIN DMA1_Channel6_IRQn 1 */
+
+  /* USER CODE END DMA1_Channel6_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA1 channel7 global interrupt.
+  */
+void DMA1_Channel7_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Channel7_IRQn 0 */
+
+  /* USER CODE END DMA1_Channel7_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart2_tx);
+  /* USER CODE BEGIN DMA1_Channel7_IRQn 1 */
+
+  /* USER CODE END DMA1_Channel7_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM2 global interrupt.
   */
 void TIM2_IRQHandler(void)
@@ -251,14 +283,28 @@ void TIM2_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-if (__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)
-{
-  __HAL_UART_CLEAR_IDLEFLAG(&huart1);
-  HAL_UART_DMAStop(&huart1);
-  Rx_Len = RxBufferSize - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
-  HAL_UART_Transmit_DMA(&huart1,Rx_Buffer,Rx_Len);
 
-}
+  //判断是否中断空闲�?�?
+ if (__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)
+ {
+   __HAL_UART_CLEAR_IDLEFLAG(&huart1);                                      //清楚空闲标志�?
+   HAL_UART_DMAStop(&huart1);                                               //停止DMA接收防止数据紊乱
+   Rx1_Len = Rx1BufferSize - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);          //计算数据长度
+    
+    memcpy(Dec,Rx1_Buffer,Rx1BufferSize);
+
+    Rx1_Len = 0;
+
+    memset(Rx1_Buffer,0,Rx1BufferSize);
+
+    HAL_UART_Receive_DMA(&huart1,Rx1_Buffer,Rx1BufferSize);
+  //  printf("The length is : %d\r\nThe data is : ",Rx1_Len);
+
+  //  HAL_UART_Transmit_DMA(&huart1,Rx1_Buffer,Rx1_Len);                         //打印数据
+  //将数据缓存至判断数组
+
+
+ }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
@@ -266,17 +312,63 @@ if (__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)
   /* USER CODE END USART1_IRQn 1 */
 }
 
-/* USER CODE BEGIN 1 */
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+/**
+  * @brief This function handles USART2 global interrupt.
+  */
+void USART2_IRQHandler(void)
 {
-  if (huart -> Instance == USART1)
+  /* USER CODE BEGIN USART2_IRQn 0 */
+
+  if (__HAL_UART_GET_FLAG(&huart2,UART_FLAG_IDLE) == SET)
   {
-      Rx_Len = 0;
+      __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+      HAL_UART_DMAStop(&huart2);
+      Rx2_Len = Rx2BufferSize - __HAL_DMA_GET_COUNTER(&hdma_usart2_rx);
+      Rx2_lendemo = Rx2_Len;
+      memcpy(Data,Rx2_Buffer,Rx2BufferSize);
 
-      memset(Rx_Buffer,0,RxBufferSize);
+      Rx2_Len = 0;
 
-      HAL_UART_Receive_DMA(&huart1,Rx_Buffer,RxBufferSize);
+      memset(Rx2_Buffer,0,Rx2BufferSize);
+      HAL_UART_Receive_DMA(&huart2,Rx2_Buffer,Rx2BufferSize);
   }
+
+
+  /* USER CODE END USART2_IRQn 0 */
+  HAL_UART_IRQHandler(&huart2);
+  /* USER CODE BEGIN USART2_IRQn 1 */
+
+  /* USER CODE END USART2_IRQn 1 */
 }
+
+/* USER CODE BEGIN 1 */
+/**
+ * @brief 重写中断回调函数，串�?1中断完成后进入回调函数清楚数据长度变量�?�缓冲数组�?�开启DMA接收
+ * 
+ * @param huart 
+ */
+// void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+// {
+//   memcpy(Dec,Rx1_Buffer,8);
+//   // HAL_UART_Transmit_DMA(&huart1,Dec,8);
+//   // HAL_UART_Transmit_DMA(&huart1,Rx1_Buffer,8);
+//   if (huart -> Instance == USART1)
+//   {
+//       //分析判断数组内数据，根据数据执行功能
+//       // if (strncmp((char *)Dec,(char *)Spec_reset,8) == RESET)
+//       // {
+//       //   //下位机接收到全局复位命令，执行全�?复位S
+//       //   HAL_UART_Transmit_DMA(&huart1,Dec,8);
+//       // }
+//       // else {HAL_UART_Transmit_DMA(&huart1,ErrorUsart1,8);}
+      
+      
+//       Rx1_Len = 0;
+
+//       memset(Rx1_Buffer,0,Rx1BufferSize);
+
+//       HAL_UART_Receive_DMA(&huart1,Rx1_Buffer,Rx1BufferSize);
+//   }
+// }
 /* USER CODE END 1 */
 

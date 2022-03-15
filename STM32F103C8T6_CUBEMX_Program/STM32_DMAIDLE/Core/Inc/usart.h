@@ -36,9 +36,17 @@ extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN Private defines */
-#define RxBufferSize 256
-extern uint8_t Rx_Buffer[];
-extern uint8_t Rx_Len;
+#define Rx1BufferSize 16
+extern uint8_t Rx1_Buffer[];
+extern uint8_t Rx1_Len;
+extern uint8_t Dec[Rx1BufferSize];
+
+#define Rx2BufferSize 1024
+extern uint8_t Rx2_Buffer[];
+extern uint8_t Rx2_Len;
+extern uint8_t Data[Rx2BufferSize];
+extern uint8_t Rx2_lendemo;
+
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);

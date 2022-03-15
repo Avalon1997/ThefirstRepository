@@ -44,7 +44,7 @@ void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 71;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 20000;
+  htim2.Init.Period = 19999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -146,5 +146,23 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+/**
+ * @brief 更改PWM波占空比�?22%
+ * 
+ */
+void PWM2200(void)
+{
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2200);
+}
+
+/**
+ * @brief 更改PWM波占空比�?18%
+ * 
+ */
+void PWM1800(void)
+{
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1800);
+}
 
 /* USER CODE END 1 */
