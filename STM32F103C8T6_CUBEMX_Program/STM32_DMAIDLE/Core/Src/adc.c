@@ -102,6 +102,11 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+/**
+ * @brief 测量片内温度函数，直接采样ADC运算结果，打印至串口
+ * 
+ */
 void InsideTemperature(void)
 {
   HAL_ADC_Start(&hadc1);
@@ -115,4 +120,5 @@ void InsideTemperature(void)
   printf("MCU Internal Temperature: %.2fC\r\n",ADC_Temperature);
 
 }
+
 /* USER CODE END 1 */

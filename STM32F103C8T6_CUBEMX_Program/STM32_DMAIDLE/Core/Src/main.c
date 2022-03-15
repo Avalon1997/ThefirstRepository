@@ -44,7 +44,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 extern uint8_t I2CRXBuffer[6];
-uint8_t dataone[7] = {0x01,0x06,0x00,0x00,0x08,0x88,0x0c};
+// uint8_t dataone[7] = {0x01,0x06,0x00,0x00,0x08,0x88,0x0c};
 uint8_t rebuffer[10];
 /* USER CODE END PM */
 
@@ -52,6 +52,21 @@ uint8_t rebuffer[10];
 
 /* USER CODE BEGIN PV */
 int i = 0;
+
+//To the system
+uint8_t U1_Spec_reset[] = {0x01,0x06,0x00,0x00,0x00,0x00,0x19,0x6F};      //reset the spectrometer
+uint8_t U1_Spec_mac[] = {0x01,0x03,0x00,0x00,0x00,0x00,0x64,0x31};        //receive the MAC version
+
+//To the spectrometer
+uint8_t U2_Spec_reset[] = {0x52,0xBD,0x3E};                               //usart2 to reset the spectrometer
+uint8_t U2_Spec_mac[] = {0x56,0x7E,0x3F};                                 //usart2 to receive the MAC version
+
+uint8_t ErrorUsart1[] = {0xFF,0XFF,0xFF,0XFF,0xFF,0XFF,0xFF,0XFF};      //USART1's data error.
+
+uint8_t Spec_OK[] = {0x06,0x42,0x3F};                                     //spectrometer return data when the message is right.
+
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,8 +105,8 @@ int main(void)
   // #endif
   // PUTCHAR_PROTOTYPE
   // {
-  //    //具体哪个串口可以更改USART1为其它串口
-  //    while ((USART1->SR & 0X40) == 0); //循环发送,直到发送完毕
+  //    //具体哪个串口可以更改USART1为其它串�?
+  //    while ((USART1->SR & 0X40) == 0); //循环发�??,直到发�?�完�?
   //    USART1->DR = (uint8_t) ch;
   //    return ch;
   // }
@@ -113,7 +128,13 @@ int main(void)
   MX_TIM2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_DMA(&huart1,Rx_Buffer,RxBufferSize);
+  //??????DMA
+  HAL_UART_Receive_DMA(&huart1,Rx1_Buffer,Rx1BufferSize);
+  HAL_UART_Receive_DMA(&huart2,Rx2_Buffer,Rx2BufferSize);
+  //??PWM??
+  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,8000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -123,10 +144,44 @@ int main(void)
     HAL_GPIO_WritePin(GPIOC,LED_Pin,GPIO_PIN_SET);
     HAL_Delay(2000);
 
-    InsideTemperature();
+    // InsideTemperature();
 
-    //测试prin
-    printf("running....\r\n");
+    //To reset the spectrometer
+    if (memcmp(Dec,U1_Spec_reset,8) == 0)
+      {
+        //
+        HAL_UART_Transmit(&huart1,U2_Spec_reset,3,0xFFFF);
+
+        while (memcmp(Data,Spec_OK,3) != 0)
+        {
+          HAL_UART_Transmit(&huart2,U2_Spec_reset,3,0xFFFF);
+          HAL_Delay(50);
+          HAL_GPIO_TogglePin(GPIOC,LED_Pin);
+        }
+        HAL_UART_Transmit(&huart1,Spec_OK,3,0xFFFF);
+        memset(Data,0,sizeof(Data));
+        memset(Dec,0,sizeof(Dec));
+      }
+    //To view the MAC version
+    else if (memcmp(Dec,U1_Spec_mac,8) == 0)
+      {
+        HAL_UART_Transmit(&huart1,U2_Spec_mac,3,0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_mac,3,0xFFFF);
+        // while (memcmp(Data,Spec_mac,23) != 0)
+        // {        
+        //   HAL_UART_Transmit(&huart2,U2_Spec_mac,3,0xFFFF);
+        //   HAL_Delay(50);
+        //   HAL_GPIO_TogglePin(GPIOC,LED_Pin);
+        // }
+        HAL_Delay(50);
+        HAL_UART_Transmit(&huart1,Data,23,0xFFFF);
+        memset(Data,0,sizeof(Data));
+        memset(Dec,0,sizeof(Dec));
+        
+      }
+
+
+
 
     for (i=0;i<20;i++)
     {
@@ -186,6 +241,8 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+
 
 /* USER CODE END 4 */
 

@@ -34,3 +34,4 @@ stm32_dmaidle\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_
 stm32_dmaidle\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_it.h
 stm32_dmaidle\stm32f1xx_it.o: ../Core/Inc/usart.h
 stm32_dmaidle\stm32f1xx_it.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+stm32_dmaidle\stm32f1xx_it.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
