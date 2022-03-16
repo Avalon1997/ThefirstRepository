@@ -72,6 +72,8 @@ uint8_t U1_Spec_vwavelength[] = {0x01,0x6D,0x00,0x00,0x00,0x00,0x19,0x6F};//view
 uint8_t U1_Spec_darkdata[] = {0x01,0x86,0x00,0x00,0x00,0x00,0x19,0x6F};   //get the spectrometer data under dark current
 uint8_t U1_Spec_referdata[] = {0x01,0x87,0x00,0x00,0x00,0x00,0x19,0x6F};  //get the spectrometer data under reference signal
 uint8_t U1_Spec_samdata[] = {0x01,0x88,0x00,0x00,0x00,0x00,0x19,0x6F};    //get the spectrometer data under sample signal
+uint8_t U1_Spec_extemp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0xC1};     //get the external ambient temperature
+uint8_t U1_SPec_intemp[] = {0x01,0x91,0x00,0x00,0x00,0x00,0x17,0xFC};     //get the internal ambient temperature
 
 //To the spectrometer
 uint8_t U2_Spec_reset[] = {0x52,0xBD,0x3E};                                         //usart2 to reset the spectrometer
@@ -165,10 +167,10 @@ int main(void)
   //??PWM??
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
-  HAL_Delay(500);
+  HAL_Delay(700);
   __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
-  HAL_Delay(500);
-  HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+  HAL_Delay(700);
+  // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
 
@@ -178,9 +180,6 @@ int main(void)
   {
     HAL_GPIO_WritePin(GPIOC,LED_Pin,GPIO_PIN_SET);
     HAL_Delay(100);
-
-    // InsideTemperature();
-
 
     //To reset the spectrometer ?? command one
     if (memcmp(Dec,U1_Spec_reset,sizeof(U1_Spec_reset)) == 0)
@@ -411,6 +410,7 @@ int main(void)
         
         if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
         {
+          PWM_dark();
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -421,7 +421,7 @@ int main(void)
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
 
 
-        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2000);
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
         //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
         for (x=0;x<Rx2BufferSize;x++)
         {
@@ -445,7 +445,7 @@ int main(void)
     //To get the spectrometer data under reference signal ?? command fourteen
     else if (memcmp(Dec,U1_Spec_referdata,sizeof(U1_Spec_referdata)) == 0)
       {
-        HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+        // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
         PWM_Reference();
         HAL_Delay(500);
         HAL_UART_Transmit(&huart1,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
@@ -464,7 +464,7 @@ int main(void)
 
         HAL_UART_DMAStop(&huart2);
         __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2000);
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
         //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
         for (x=0;x<Rx2BufferSize;x++)
         {
@@ -484,12 +484,12 @@ int main(void)
         __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
         HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
         }
-        HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+        // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
       }
     //To get the spectrometer data under sample signal ?? command fifteen
     else if (memcmp(Dec,U1_Spec_samdata,sizeof(U1_Spec_samdata)) == 0)
       {
-        HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+        // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
         PWM_Sample();
         HAL_Delay(500);
         HAL_UART_Transmit(&huart1,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
@@ -508,7 +508,7 @@ int main(void)
 
         HAL_UART_DMAStop(&huart2);
         __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2000);
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
         //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
         for (x=0;x<Rx2BufferSize;x++)
         {
@@ -528,8 +528,61 @@ int main(void)
         __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
         HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
         }
-        HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+        // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
       }
+    
+    //To get the internal ambient temperature
+    else if(memcmp(Dec,U1_SPec_intemp,sizeof(U1_SPec_intemp)) == 0)
+    {
+      InsideTemperature();
+      memset(Dec,0,sizeof(Dec));
+    }
+
+    
+    //To get the external ambient temperature
+    // else if(memcmp(Dec,U1_Spec_extemp,sizeof(U1_Spec_extemp)) == 0)
+    // {
+    //   Measure_TR();
+    // }
+
+/**
+ * @brief To calibrate the servo patch
+ * 
+ */
+  //   else if (memcmp(Dec,testmotor,sizeof(testmotor)) ==0 && Dec[1] == 0x01)
+  //   {
+  // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2250);
+  // HAL_Delay(1000);
+  // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+  // memset(Dec,0,sizeof(Dec));
+  //   }
+  //   else if (memcmp(Dec,testmotor,sizeof(testmotor)) ==0 && Dec[1] == 0x02)
+  //   {
+  // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  // HAL_Delay(1000);
+  // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+  // memset(Dec,0,sizeof(Dec));
+  //   }
+  //   else if (memcmp(Dec,testmotor,sizeof(testmotor)) ==0 && Dec[1] == 0x03)
+  //   {
+  // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1850);
+  // HAL_Delay(1000);
+  // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+  // memset(Dec,0,sizeof(Dec));
+  //   }
+  //   else if (memcmp(Dec,testmotor,sizeof(testmotor)) ==0 && Dec[1] == 0x04)
+  //   {
+  // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500); 
+  // HAL_Delay(1000);
+  // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+  // memset(Dec,0,sizeof(Dec));
+  //   }
+
+
 
     HAL_GPIO_WritePin(GPIOC,LED_Pin,GPIO_PIN_RESET);
     HAL_Delay(100);
