@@ -52,6 +52,8 @@ uint8_t rebuffer[10];
 
 /* USER CODE BEGIN PV */
 int i = 0 ,x = 0;
+int CRC_i = 0,CRC_j = 0;
+uint16_t CRC16 = 0;
 
 //To the system
 uint8_t U1_Spec_reset[] = {0x01,0x06,0x00,0x00,0x00,0x00,0x19,0x6F};      //reset the spectrometer
@@ -175,12 +177,12 @@ int main(void)
   while (1)
   {
     HAL_GPIO_WritePin(GPIOC,LED_Pin,GPIO_PIN_SET);
-    HAL_Delay(2000);
+    HAL_Delay(100);
 
     // InsideTemperature();
 
 
-    // //To reset the spectrometer ?? command one
+    //To reset the spectrometer ?? command one
     if (memcmp(Dec,U1_Spec_reset,sizeof(U1_Spec_reset)) == 0)
       {
         //
@@ -223,6 +225,9 @@ int main(void)
         U2_Spec_integ[2] = Dec[3];
         U2_Spec_integ[3] = Dec[4];
         U2_Spec_integ[4] = Dec[5];
+        CRC16 = ModBus_CRC16(U2_Spec_integ,5);
+        U2_Spec_integ[6] = CRC16 & 0xFF;
+        U2_Spec_integ[5] = (CRC16 >> 8) & 0xFF;
         HAL_UART_Transmit(&huart1,U2_Spec_integ,sizeof(U2_Spec_integ),0xFFFF);
         HAL_UART_Transmit(&huart2,U2_Spec_integ,sizeof(U2_Spec_integ),0xFFFF);
         // while(memcmp(Data,CRC,sizeof(CRC) != 0)
@@ -261,6 +266,9 @@ int main(void)
           U2_Spec_pul[6] = Dec[11];
           U2_Spec_pul[7] = Dec[12];
           U2_Spec_pul[8] = Dec[13];
+          CRC16 = ModBus_CRC16(U2_Spec_pul,9);
+          U2_Spec_pul[10] = CRC16 & 0xFF;
+          U2_Spec_pul[9] = (CRC16 >> 8) & 0xFF;
           HAL_UART_Transmit(&huart1,U2_Spec_pul,sizeof(U2_Spec_pul),0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_pul,sizeof(U2_Spec_pul),0xFFFF);
           //while()
@@ -294,6 +302,9 @@ int main(void)
         U2_Spec_pix[4] = Dec[3];
         U2_Spec_pix[5] = Dec[4];
         U2_Spec_pix[6] = Dec[5];
+        CRC16 = ModBus_CRC16(U2_Spec_pix,9);
+        U2_Spec_pix[10] = CRC16 & 0xFF;
+        U2_Spec_pix[9] = (CRC16 >> 8) & 0xFF;
         HAL_UART_Transmit(&huart1,U2_Spec_pix,sizeof(U2_Spec_pix),0xFFFF);
         HAL_UART_Transmit(&huart2,U2_Spec_pix,sizeof(U2_Spec_pix),0xFFFF);
         //while()
@@ -322,6 +333,9 @@ int main(void)
       {
         U2_Spec_ave[1] = Dec[2];
         U2_Spec_ave[2] = Dec[3];
+        CRC16 = ModBus_CRC16(U2_Spec_ave,3);
+        U2_Spec_ave[4] = CRC16 & 0xFF;
+        U2_Spec_ave[3] = (CRC16 >> 8) & 0xFF;
         HAL_UART_Transmit(&huart1,U2_Spec_ave,sizeof(U2_Spec_ave),0xFFFF);
         HAL_UART_Transmit(&huart2,U2_Spec_ave,sizeof(U2_Spec_ave),0xFFFF);
         //while()
@@ -407,7 +421,7 @@ int main(void)
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
 
 
-        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2000);
         //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
         for (x=0;x<Rx2BufferSize;x++)
         {
@@ -450,7 +464,7 @@ int main(void)
 
         HAL_UART_DMAStop(&huart2);
         __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2000);
         //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
         for (x=0;x<Rx2BufferSize;x++)
         {
@@ -472,7 +486,7 @@ int main(void)
         }
         HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
       }
-    //To get the spectrometer data under reference signal ?? command fourteen
+    //To get the spectrometer data under sample signal ?? command fifteen
     else if (memcmp(Dec,U1_Spec_samdata,sizeof(U1_Spec_samdata)) == 0)
       {
         HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
@@ -494,7 +508,7 @@ int main(void)
 
         HAL_UART_DMAStop(&huart2);
         __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2000);
         //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
         for (x=0;x<Rx2BufferSize;x++)
         {
@@ -517,18 +531,8 @@ int main(void)
         HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
       }
 
-
-
-
-
-
-
-
-    for (i=0;i<20;i++)
-    {
-      HAL_GPIO_TogglePin(GPIOC,LED_Pin);
-      HAL_Delay(50);
-    }
+    HAL_GPIO_WritePin(GPIOC,LED_Pin,GPIO_PIN_RESET);
+    HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -583,7 +587,25 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
-
+uint16_t ModBus_CRC16( uint8_t *pdata, int len)
+{
+  uint16_t crc=0xFFFF;
+  for ( CRC_j=0; CRC_j<len;CRC_j++)
+  {
+    crc=crc^pdata[CRC_j];
+    for ( CRC_i=0; CRC_i<8; CRC_i++)
+    {
+      if( ( crc&0x0001) >0)
+      {
+        crc=crc>>1;
+        crc=crc^ 0xa001;
+      }
+    else
+    crc=crc>>1;
+    }
+  }
+return crc;
+}
 
 /* USER CODE END 4 */
 

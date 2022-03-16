@@ -60,6 +60,7 @@ void Error_Handler(void);
 #define LED_Pin GPIO_PIN_13
 #define LED_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
+uint16_t ModBus_CRC16( uint8_t *pdata, int len);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
