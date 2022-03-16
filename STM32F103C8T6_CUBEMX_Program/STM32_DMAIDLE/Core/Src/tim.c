@@ -148,21 +148,21 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 /* USER CODE BEGIN 1 */
 
 /**
- * @brief 更改PWM波占空比�?22%
+ * @brief 更改PWM波占空比�?22%
  * 
  */
-void PWM2200(void)
+void PWM_Reference(void)
 {
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2200);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1130);
 }
 
 /**
- * @brief 更改PWM波占空比�?18%
+ * @brief 更改PWM波占空比�?18%
  * 
  */
-void PWM1800(void)
+void PWM_Sample(void)
 {
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1800);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1850);
 }
 
 /* USER CODE END 1 */

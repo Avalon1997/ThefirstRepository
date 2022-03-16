@@ -41,7 +41,7 @@ extern uint8_t Rx1_Buffer[];
 extern uint8_t Rx1_Len;
 extern uint8_t Dec[Rx1BufferSize];
 
-#define Rx2BufferSize 1024
+#define Rx2BufferSize 6144
 extern uint8_t Rx2_Buffer[];
 extern uint8_t Rx2_Len;
 extern uint8_t Data[Rx2BufferSize];
