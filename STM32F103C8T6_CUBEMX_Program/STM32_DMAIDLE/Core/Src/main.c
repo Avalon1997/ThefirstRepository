@@ -162,9 +162,11 @@ int main(void)
   HAL_UART_Receive_DMA(&huart2,Rx2_Buffer,Rx2BufferSize);
   //??PWM??
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
-  // HAL_Delay(500);
-  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+  HAL_Delay(500);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  HAL_Delay(500);
+  HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
 
@@ -392,19 +394,20 @@ int main(void)
         HAL_UART_Transmit(&huart2,U2_Spec_xenonoff,sizeof(U2_Spec_xenonoff),0xFFFF);
         HAL_Delay(20);
         HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
-
+        
         if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
         {
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
           HAL_Delay(50);
+          HAL_UART_DMAStop(&huart2);
+          __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
           HAL_UART_Transmit(&huart1,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
 
-        HAL_UART_DMAStop(&huart2);
-        __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,0x28A);
+
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
         //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
         for (x=0;x<Rx2BufferSize;x++)
         {
@@ -428,8 +431,9 @@ int main(void)
     //To get the spectrometer data under reference signal ?? command fourteen
     else if (memcmp(Dec,U1_Spec_referdata,sizeof(U1_Spec_referdata)) == 0)
       {
-        // PWM_Reference();
-        // HAL_Delay(500);
+        HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+        PWM_Reference();
+        HAL_Delay(500);
         HAL_UART_Transmit(&huart1,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
         HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
         HAL_Delay(20);
@@ -446,7 +450,7 @@ int main(void)
 
         HAL_UART_DMAStop(&huart2);
         __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,0x28A);
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
         //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
         for (x=0;x<Rx2BufferSize;x++)
         {
@@ -466,9 +470,52 @@ int main(void)
         __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
         HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
         }
+        HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
       }
     //To get the spectrometer data under reference signal ?? command fourteen
+    else if (memcmp(Dec,U1_Spec_samdata,sizeof(U1_Spec_samdata)) == 0)
+      {
+        HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+        PWM_Sample();
+        HAL_Delay(500);
+        HAL_UART_Transmit(&huart1,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+        HAL_Delay(20);
+        HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
 
+        if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+        {
+          Rx2_lendemo = 0;
+          memset(Data,0,sizeof(Data));
+          memset(Dec,0,sizeof(Dec));
+          HAL_Delay(50);
+          HAL_UART_Transmit(&huart1,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+          HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+
+        HAL_UART_DMAStop(&huart2);
+        __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+        HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+        //If the spectrometer data is 0 twice in a row, jump out of the loop and send the data
+        for (x=0;x<Rx2BufferSize;x++)
+        {
+          if (Data[x] == 0x00)
+          {
+            x += 1;
+            if (Data[x] == 0x00)
+            { x -= 1;
+            break;
+            }
+          }
+        }
+        HAL_UART_Transmit(&huart1,Data,x,0xFFFF);
+        Rx2_lendemo = 0;
+        memset(Data,0,sizeof(Data));
+        memset(Dec,0,sizeof(Dec));
+        __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+        HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+        }
+        HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+      }
 
 
 
