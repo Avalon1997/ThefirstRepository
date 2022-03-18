@@ -54,9 +54,10 @@ uint8_t rebuffer[10];
 int i = 0 ,x = 0;
 int CRC_i = 0,CRC_j = 0;
 uint16_t CRC16 = 0;
-uint8_t CRC_Data[8] = {0};
+uint8_t CRC_Data[16] = {0};
 int memv_i,memv_j;
-uint8_t MAC[] ={">MAC:[20-22-03-17-18-26]"};
+uint8_t MAC[] ={"-MAC:[20-22-03-17-18-26]"};
+uint8_t Ver[47] = {0};
 
 //To the system
 uint8_t U1_Spec_reset[] = {0x01,0x06,0x00,0x00,0x00,0x00,0xCA,0x89};      //reset the spectrometer
@@ -221,7 +222,7 @@ int main(void)
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,2,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,2,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_mac,sizeof(U2_Spec_mac),0xFFFF);
           // while (memcmp(Data,Spec_mac,23) != 0)
           // {        
@@ -230,21 +231,15 @@ int main(void)
           //   HAL_GPIO_TogglePin(GPIOC,LED_Pin);
           // }
           HAL_Delay(30);
-          strcat(Data,MAC);
-          for (x=0;x<Rx2BufferSize;x++)
-          {
-            if (Data[x] == 0x00)
-            {
-              x += 1;
-              if (Data[x] == 0x00)
-              { x -= 1;
-              break;
-              }
-            }
-          }
-          HAL_UART_Transmit(&huart1,Data,x,0xFFFF);
+          memv(Ver,Data,0,0,21);
+          strcat(Ver,MAC);
+          CRC16 = ModBus_CRC16(Ver,45);
+          Ver[46] = CRC16 & 0xFF;
+          Ver[45] = (CRC16 >> 8) & 0xFF;
+          HAL_UART_Transmit(&huart1,Ver,sizeof(Ver),0xFFFF);
           Rx2_lendemo = 0;
           x = 0;
+          memset(Ver,0,sizeof(Ver));
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
         }
@@ -307,7 +302,8 @@ int main(void)
           CRC16 = ModBus_CRC16(CRC_Data,6);
           CRC_Data[7] = CRC16 & 0xFF;
           CRC_Data[6] = (CRC16>>8) & 0xFF;
-          HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+          memv(Data,CRC_Data,0,0,8);
+          HAL_UART_Transmit(&huart1,Data,8,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -352,12 +348,16 @@ int main(void)
               CRC16 = ModBus_CRC16(U2_Spec_pul,9);
               U2_Spec_pul[10] = CRC16 & 0xFF;
               U2_Spec_pul[9] = (CRC16 >> 8) & 0xFF;
-              HAL_UART_Transmit(&huart1,Dec,16,0xFFFF);
+              memv(Dec,U2_Spec_pul,2,1,8);
+              CRC16 = ModBus_CRC16(Dec,10);
+              Dec[11] = CRC16 & 0xFF;
+              Dec[10] = (CRC16 >> 8) & 0xFF;
               HAL_UART_Transmit(&huart2,U2_Spec_pul,sizeof(U2_Spec_pul),0xFFFF);
+              HAL_UART_Transmit(&huart1,Dec,12,0xFFFF);
               //while()
               //{}
               HAL_Delay(30);
-              HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+              // HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
               Rx2_lendemo = 0;
               memset(Data,0,sizeof(Data));
               memset(Dec,0,sizeof(Dec));
@@ -369,6 +369,11 @@ int main(void)
             }
           }
         }
+        else 
+        {
+          HAL_UART_Transmit(&huart1,"CRCERROR",8,0xFFFF);
+          memset(Dec,0,sizeof(Dec));
+        }
       }    
 
     //To view the lamp pulse --- command six
@@ -379,12 +384,19 @@ int main(void)
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_vpul,sizeof(U2_Spec_vpul),0xFFFF);
           //while()
           //{}
           HAL_Delay(30);
-          HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+          CRC_Data[0] = 0x01;
+          CRC_Data[1] = 0x6A;
+          memv(CRC_Data,Data,2,1,8);
+          CRC16 = ModBus_CRC16(CRC_Data,10);
+          CRC_Data[11] = CRC16 & 0xFF;
+          CRC_Data[10] = (CRC16 >> 8) & 0xFF;
+          memv(Data,CRC_Data,0,0,12);
+          HAL_UART_Transmit(&huart1,Data,12,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -437,12 +449,19 @@ int main(void)
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_vpix,sizeof(U2_Spec_vpix),0xFFFF);
           //while()
           //{}
           HAL_Delay(30);
-          HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+          CRC_Data[0] = 0x01;
+          CRC_Data[1] = 0x6C;
+          memv(CRC_Data,Data,2,1,4);
+          CRC16 = ModBus_CRC16(CRC_Data,6);
+          CRC_Data[7] = CRC16 & 0xFF;
+          CRC_Data[6] = (CRC16 >> 8 ) & 0xFF;
+          memv(Data,CRC_Data,0,0,8);
+          HAL_UART_Transmit(&huart1,Data,8,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -472,7 +491,7 @@ int main(void)
           //while()
           //{}
           HAL_Delay(30);
-          HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -492,12 +511,18 @@ int main(void)
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_vave,sizeof(U2_Spec_vave),0xFFFF);
           //while()
           //{}
           HAL_Delay(30);
-          HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+          memv(CRC_Data,U1_Spec_vave,0,0,4);
+          memv(CRC_Data,Data,4,1,2);
+          CRC16 = ModBus_CRC16(CRC_Data,6);
+          CRC_Data[7] = CRC16 & 0xFF;
+          CRC_Data[6] = (CRC16 >> 8) & 0xFF;
+          memv(Data,CRC_Data,0,0,8);
+          HAL_UART_Transmit(&huart1,Data,8,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -521,7 +546,7 @@ int main(void)
           HAL_UART_Transmit(&huart2,U2_Spec_get_par,sizeof(U2_Spec_get_par),0xFFFF);
           //while()
           //{}
-          HAL_Delay(30);
+          HAL_Delay(60);
           HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
@@ -583,10 +608,10 @@ int main(void)
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_xenonoff,sizeof(U2_Spec_xenonoff),0xFFFF);
           HAL_Delay(20);
-          HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
           
           if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
           {
@@ -597,7 +622,7 @@ int main(void)
             HAL_Delay(50);
             HAL_UART_DMAStop(&huart2);
             __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-            HAL_UART_Transmit(&huart1,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+            // HAL_UART_Transmit(&huart1,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
             HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
 
 
@@ -640,10 +665,10 @@ int main(void)
           // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
           PWM_Reference();
           HAL_Delay(500);
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
           HAL_Delay(20);
-          HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
 
           if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
           {
@@ -651,7 +676,7 @@ int main(void)
             memset(Data,0,sizeof(Data));
             memset(Dec,0,sizeof(Dec));
             HAL_Delay(50);
-            HAL_UART_Transmit(&huart1,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+            // HAL_UART_Transmit(&huart1,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
             HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
 
           HAL_UART_DMAStop(&huart2);
@@ -696,10 +721,10 @@ int main(void)
           // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
           PWM_Sample();
           HAL_Delay(500);
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
           HAL_Delay(20);
-          HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
 
           if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
           {
@@ -707,7 +732,7 @@ int main(void)
             memset(Data,0,sizeof(Data));
             memset(Dec,0,sizeof(Dec));
             HAL_Delay(50);
-            HAL_UART_Transmit(&huart1,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+            // HAL_UART_Transmit(&huart1,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
             HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
 
           HAL_UART_DMAStop(&huart2);
