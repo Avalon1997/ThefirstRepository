@@ -76,6 +76,7 @@ uint8_t U1_Spec_vwavelength[] = {0x01,0x6D,0x00,0x00,0x00,0x00,0x03,0xAC};//view
 uint8_t U1_Spec_darkdata[] = {0x01,0x86,0x00,0x00,0x00,0x00,0x14,0x88};   //get the spectrometer data under dark current
 uint8_t U1_Spec_referdata[] = {0x01,0x87,0x00,0x00,0x00,0x00,0xD4,0xB5};  //get the spectrometer data under reference signal
 uint8_t U1_Spec_samdata[] = {0x01,0x88,0x00,0x00,0x00,0x00,0xD5,0xE1};    //get the spectrometer data under sample signal
+uint8_t U1_spec_totaldata[] = {0x01,0x89,0x00,0x00,0x00,0x00,0x15,0xDC};  //get the spectrometer data under three conditions
 uint8_t U1_Spec_extemp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0xC1};     //get the external ambient temperature
 uint8_t U1_SPec_intemp[] = {0x01,0x91,0x00,0x00,0x00,0x00,0x17,0xFC};     //get the internal ambient temperature
 
@@ -689,8 +690,9 @@ int main(void)
             {
               x += 1;
               if (Data[x] == 0x00)
-              { x -= 1;
-              break;
+              { 
+                x -= 1;
+                break;
               }
             }
           }
@@ -767,15 +769,139 @@ int main(void)
       }
     
     //To get the internal ambient temperature
-    else if(memcmp(Dec,U1_SPec_intemp,sizeof(U1_SPec_intemp)) == 0)
+    else if (memcmp(Dec,U1_SPec_intemp,sizeof(U1_SPec_intemp)) == 0)
     {
       InsideTemperature();
       memset(Dec,0,sizeof(Dec));
     }
 
+    //To get the spectrometer data under three conditions --- command sixteen
+    else if (memcmp(Dec,U1_spec_totaldata,6) == 0)
+    {
+      //ModBus_CRC16
+      CRC16 = ModBus_CRC16(Dec,6);
+      if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+
+        //dark condition
+        HAL_UART_Transmit(&huart2,U2_Spec_xenonoff,xizeof(U2_Spec_xenonoff),0xFFFF);
+        HAL_Delay(20);
+        if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+        {
+          PWM_dark();
+          Rx2_lendemo = 0;
+          memset(Data,0,sizeof(Data));
+          // memset(Dec,0,sizeof(Dec));
+          HAL_Delay(50);
+          HAL_UART_DMAStop(&huart2);
+          __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+          HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+          //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
+          for (x=0;x<Rx2BufferSize;x++)
+          {
+            if (Data[x] == 0x00)
+            {
+              x += 1;
+              if (Data[x] == 0x00)
+              {
+                x -= 1;
+                break;
+              }
+            }
+          }
+
+          HAL_UART_Transmit(&huart1,Data,x,0xFFFF);
+          Rx2_lendemo = 0;
+          memset(Data,0,sizeof(Data));
+          memset(Dec,0,sizeof(Dec));
+          __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+          HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+        }
+
+        //sample signal condition
+        HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+        HAL_Delay(20);
+        if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+        {
+          PWM_Reference();
+          HAL_Delay(500);
+          Rx2_lendemo = 0;
+          memset(Data,0,sizeof(Data));
+          // memset(Dec,0,sizeof(Dec));
+          HAL_Delay(50);
+
+          HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+          HAL_UART_DMAStop(&huart2);
+          __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+          //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
+          for (x=0;x<Rx2BufferSize;x++)
+          {
+            if (Data[x] == 0x00)
+            {
+              x += 1;
+              if (Data[x] == 0x00)
+              { x -= 1;
+              break;
+              }
+            }
+          }
+          HAL_UART_Transmit(&huart1,Data,x,0xFFFF);
+          Rx2_lendemo = 0;
+          memset(Data,0,sizeof(Data));
+          memset(Dec,0,sizeof(Dec));
+          __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+          HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+        }
+
+        //reference signal condition
+        HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+        HAL_Delay(20);
+        if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+        {
+          PWM_Sample();
+          HAL_Delay(500);
+          Rx2_lendemo = 0;
+          memset(Data,0,sizeof(Data));
+          // memset(Dec,0,sizeof(Dec));
+          HAL_Delay(50);
+          HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+          HAL_UART_DMAStop(&huart2);
+          __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+          //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
+          for (x=0;x<Rx2BufferSize;x++)
+          {
+            if (Data[x] == 0x00)
+            {
+              x += 1;
+              if (Data[x] == 0x00)
+              { x -= 1;
+              break;
+              }
+            }
+          }
+          HAL_UART_Transmit(&huart1,Data,x,0xFFFF);
+          Rx2_lendemo = 0;
+          memset(Data,0,sizeof(Data));
+          memset(Dec,0,sizeof(Dec));
+          __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+          HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+        }
+      }
+
+      else
+      {
+        HAL_UART_Transmit(&huart1,"CRCERROR",8,0xFFFF);
+        memset(Dec,0,sizeof(Dec));
+      }
+    }
+
     
     //To get the external ambient temperature
-    // else if(memcmp(Dec,U1_Spec_extemp,sizeof(U1_Spec_extemp)) == 0)
+    // else if (memcmp(Dec,U1_Spec_extemp,sizeof(U1_Spec_extemp)) == 0)
     // {
     //   Measure_TR();
     // }
