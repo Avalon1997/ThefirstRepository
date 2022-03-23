@@ -9,7 +9,7 @@ description: '个人博客，记忆碎片。'
 keywords:
 author: Liuhaoyu
 # language: en
-language: zh_CN
+language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
@@ -105,9 +105,9 @@ theme: fluid  #fluid主题，感谢zkqiang
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repo: https://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@github.com/Avalon1997/Avalon1997.github.io.git
+  repo: https://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@github.com/Avalon1997/Avalon1997.github.io.git
   branch: main
-  token: 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
+  token: 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
 
 toc:
   maxpath: 3
