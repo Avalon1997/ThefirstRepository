@@ -1,11 +1,22 @@
 ---
 title: Blog_Construction
 date: 2022-03-23 10:36:44
+index_img: /img/Chinesenewyearlantern.jpg
+# banner_img: 
 tags:
 - 原创
 categories: 
 - Blog_Construction
+excerpt: 博客建设  Hexo  GitHub Pages  Node.JS  静态博客网站
 ---
+
+<!-- <style>
+  /* 设置整个页面的字体 */
+  html, body, .markdown-body {
+    font-family: KaiTi,"Microsoft YaHei",Georgia, sans, serif;
+    font-size: 15px;
+  }
+</style> -->
 
 
 ><font size=5>Hexo + GitHub Pages 创建个人博客网站。</font>
@@ -13,7 +24,7 @@ categories:
 <!-- toc -->
 
 # 一、工具介绍
-本文利用了静态博客网站框架 Hexo 和开源托管平台github下的 GitHub Pages 来进行基本的静态博客搭建，并将网站部署在 GitHub Pages 上供免费使用。
+本文利用了静态博客网站框架 Hexo 和开源托管平台github下的 GitHub Pages 来进行基本的静态博客搭建，并将网站部署在 GitHub Pages 上供免费使用[^1]。
 
 ## 1. hexo
 Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
@@ -163,6 +174,91 @@ Hexo 默认的主题不太好看，喜欢默认主题的请略过此章，需要
 浏览器访问网址： http://localhost:4000 ，fluid 主题风格如下：  
 ![Fluid 主题风格](./Blog-Construction/fluid%E4%B8%BB%E9%A2%98%E5%B1%95%E7%A4%BA.png)
 
+# 六、创建文章
+
+如下修改 Hexo 博客目录中的 _config.yml ，打开这个配置是为了在生成文章的同时生成一个同名的资源文件夹用于存放图片文件。
+
+    post_asset_folder: true
+
+执行如下命令创建一篇新文章，名为《测试文章》
+
+    hexo new post 测试文章
+
+执行完后会在 sourec\_post 目录下生成一个md文件和一个同名的资源文件夹，在文件夹中随便放一张图片，然后在 测试文章.md 中添加内容。图片的引入方法可参考 [官方文档](https://hexo.io/zh-cn/docs/asset-folders.html)。
+
+    ---
+    title: 测试文章
+    date: 2022-03-23 18:34:24
+    tags:
+    - 原创
+    categories:
+    - 测试
+    ---
+
+    这是一篇测试文章
+
+    {% asset_img test.png 图片引用方法一 %}
+
+    ![图片引用方法二](test.png)
+
+    ![图片引用方法三](/images/test.png)
+
+修改好后本地启动网站
+
+    hexo g -d
+    hexo s
+
+访问本地网页即可看到测试文章已经添加。  
+![测试创建网站文章](./Blog-Construction/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0.png)
+
+# 七、个性化页面配置
+
+页面的标题等位置显示默认的文字，可以修改一些个性化的信息。这里的示例仅供参考，其他个性化修改请自行研究 [官方文档](https://hexo.io/zh-cn/docs/)
+
+## 1. 浏览器 tab 页名称
+
+修改根目录下 _config.yml 中的 title 等字段如下。  
+![tab页面配置](./Blog-Construction/tab%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE.png)
+
+## 2. 博客标题
+
+主题目录 themes\fluid 下 _config.yml 中的 blog_title 字段。  
+![博客标题](./Blog-Construction/%E5%8D%9A%E5%AE%A2%E6%A0%87%E9%A2%98.png)
+
+## 3. 主页正中间的文字
+
+主题目录 themes\fluid 下 _config.yml 中的 text 字段。  
+![主页中间文字](./Blog-Construction/%E4%B8%BB%E9%A1%B5%E4%B8%AD%E9%97%B4%E6%96%87%E5%AD%97.png)
+
+其他修改不再赘述，修改好后界面如下：  
+![个性化修改展示](./Blog-Construction/%E4%B8%AA%E6%80%A7%E5%8C%96%E4%BF%AE%E6%94%B9%E5%B1%95%E7%A4%BA.png)
+
+# 八、发布到 GitHub Pages
+
+安装 hexo-deployer-git 来进行发布。
+
+    npm install hexo-deployer-git --save
+
+修改根目录下的 _config.yml ,配置 GitHub 相关信息如下  
+![deployer](./Blog-Construction/%E5%8F%91%E5%B8%83deployer.png)
+
+其中 token 为 GitHub 的 Personal access tokens，获取方式如下图  
+![token获取](./Blog-Construction/token.png)
+
+配置好后，执行如下命令自动部署至 GitHub
+
+    hexo g -d
+
+过几分钟以后，刷新自己的 GitHub Pages 页面即可如下图所示  
+![网站展示](./Blog-Construction/%E7%BD%91%E7%AB%99%E6%88%90%E5%8A%9F%E5%B1%95%E7%A4%BA.png)
+
+><font size=5>至此本文结束，感谢各位看官老爷们观看。</font>
+
+
+
+
+
+[^1]: 这是对应的脚注
 
 
 

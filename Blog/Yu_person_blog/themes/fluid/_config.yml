@@ -57,7 +57,7 @@ code:
       # 在链接中挑选 style 填入
       # Select a style in the link
       # See: https://highlightjs.org/static/demo/
-      style: "Github Gist"
+      style: "C++"
 
       # 是否根据 style 改变代码背景色（如果 style 是深色背景别忘了开启此项）
       # If true, the code background will change color based on the style (If style has a dark background, don't forget to true)
@@ -194,7 +194,7 @@ color:
 # Font
 font:
   font_size: 16px
-  font_family:
+  font_family: 微软雅黑,Tahoma,Arial,sans-serif;
   letter_spacing: 0.02em
   code_font_size: 85%
 
@@ -321,8 +321,9 @@ navbar:
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
+    - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
-    #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
+
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
@@ -437,7 +438,7 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: /img/default.png
+  banner_img: /img/Oldconsturction&Girl.jpg
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -456,7 +457,7 @@ index:
 
     # 为空则按 hexo config.subtitle 显示
     # If empty, text based on `subtitle` in hexo config
-    text: "小白 个人博客"
+    text: "小白---个人博客"
 
     # 通过 API 接口作为首页副标题的内容，必须返回的是 JSON 格式，如果请求失败则按 text 字段显示，该功能必须先开启 typing 打字机功能
     # Subtitle of the homepage through the API, must be returned a JSON. If the request fails, it will be displayed in `text` value. This feature must first enable the typing animation
@@ -509,7 +510,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/default.png
+  banner_img: /img/Oldconsturction&Girl.jpg
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
@@ -523,7 +524,7 @@ post:
     # 作者，优先根据 front-matter 里 author 字段，其次是 hexo 配置中 author 值
     # Author, based on `author` field in front-matter, if not set, based on `author` value in hexo config
     author:
-      enable: false
+      enable: true
 
     # 文章日期，优先根据 front-matter 里 date 字段，其次是 md 文件日期
     # Post date, based on `date` field in front-matter, if not set, based on create date of .md file
@@ -803,7 +804,7 @@ cusdis:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/default.png
+  banner_img: /img/Oldconsturction&Girl.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -815,7 +816,7 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/Oldconsturction&Girl.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -845,7 +846,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/Oldconsturction&Girl.jpg
   banner_img_height: 80
   banner_mask_alpha: 0.3
   subtitle:
@@ -863,7 +864,7 @@ tag:
 #---------------------------
 about:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/Oldconsturction&Girl.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -886,7 +887,7 @@ about:
 # Custom Page through `hexo new page`
 #---------------------------
 page:
-  banner_img: /img/default.png
+  banner_img: /img/Oldconsturction&Girl.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -897,7 +898,7 @@ page:
 #---------------------------
 page404:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/Oldconsturction&Girl.jpg
   banner_img_height: 85
   banner_mask_alpha: 0.3
   subtitle: "Page not found"
@@ -909,8 +910,8 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: /img/default.png
-  banner_img_height: 60
+  banner_img: /img/Oldconsturction&Girl.jpg
+  banner_img_height: 70
   banner_mask_alpha: 0.3
   subtitle:
   # 友链的成员项
