@@ -103,11 +103,11 @@ theme: fluid  #fluid主题，感谢zkqiang
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
-# deploy:
-#   type: 'git'
-#   repo: https://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@github.com/Avalon1997/Avalon1997.github.io.git
-#   branch: main
-#   token: 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
+deploy:
+  type: 'git'
+  repo: https://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@github.com/Avalon1997/Avalon1997.github.io.git
+  branch: main
+  token: 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
 
 toc:
   maxpath: 3
