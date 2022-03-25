@@ -5,8 +5,9 @@ index_img: /img/Chinesenewyearlantern.jpg
 # banner_img: 
 tags:
 - 原创
+- 博客建设
 categories: 
-- Blog_Construction
+- Technical_Miscellaneous
 excerpt: 博客建设  Hexo  GitHub Pages  Node.JS  静态博客网站
 ---
 
@@ -24,7 +25,7 @@ excerpt: 博客建设  Hexo  GitHub Pages  Node.JS  静态博客网站
 <!-- toc -->
 
 # 一、工具介绍
-本文利用了静态博客网站框架 Hexo 和开源托管平台github下的 GitHub Pages 来进行基本的静态博客搭建，并将网站部署在 GitHub Pages 上供免费使用[^1]。
+本文利用了静态博客网站框架 Hexo 和开源托管平台 GitHub 下的 GitHub Pages 来进行基本的静态博客搭建，并将网站部署在 GitHub Pages 上供免费使用。
 
 ## 1. hexo
 Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
@@ -52,7 +53,7 @@ GitHub Pages 可以当作自己或者自己项目的网站，所以 GitHub Pages
 双击安装包开始安装，一路点击 Next 即可，安装完成后鼠标右键会有 Git Bash Here 命令，这是 Git 的命令行，说明安装成功了。  
 ![Git Bash 界面](./Blog-Construction/GitBash界面.png)
 
-在 bash 命令行中输入如下命令，即可配置好 Git 用户名和邮箱地址（建议与Github保持一直）。
+在 bash 命令行中输入如下命令，即可配置好 Git 用户名和邮箱地址（建议与Github保持一致）。
 
     git config --global user.name "Your Name"
     git config --global user.email "email@example.com"
@@ -81,7 +82,7 @@ GitHub Pages 可以当作自己或者自己项目的网站，所以 GitHub Pages
 
 我们需要在 GitHub 上创建一个仓库，专门用于存放 Hexo 所生成的静态博客文件，并将其推至个人的 GitHub Pages 网站上。
 
-登录 GitHub 官网后，依次点击 头像、下来菜单 your repositories 进入仓库页面。  
+登录 GitHub 官网后，依次点击 头像、下拉菜单的 your repositories 进入仓库页面。  
 ![ GitHub 仓库页面](./Blog-Construction/GitHub%E4%BB%93%E5%BA%93%E9%A1%B5%E9%9D%A2.png)
 
 点击 New 新建一个崭新的仓库，进入仓库创建页面。在 Repository name 一栏填写仓库名，必须为 <用户名>.github.io，填写完后直接点击 Create repository 创建仓库。  
@@ -252,13 +253,21 @@ Hexo 默认的主题不太好看，喜欢默认主题的请略过此章，需要
 过几分钟以后，刷新自己的 GitHub Pages 页面即可如下图所示  
 ![网站展示](./Blog-Construction/%E7%BD%91%E7%AB%99%E6%88%90%E5%8A%9F%E5%B1%95%E7%A4%BA.png)
 
+<!-- 组图
+{% gi total n1-n2-... %}
+  ![](url)
+  ![](url)
+  ![](url)
+  ![](url)
+  ![](url)
+{% endgi %} -->
+
 ><font size=5>至此本文结束，感谢各位看官老爷们观看。</font>
 
 
 
 
 
-[^1]: 这是对应的脚注
 
 
 
