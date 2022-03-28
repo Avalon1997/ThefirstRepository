@@ -76,11 +76,7 @@ uint8_t U1_Spec_vwavelength[] = {0x01,0x6D,0x00,0x00,0x00,0x00,0x03,0xAC};//view
 uint8_t U1_Spec_darkdata[] = {0x01,0x86,0x00,0x00,0x00,0x00,0x14,0x88};   //get the spectrometer data under dark current
 uint8_t U1_Spec_referdata[] = {0x01,0x87,0x00,0x00,0x00,0x00,0xD4,0xB5};  //get the spectrometer data under reference signal
 uint8_t U1_Spec_samdata[] = {0x01,0x88,0x00,0x00,0x00,0x00,0xD5,0xE1};    //get the spectrometer data under sample signal
-<<<<<<< HEAD
 uint8_t U1_Spec_totaldata[] = {0x01,0x89,0x00,0x00,0x00,0x00,0x15,0xDC};  //get the spectrometer data under three conditions
-=======
-uint8_t U1_spec_totaldata[] = {0x01,0x89,0x00,0x00,0x00,0x00,0x15,0xDC};  //get the spectrometer data under three conditions
->>>>>>> b68ccef04059272a609a02a8f9a3406f5acc0ba6
 uint8_t U1_Spec_extemp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0xC1};     //get the external ambient temperature
 uint8_t U1_SPec_intemp[] = {0x01,0x91,0x00,0x00,0x00,0x00,0x17,0xFC};     //get the internal ambient temperature
 
@@ -835,7 +831,7 @@ int main(void)
     }
 
     //To get the spectrometer data under three conditions --- command sixteen
-    else if (memcmp(Dec,U1_spec_totaldata,6) == 0)
+    else if (memcmp(Dec,U1_Spec_totaldata,6) == 0)
     {
       //ModBus_CRC16
       CRC16 = ModBus_CRC16(Dec,6);
@@ -844,7 +840,7 @@ int main(void)
         CRC16 = 0;
 
         //dark condition
-        HAL_UART_Transmit(&huart2,U2_Spec_xenonoff,xizeof(U2_Spec_xenonoff),0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_xenonoff,sizeof(U2_Spec_xenonoff),0xFFFF);
         HAL_Delay(20);
         if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
         {

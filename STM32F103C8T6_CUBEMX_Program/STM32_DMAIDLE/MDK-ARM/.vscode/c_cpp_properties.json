@@ -3,16 +3,16 @@
         {
             "name": "STM32_DMAIDLE",
             "includePath": [
-                "e:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Core\\Inc",
-                "e:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "e:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "e:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "e:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\CMSIS\\Include",
-                "C:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include",
-                "C:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include\\rw",
-                "e:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\MDK-ARM",
-                "e:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Core\\Src",
-                "e:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Core\\Inc",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\CMSIS\\Include",
+                "D:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include",
+                "D:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include\\rw",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\MDK-ARM",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Core\\Src",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\STM32_DMAIDLE\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
