@@ -6,6 +6,7 @@
 
 uint8_t I2CRXBuffer[6];
 uint8_t Error = 0;
+uint8_t ErrorMessage[] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 float Temperature = 0,Humidity = 0;
 
 uint8_t intbuffer[4];
@@ -134,12 +135,13 @@ void Measure_TR(void)
                 
                 // StringOut('a',1);
                 
-                // sprintf(th,"%f",Temperature);
-                // HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
-                // sprintf(th,"%f",Humidity);
-                // HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
+                sprintf(th,"%f",Temperature);
+                HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
+                sprintf(th,"%f",Humidity);
+                HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
 
-                 printf("Temperature:%.2fC,Humidity:%.2f%%\r\n",Temperature,Humidity);
+                //  printf("Temperature:%.2fC,Humidity:%.2f%%\r\n",Temperature,Humidity);
+                //  printf("%.2f%.2f",Temperature,Humidity);
                  break;
             }
         
@@ -153,8 +155,10 @@ void Measure_TR(void)
 
     if (j == 100)
     {
-        printf("SHT30_ValGet Error\r\n");
-        printf("Please check on the equipment\r\n");
+        // printf("SHT30_ValGet Error\r\n");
+        // printf("Please check on the equipment\r\n");
+        HAL_UART_Transmit(&huart1,ErrorMessage,8,0xFFFF);
+        j = 0;
     }
     
 }

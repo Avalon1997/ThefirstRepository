@@ -28,7 +28,7 @@
 "tsimen_fixcode\stm32f1xx_hal_tim_ex.o"
 "tsimen_fixcode\stm32f1xx_hal_uart.o"
 "tsimen_fixcode\system_stm32f1xx.o"
---strict --scatter "Tsimen_FixCode\Tsimen_FixCode.sct"
+--library_type=microlib --strict --scatter "Tsimen_FixCode\Tsimen_FixCode.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "Tsimen_FixCode.map" -o Tsimen_FixCode\Tsimen_FixCode.axf

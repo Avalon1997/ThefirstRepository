@@ -80,8 +80,10 @@ uint8_t U1_Spec_darkdata[] = {0x01,0x86,0x00,0x00,0x00,0x00,0x14,0x88};       //
 uint8_t U1_Spec_referdata[] = {0x01,0x87,0x00,0x00,0x00,0x00,0xD4,0xB5};      //get the spectrometer data under reference signal
 uint8_t U1_Spec_samdata[] = {0x01,0x88,0x00,0x00,0x00,0x00,0xD5,0xE1};        //get the spectrometer data under sample signal
 uint8_t U1_Spec_totaldata[] = {0x01,0x89,0x00,0x00,0x00,0x00,0x15,0xDC};      //get the spectrometer data under three conditions
-uint8_t U1_SPec_intemp[] = {0x01,0x91,0x00,0x00,0x00,0x00,0x17,0xFC};         //get the internal ambient temperature
-uint8_t U1_Spec_extemp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0xC1};         //get the external ambient temperature
+// uint8_t U1_SPec_intemp[] = {0x01,0x91,0x00,0x00,0x00,0x00,0x17,0xFC};         //get the internal ambient temperature
+// uint8_t U1_Spec_extemp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0xC1};         //get the external ambient temperature
+uint8_t U1_Spec_temp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0XC1};           //get the intemp and out temp and outhum.
+
 
 //To communicate with the spectrometer.
 uint8_t U2_Spec_reset[] = {0x52,0xBD,0x3E};                                         //usart2 to reset the spectrometer
@@ -211,7 +213,7 @@ int main(void)
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_reset,3,0xFFFF);
           // while (memcmp(Data,Spec_OK,3) != 0)
           // {
@@ -284,7 +286,7 @@ int main(void)
           U2_Spec_integ[6] = CRC16 & 0xFF;
           U2_Spec_integ[5] = (CRC16 >> 8) & 0xFF;
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_integ,sizeof(U2_Spec_integ),0xFFFF);
           // while(memcmp(Data,CRC,sizeof(CRC) != 0)
           // {}
@@ -371,7 +373,7 @@ int main(void)
               Dec[11] = CRC16 & 0xFF;
               Dec[10] = (CRC16 >> 8) & 0xFF;
               HAL_UART_Transmit(&huart2,U2_Spec_pul,sizeof(U2_Spec_pul),0xFFFF);
-              HAL_UART_Transmit(&huart1,Dec,12,0xFFFF);
+              // HAL_UART_Transmit(&huart1,Dec,12,0xFFFF);
               //while()
               //{}
               HAL_Delay(30);
@@ -442,7 +444,7 @@ int main(void)
           CRC16 = ModBus_CRC16(U2_Spec_pix,9);
           U2_Spec_pix[10] = CRC16 & 0xFF;
           U2_Spec_pix[9] = (CRC16 >> 8) & 0xFF;
-          HAL_UART_Transmit(&huart1,U2_Spec_pix,sizeof(U2_Spec_pix),0xFFFF);
+          // HAL_UART_Transmit(&huart1,U2_Spec_pix,sizeof(U2_Spec_pix),0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_pix,sizeof(U2_Spec_pix),0xFFFF);
           //while()
           //{}
@@ -504,7 +506,7 @@ int main(void)
           CRC16 = ModBus_CRC16(U2_Spec_ave,3);
           U2_Spec_ave[4] = CRC16 & 0xFF;
           U2_Spec_ave[3] = (CRC16 >> 8) & 0xFF;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_ave,sizeof(U2_Spec_ave),0xFFFF);
           //while()
           //{}
@@ -560,7 +562,7 @@ int main(void)
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_get_par,sizeof(U2_Spec_get_par),0xFFFF);
           //while()
           //{}
@@ -585,7 +587,7 @@ int main(void)
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
           CRC16 = 0;
-          HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
+          // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_vwavelength,sizeof(U2_Spec_vwavelength),0xFFFF);
           //while()
           //{}
@@ -909,18 +911,29 @@ int main(void)
       }
     }
 
-    //To get the internal ambient temperature --- command seventeen
-    else if (memcmp(Dec,U1_SPec_intemp,sizeof(U1_SPec_intemp)) == 0)
+    // To get the temp and hum --- command seventeen
+    else if (memcmp(Dec,U1_Spec_temp,sizeof(U1_Spec_temp)) == 0)
     {
+      Measure_TR();
       InsideTemperature();
       memset(Dec,0,sizeof(Dec));
     }
 
-    // To get the external ambient temperature --- command eighteen
-    else if (memcmp(Dec,U1_Spec_extemp,sizeof(U1_Spec_extemp)) == 0)
-    {
-      Measure_TR();
-    }
+
+    //To get the internal ambient temperature --- command eighteen
+    // else if (memcmp(Dec,U1_SPec_intemp,sizeof(U1_SPec_intemp)) == 0)
+    // {
+    //   InsideTemperature();
+    //   memset(Dec,0,sizeof(Dec));
+    // }
+
+    // To get the external ambient temperature --- command nineteen
+    // else if (memcmp(Dec,U1_Spec_extemp,sizeof(U1_Spec_extemp)) == 0)
+    // {
+    //   Measure_TR();
+    //   memset(Dec,0,sizeof(Dec));
+    // }
+
 
 
   /*----------The following commands are used to test the steering of the motor----------*/

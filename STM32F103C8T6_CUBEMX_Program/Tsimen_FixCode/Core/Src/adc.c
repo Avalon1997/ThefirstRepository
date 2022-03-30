@@ -112,12 +112,13 @@ void InsideTemperature(void)
   HAL_ADC_Start(&hadc1);
   HAL_ADC_PollForConversion(&hadc1,10);
   AD_Value = HAL_ADC_GetValue(&hadc1);
-  printf("ADC1 ADC Value: %d\r\n",AD_Value);
+  // printf("ADC1 ADC Value: %d\r\n",AD_Value);
   Vol_Value = AD_Value * (3.3/4096);
 
-  printf("ADC1 Vol Value:%.2fV\r\n",Vol_Value);
+  // printf("ADC1 Vol Value:%.2fV\r\n",Vol_Value);
   ADC_Temperature = (1.43 - Vol_Value)/0.0043 + 25;
-  printf("MCU Internal Temperature: %.2fC\r\n",ADC_Temperature);
+  // printf("MCU Internal Temperature: %.2fC\r\n",ADC_Temperature);
+  printf("%.2f",ADC_Temperature);
 
 }
 
