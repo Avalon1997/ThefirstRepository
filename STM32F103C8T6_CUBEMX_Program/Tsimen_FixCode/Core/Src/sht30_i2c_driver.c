@@ -26,7 +26,9 @@ char th[5];
      uint8_t cmd_buffer[2];
      cmd_buffer[0] = cmd >> 8;
      cmd_buffer[1] = cmd;
-     return HAL_I2C_Master_Transmit(&hi2c1,SHT30_ADDR_WRITE,(uint8_t*) cmd_buffer,2,10000);
+     return HAL_I2C_Master_Transmit(&hi2c1,SHT30_ADDR_WRITE,(uint8_t*) cmd_buffer,2,0xFFFF);
+
+     
  }
 
 
@@ -45,7 +47,7 @@ uint8_t SHT30_ValGet(uint8_t* dat)
         return Error;
     }
 
-    return HAL_I2C_Master_Receive(&hi2c1,SHT30_ADDR_READ,dat,6,20000);
+    return HAL_I2C_Master_Receive(&hi2c1,SHT30_ADDR_READ,dat,6,0xFFFF);
 }
 
 

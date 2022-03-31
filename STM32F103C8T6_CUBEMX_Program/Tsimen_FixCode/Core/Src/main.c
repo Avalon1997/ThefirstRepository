@@ -188,6 +188,8 @@ int main(void)
   __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
   HAL_Delay(700);
 
+  HAL_UART_Transmit(&huart2,U2_Spec_reset,3,0xFFFF);
+
 
   /* USER CODE END 2 */
 
@@ -209,6 +211,7 @@ int main(void)
     if (memcmp(Dec,U1_Spec_reset,6) == 0)
       {
         //ModBus_CRC16
+        PWM_dark();
         CRC16 = ModBus_CRC16(Dec,6);
         if (Dec[7]==(uint8_t)CRC16&0xFF && Dec[6]==(uint8_t)(CRC16>>8)&0xFF)
         {
@@ -914,9 +917,16 @@ int main(void)
     // To get the temp and hum --- command seventeen
     else if (memcmp(Dec,U1_Spec_temp,sizeof(U1_Spec_temp)) == 0)
     {
-      Measure_TR();
+      HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+          // HAL_UART_DMAStop(&huart2);
+          // __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+      // Measure_TR();
+      HAL_UART_Transmit(&huart1,"25.1968.77",10,0xFFFF);
       InsideTemperature();
       memset(Dec,0,sizeof(Dec));
+          // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+          // HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+      HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
     }
 
 
