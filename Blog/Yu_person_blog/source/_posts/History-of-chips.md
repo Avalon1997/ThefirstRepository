@@ -9,6 +9,7 @@ tags:
 categories: 
 - STM32
 excerpt: STM32发展史介绍，初步熟悉STM32是什么。
+# sticky: 80
 ---
 
 >本文将从集成电路开始讲起，介绍芯片以及STM32的发展史，便于读者更易于学习STM32。

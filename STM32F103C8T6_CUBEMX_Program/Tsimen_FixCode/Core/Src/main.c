@@ -812,7 +812,7 @@ int main(void)
           HAL_UART_DMAStop(&huart2);
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
-          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
           //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
           for (x=0;x<Rx2BufferSize;x++)
           {
@@ -850,7 +850,7 @@ int main(void)
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
           HAL_UART_DMAStop(&huart2);
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
           //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
           for (x=0;x<Rx2BufferSize;x++)
           {
@@ -885,7 +885,7 @@ int main(void)
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
           HAL_UART_DMAStop(&huart2);
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,3000);
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
           //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
           for (x=0;x<Rx2BufferSize;x++)
           {
