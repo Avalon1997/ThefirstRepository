@@ -814,20 +814,19 @@ int main(void)
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
           HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
           //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
-          for (x=0;x<Rx2BufferSize;x++)
-          {
-            if (Data[x] == 0x00)
-            {
-              x += 1;
-              if (Data[x] == 0x00)
-              {
-                x -= 1;
-                break;
-              }
-            }
-          }
-
-          HAL_UART_Transmit(&huart1,Data,x,0xFFFF);
+          // for (x=0;x<Rx2BufferSize;x++)
+          // {
+          //   if (Data[x] == 0x00)
+          //   {
+          //     x += 1;
+          //     if (Data[x] == 0x00)
+          //     {
+          //       x -= 1;
+          //       break;
+          //     }
+          //   }
+          // }
+          HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -852,18 +851,18 @@ int main(void)
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
           HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
           //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
-          for (x=0;x<Rx2BufferSize;x++)
-          {
-            if (Data[x] == 0x00)
-            {
-              x += 1;
-              if (Data[x] == 0x00)
-              { x -= 1;
-              break;
-              }
-            }
-          }
-          HAL_UART_Transmit(&huart1,Data,x,0xFFFF);
+          // for (x=0;x<Rx2BufferSize;x++)
+          // {
+          //   if (Data[x] == 0x00)
+          //   {
+          //     x += 1;
+          //     if (Data[x] == 0x00)
+          //     { x -= 1;
+          //     break;
+          //     }
+          //   }
+          // }
+          HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -887,18 +886,18 @@ int main(void)
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
           HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
           //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
-          for (x=0;x<Rx2BufferSize;x++)
-          {
-            if (Data[x] == 0x00)
-            {
-              x += 1;
-              if (Data[x] == 0x00)
-              { x -= 1;
-              break;
-              }
-            }
-          }
-          HAL_UART_Transmit(&huart1,Data,x,0xFFFF);
+          // for (x=0;x<Rx2BufferSize;x++)
+          // {
+          //   if (Data[x] == 0x00)
+          //   {
+          //     x += 1;
+          //     if (Data[x] == 0x00)
+          //     { x -= 1;
+          //     break;
+          //     }
+          //   }
+          // }
+          HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -917,16 +916,16 @@ int main(void)
     // To get the temp and hum --- command seventeen
     else if (memcmp(Dec,U1_Spec_temp,sizeof(U1_Spec_temp)) == 0)
     {
-      HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+      // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
           // HAL_UART_DMAStop(&huart2);
           // __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-      // Measure_TR();
-      HAL_UART_Transmit(&huart1,"25.1968.77",10,0xFFFF);
+      Measure_TR();
+      // HAL_UART_Transmit(&huart1,"25.1968.77",10,0xFFFF);
       InsideTemperature();
       memset(Dec,0,sizeof(Dec));
           // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
           // HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
-      HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+      // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
     }
 
 
