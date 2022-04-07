@@ -62,6 +62,7 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 uint16_t ModBus_CRC16( uint8_t *pdata, int len);
 void memv(uint8_t *pdata,uint8_t *ppdata,int st1,int st2,int length);
+void viewthewaveform(void);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

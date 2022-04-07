@@ -59,6 +59,7 @@ int CRC_i = 0,CRC_j = 0;                                                      //
 uint16_t CRC16 = 0;                                                           //This is a 16 bit variable. To save the CRCdata
 uint8_t CRC_Data[16] = {0};                                                   //This is an array of 16 elements. To store the checked data of PC communication.
 int memv_i,memv_j;                                                            //These two variables is used for a private function, which is used for move elements of a specific length in array A to array B.
+int view_i;
 uint8_t MAC[] ={"-MAC:[20-22-03-17-18-26]"};                                  //This is the version of the embedded system.
 uint8_t Ver[47] = {0};                                                        //This array will be used to store the complete version information of Tsimen2.0 .
 
@@ -83,6 +84,7 @@ uint8_t U1_Spec_totaldata[] = {0x01,0x89,0x00,0x00,0x00,0x00,0x15,0xDC};      //
 // uint8_t U1_SPec_intemp[] = {0x01,0x91,0x00,0x00,0x00,0x00,0x17,0xFC};         //get the internal ambient temperature
 // uint8_t U1_Spec_extemp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0xC1};         //get the external ambient temperature
 uint8_t U1_Spec_temp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0XC1};           //get the intemp and out temp and outhum.
+uint8_t U1_Spec_wave[] = {0x01,0x91};                                         //view the waveform
 
 
 //To communicate with the spectrometer.
@@ -107,7 +109,7 @@ uint8_t U2_Spec_getdata[] = {0x53,0x7D,0xFF};                                   
 
 uint8_t Spec_OK[] = {0x06,0x42,0x3F};                                               //Spectrometer return data when the message is right.
 
-// uint8_t testmotor[] = {0xFF};                                                    //This array is used to test the steering angle of motor.
+uint8_t testmotor[] = {0xFF};                                                    //This array is used to test the steering angle of motor.
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -190,6 +192,12 @@ int main(void)
 
   HAL_UART_Transmit(&huart2,U2_Spec_reset,3,0xFFFF);
 
+  //Debug the motor
+  // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+  // HAL_Delay(700);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  // HAL_Delay(700);
 
   /* USER CODE END 2 */
 
@@ -813,19 +821,7 @@ int main(void)
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
           HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
-          //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
-          // for (x=0;x<Rx2BufferSize;x++)
-          // {
-          //   if (Data[x] == 0x00)
-          //   {
-          //     x += 1;
-          //     if (Data[x] == 0x00)
-          //     {
-          //       x -= 1;
-          //       break;
-          //     }
-          //   }
-          // }
+          
           HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
@@ -850,18 +846,7 @@ int main(void)
           HAL_UART_DMAStop(&huart2);
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
           HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
-          //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
-          // for (x=0;x<Rx2BufferSize;x++)
-          // {
-          //   if (Data[x] == 0x00)
-          //   {
-          //     x += 1;
-          //     if (Data[x] == 0x00)
-          //     { x -= 1;
-          //     break;
-          //     }
-          //   }
-          // }
+
           HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
@@ -885,18 +870,7 @@ int main(void)
           HAL_UART_DMAStop(&huart2);
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
           HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
-          //The following loop is that if the spectrometer data is 0 twice in a row, jump out of the loop and send the data to PC.
-          // for (x=0;x<Rx2BufferSize;x++)
-          // {
-          //   if (Data[x] == 0x00)
-          //   {
-          //     x += 1;
-          //     if (Data[x] == 0x00)
-          //     { x -= 1;
-          //     break;
-          //     }
-          //   }
-          // }
+
           HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
@@ -914,19 +888,102 @@ int main(void)
     }
 
     // To get the temp and hum --- command seventeen
-    else if (memcmp(Dec,U1_Spec_temp,sizeof(U1_Spec_temp)) == 0)
-    {
-      // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
-          // HAL_UART_DMAStop(&huart2);
-          // __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-      Measure_TR();
-      // HAL_UART_Transmit(&huart1,"25.1968.77",10,0xFFFF);
-      InsideTemperature();
-      memset(Dec,0,sizeof(Dec));
-          // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
-          // HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
-      // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-    }
+    // else if (memcmp(Dec,U1_Spec_temp,sizeof(U1_Spec_temp)) == 0)
+    // {
+    //   // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+    //       // HAL_UART_DMAStop(&huart2);
+    //       // __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    //   Measure_TR();
+    //   // HAL_UART_Transmit(&huart1,"25.1968.77",10,0xFFFF);
+    //   InsideTemperature();
+    //   memset(Dec,0,sizeof(Dec));
+    //       // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    //       // HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+    //   // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+    // }
+
+    // //To view the waveform
+    // else if (memcmp(Dec,U1_Spec_wave,sizeof(U1_Spec_wave)) == 0)
+    // {
+    //     //dark condition
+    //     HAL_UART_Transmit(&huart2,U2_Spec_xenonoff,sizeof(U2_Spec_xenonoff),0xFFFF);
+    //     HAL_Delay(20);
+    //     if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+    //     {
+    //       PWM_dark();
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       // memset(Dec,0,sizeof(Dec));
+    //       HAL_Delay(50);
+    //       HAL_UART_DMAStop(&huart2);
+    //       __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+    //       HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
+
+    //       // HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+    //       viewthewaveform();
+
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       memset(Dec,0,sizeof(Dec));
+    //       __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+    //     }
+
+    //     //sample signal condition
+    //     HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+    //     HAL_Delay(20);
+    //     if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+    //     {
+    //       PWM_Reference();
+    //       HAL_Delay(500);
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       // memset(Dec,0,sizeof(Dec));
+    //       HAL_Delay(50);
+
+    //       HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+    //       HAL_UART_DMAStop(&huart2);
+    //       __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
+
+    //       // HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+    //       viewthewaveform();
+
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       memset(Dec,0,sizeof(Dec));
+    //       __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+    //     }
+
+    //     //reference signal condition
+    //     HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+    //     HAL_Delay(20);
+    //     if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+    //     {
+    //       PWM_Sample();
+    //       HAL_Delay(500);
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       // memset(Dec,0,sizeof(Dec));
+    //       HAL_Delay(50);
+    //       HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+    //       HAL_UART_DMAStop(&huart2);
+    //       __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
+
+    //       // HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+    //       viewthewaveform();
+
+    //       HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       memset(Dec,0,sizeof(Dec));
+    //       __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+    //     }
+    // }
 
 
     //To get the internal ambient temperature --- command eighteen
@@ -949,7 +1006,7 @@ int main(void)
   //   else if (memcmp(Dec,testmotor,sizeof(testmotor)) ==0 && Dec[1] == 0x01)
   //   {
   // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2250);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
   // HAL_Delay(1000);
   // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
   // memset(Dec,0,sizeof(Dec));
@@ -957,7 +1014,7 @@ int main(void)
   //   else if (memcmp(Dec,testmotor,sizeof(testmotor)) ==0 && Dec[1] == 0x02)
   //   {
   // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
   // HAL_Delay(1000);
   // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
   // memset(Dec,0,sizeof(Dec));
@@ -965,7 +1022,7 @@ int main(void)
   //   else if (memcmp(Dec,testmotor,sizeof(testmotor)) ==0 && Dec[1] == 0x03)
   //   {
   // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1850);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
   // HAL_Delay(1000);
   // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
   // memset(Dec,0,sizeof(Dec));
@@ -973,7 +1030,7 @@ int main(void)
   //   else if (memcmp(Dec,testmotor,sizeof(testmotor)) ==0 && Dec[1] == 0x04)
   //   {
   // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500); 
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1867); 
   // HAL_Delay(1000);
   // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
   // memset(Dec,0,sizeof(Dec));
@@ -1079,6 +1136,17 @@ void memv(uint8_t *pdata,uint8_t *ppdata,int st1,int st2,int length)
     pdata[memv_i+st1] = ppdata[memv_i+st2];
   }
 }
+
+
+void viewthewaveform(void)
+{
+  for (view_i=0;view_i<2048;view_i=view_i+2)   
+  {
+    printf("Spec=%d%d,",Data[view_i+9],Data[view_i+10]);
+  }
+}
+
+
 
 /* USER CODE END 4 */
 
