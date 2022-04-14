@@ -74,6 +74,7 @@ uint8_t U1_Spec_vpul[] = {0x01,0x6A,0x00,0x00,0x00,0x00,0xC3,0x19};           //
 uint8_t U1_Spec_pix[] = {0x01,0x6B};                                          //configure the pixel range
 uint8_t U1_Spec_vpix[] = {0x01,0x6C,0x00,0x00,0x00,0x00,0xC3,0x91};           //view the pixel range
 uint8_t U1_Spec_ave[] = {0x01,0x6E};                                          //configure the average times
+// uint8_t U1_Spec_ave50[] = {0x01,0x6E,0x00,0x32,0x00,0x00,0xCC,0X49};          //configure the average 50
 uint8_t U1_Spec_vave[] = {0x01,0x6F,0x00,0x00,0x00,0x00,0xC3,0xD5};           //view the average times
 uint8_t U1_Spec_get_par[] = {0x01,0x67,0x00,0x00,0x00,0x00,0x02,0x34};        //get the calibration parameters
 uint8_t U1_Spec_vwavelength[] = {0x01,0x6D,0x00,0x00,0x00,0x00,0x03,0xAC};    //view all wavelength values corresponding to the current pixel range
@@ -97,6 +98,7 @@ uint8_t U2_Spec_vpul[] = {0x3F,0x30,0x54,0x10};                                 
 uint8_t U2_Spec_pix[] = {0x50,0x00,0x03,0x00,0x00,0x07,0xFF,0x00,0x01,0x77,0x35};   //usart2 to configure the pixel range
 uint8_t U2_Spec_vpix[] = {0x3F,0x50,0x7C,0x10};                                     //usart2 to view the pixel range
 uint8_t U2_Spec_ave[] = {0x41,0x00,0x00,0xCA,0x21};                                 //usart2 to configure the average times
+uint8_t U2_Spec_ave50[] = {0x41,0x00,0x32,0x01,0xA0};
 uint8_t U2_Spec_vave[] = {0x3F,0x41,0x70,0xD0};                                     //usart2 to view the average times
 uint8_t U2_Spec_get_par[] = {0x78,0x62,0xBF};                                       //usart2 to get the calibration parameters
 uint8_t U2_Spec_vwavelength[] = {0x3F,0x53,0x7D,0x50};                              //usart2 to view all wavelength values corresponding to the current pixel range
@@ -185,12 +187,17 @@ int main(void)
 
   //Turn on the PWM.
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+  PWM_start();
   HAL_Delay(700);
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  PWM_dark();
   HAL_Delay(700);
-
+  
   HAL_UART_Transmit(&huart2,U2_Spec_reset,3,0xFFFF);
+  HAL_Delay(700);
+  // HAL_UART_Transmit(&huart2,U2_Spec_ave50,5,0xFFFF);
+  // HAL_Delay(700);
 
   //Debug the motor
   // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
@@ -226,6 +233,15 @@ int main(void)
           CRC16 = 0;
           // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_reset,3,0xFFFF);
+
+          // for (i=0;i<100;i++)
+          // {
+          //   if (memcmp(Data,Spec_OK,3) == 0)
+          //   {break;}
+          // }
+
+
+
           // while (memcmp(Data,Spec_OK,3) != 0)
           // {
           //   HAL_UART_Transmit(&huart2,U2_Spec_reset,3,0xFFFF);
@@ -233,7 +249,11 @@ int main(void)
           //   HAL_GPIO_TogglePin(GPIOC,LED_Pin);
           // }
           // HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
-          HAL_Delay(30);
+          __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+          HAL_Delay(700);
+          __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+          HAL_Delay(700);
+          // HAL_Delay(30);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -269,7 +289,7 @@ int main(void)
           Ver[45] = (CRC16 >> 8) & 0xFF;
           HAL_UART_Transmit(&huart1,Ver,sizeof(Ver),0xFFFF);
           Rx2_lendemo = 0;
-          x = 0;
+          // x = 0;
           memset(Ver,0,sizeof(Ver));
           memset(Data,0,sizeof(Data));
           memset(Dec,0,sizeof(Dec));
@@ -299,6 +319,13 @@ int main(void)
           CRC16 = 0;
           // HAL_UART_Transmit(&huart1,Dec,8,0xFFFF);
           HAL_UART_Transmit(&huart2,U2_Spec_integ,sizeof(U2_Spec_integ),0xFFFF);
+ 
+          // for (i=0;i<100;i++)
+          // {
+          //   if (memcmp(Data,Spec_OK,3) == 0 )
+          //   {break;}
+          // }
+
           // while(memcmp(Data,CRC,sizeof(CRC) != 0)
           // {}
           HAL_Delay(30);
@@ -820,8 +847,8 @@ int main(void)
           HAL_UART_DMAStop(&huart2);
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
-          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
-          
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
+
           HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));
@@ -845,7 +872,7 @@ int main(void)
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
           HAL_UART_DMAStop(&huart2);
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
 
           HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
@@ -869,7 +896,7 @@ int main(void)
           HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
           HAL_UART_DMAStop(&huart2);
           __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2300);
+          HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
 
           HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
           Rx2_lendemo = 0;
@@ -888,19 +915,32 @@ int main(void)
     }
 
     // To get the temp and hum --- command seventeen
-    // else if (memcmp(Dec,U1_Spec_temp,sizeof(U1_Spec_temp)) == 0)
-    // {
-    //   // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
-    //       // HAL_UART_DMAStop(&huart2);
-    //       // __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
-    //   Measure_TR();
-    //   // HAL_UART_Transmit(&huart1,"25.1968.77",10,0xFFFF);
-    //   InsideTemperature();
-    //   memset(Dec,0,sizeof(Dec));
-    //       // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
-    //       // HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
-    //   // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-    // }
+    else if (memcmp(Dec,U1_Spec_temp,sizeof(U1_Spec_temp)) == 0)
+    {
+      // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
+          // HAL_UART_DMAStop(&huart2);
+          // __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+      Measure_TR();
+      // HAL_UART_Transmit(&huart1,"25.1968.77",10,0xFFFF);
+      InsideTemperature();
+      memset(Dec,0,sizeof(Dec));
+          // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+          // HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+      // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+    }
+
+    //debug the motor
+      // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+    // HAL_Delay(1500);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2400);
+    // PWM_Reference();
+    // HAL_Delay(1500);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2030);
+    // PWM_Sample();
+    // HAL_Delay(1500);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1680);
+    // PWM_dark();
+    // HAL_Delay(1500);
 
     // //To view the waveform
     // else if (memcmp(Dec,U1_Spec_wave,sizeof(U1_Spec_wave)) == 0)
@@ -1033,8 +1073,82 @@ int main(void)
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1867); 
   // HAL_Delay(1000);
   // HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
-  // memset(Dec,0,sizeof(Dec));
+  // memset(Dec,0,sizezzzof(Dec));
   //   }
+
+        // //dark condition
+        // HAL_UART_Transmit(&huart2,U2_Spec_xenonoff,sizeof(U2_Spec_xenonoff),0xFFFF);
+        // HAL_Delay(20);
+        // if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+        // {
+        //   PWM_dark();
+        //   Rx2_lendemo = 0;
+        //   memset(Data,0,sizeof(Data));
+        //   // memset(Dec,0,sizeof(Dec));
+        //   HAL_Delay(50);
+        //   HAL_UART_DMAStop(&huart2);
+        //   __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+        //   HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+        //   HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
+
+        //   HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+        //   Rx2_lendemo = 0;
+        //   memset(Data,0,sizeof(Data));
+        //   memset(Dec,0,sizeof(Dec));
+        //   __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+        //   HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+        // }
+
+        // //sample signal condition
+        // HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+        // HAL_Delay(20);
+        // if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+        // {
+        //   PWM_Reference();
+        //   HAL_Delay(500);
+        //   Rx2_lendemo = 0;
+        //   memset(Data,0,sizeof(Data));
+        //   // memset(Dec,0,sizeof(Dec));
+        //   HAL_Delay(50);
+
+        //   HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+        //   HAL_UART_DMAStop(&huart2);
+        //   __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+        //   HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
+
+        //   HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+        //   Rx2_lendemo = 0;
+        //   memset(Data,0,sizeof(Data));
+        //   memset(Dec,0,sizeof(Dec));
+        //   __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+        //   HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+        // }
+
+        // //reference signal condition
+        // HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+        // HAL_Delay(20);
+        // if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+        // {
+        //   PWM_Sample();
+        //   HAL_Delay(500);
+        //   Rx2_lendemo = 0;
+        //   memset(Data,0,sizeof(Data));
+        //   // memset(Dec,0,sizeof(Dec));
+        //   HAL_Delay(50);
+        //   HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+        //   HAL_UART_DMAStop(&huart2);
+        //   __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+        //   HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
+
+        //   HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+        //   Rx2_lendemo = 0;
+        //   memset(Data,0,sizeof(Data));
+        //   memset(Dec,0,sizeof(Dec));
+        //   __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+        //   HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+        // }
+
+
 
     HAL_GPIO_WritePin(GPIOC,LED_Pin,GPIO_PIN_RESET);
     HAL_Delay(50);
@@ -1138,6 +1252,10 @@ void memv(uint8_t *pdata,uint8_t *ppdata,int st1,int st2,int length)
 }
 
 
+/**
+ * @brief To apply the Serial port debugging assistant
+ * 
+ */
 void viewthewaveform(void)
 {
   for (view_i=0;view_i<2048;view_i=view_i+2)   

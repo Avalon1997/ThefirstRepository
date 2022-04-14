@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.tcc": "c",
+        "istream": "c",
+        "streambuf": "c",
+        "tuple": "c"
+    }
+}
