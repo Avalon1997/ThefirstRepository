@@ -96,7 +96,11 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+  // HAL_Delay(1500);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
+  // HAL_Delay(1500);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -105,7 +109,26 @@ int main(void)
   {
 
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
+    HAL_Delay(50);
 
+
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+  HAL_Delay(1000);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
+  HAL_Delay(1000);
+
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+    // HAL_Delay(1000);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2250);
+    // HAL_Delay(1000);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1850);
+    // HAL_Delay(1000);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+    // HAL_Delay(1000);
+
+
+
+    HAL_GPIO_TogglePin(GPIOC,LED_Pin);
     HAL_Delay(50);
     /* USER CODE END WHILE */
 
