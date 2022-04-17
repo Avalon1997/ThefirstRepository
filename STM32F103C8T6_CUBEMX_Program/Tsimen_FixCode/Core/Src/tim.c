@@ -154,7 +154,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
  */
 void PWM_Reference(void)
 { 
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1850);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2050);
 }
 
 /**
@@ -163,7 +163,7 @@ void PWM_Reference(void)
  */
 void PWM_Sample(void)
 {
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2250);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2450);
 }
 
 /**
@@ -172,7 +172,7 @@ void PWM_Sample(void)
  */
 void PWM_dark(void)
 {
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1700);
 }
 
 /**
