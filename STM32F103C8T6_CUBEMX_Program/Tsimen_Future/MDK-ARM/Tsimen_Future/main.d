@@ -37,3 +37,7 @@ tsimen_future\main.o: ../Core/Inc/i2c.h
 tsimen_future\main.o: ../Core/Inc/tim.h
 tsimen_future\main.o: ../Core/Inc/usart.h
 tsimen_future\main.o: ../Core/Inc/gpio.h
+tsimen_future\main.o: ../Core/Inc/sht30_i2c_driver.h
+tsimen_future\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+tsimen_future\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+tsimen_future\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

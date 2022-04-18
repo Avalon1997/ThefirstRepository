@@ -9,6 +9,7 @@
 "tsimen_future\usart.o"
 "tsimen_future\stm32f1xx_it.o"
 "tsimen_future\stm32f1xx_hal_msp.o"
+"tsimen_future\sht30_i2c_driver.o"
 "tsimen_future\stm32f1xx_hal_gpio_ex.o"
 "tsimen_future\stm32f1xx_hal_adc.o"
 "tsimen_future\stm32f1xx_hal_adc_ex.o"
@@ -27,7 +28,7 @@
 "tsimen_future\stm32f1xx_hal_tim_ex.o"
 "tsimen_future\stm32f1xx_hal_uart.o"
 "tsimen_future\system_stm32f1xx.o"
---strict --scatter "Tsimen_Future\Tsimen_Future.sct"
+--library_type=microlib --strict --scatter "Tsimen_Future\Tsimen_Future.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "Tsimen_Future.map" -o Tsimen_Future\Tsimen_Future.axf

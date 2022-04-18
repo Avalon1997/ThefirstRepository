@@ -25,9 +25,13 @@
 #include "usart.h"
 #include "gpio.h"
 
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "sht30_i2c_driver.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,14 +113,13 @@ int main(void)
   {
 
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
-    // HAL_Delay(50);
+    HAL_Delay(1000);
 
-
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
-  HAL_Delay(400);
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
-  HAL_Delay(400);
-
+    /*--------------------------------------------------Motor Part-------------------------------------------------------*/
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+    // HAL_Delay(1000);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
+    // HAL_Delay(1000);
     // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
     // HAL_Delay(1000);
     // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2450);
@@ -126,10 +129,19 @@ int main(void)
     // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1700);
     // HAL_Delay(1000);
 
+    /*--------------------------------------------------SHT30 Part-------------------------------------------------------*/
+    Measure_TR_Test();
+    InsideTemperature_Test();
 
 
-    // HAL_GPIO_TogglePin(GPIOC,LED_Pin);
-    // HAL_Delay(50);
+
+
+
+
+
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

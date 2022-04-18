@@ -32,3 +32,4 @@ tsimen_future\adc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 tsimen_future\adc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 tsimen_future\adc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 tsimen_future\adc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+tsimen_future\adc.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

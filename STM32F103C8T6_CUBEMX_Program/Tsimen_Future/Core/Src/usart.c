@@ -21,7 +21,8 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-
+#include <stdio.h>
+#include <stdlib.h>
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -276,5 +277,18 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+/**
+ * @brief Redirect the fputc to use the printf.
+ * @param ch 
+ * @param f 
+ * @return int 
+ */
+ int fputc(int ch,FILE *f)
+ {
+   while ((USART1 -> SR & 0x40) == 0);
+   USART1 -> DR = (uint8_t)ch;
+   return ch;
+ }
 
 /* USER CODE END 1 */

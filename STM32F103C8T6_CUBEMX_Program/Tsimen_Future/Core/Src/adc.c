@@ -22,6 +22,13 @@
 
 /* USER CODE BEGIN 0 */
 
+//---- Include
+#include <stdio.h>
+
+//---- Variable define
+int AD_Value = 0;
+float Vol_Value = 0,ADC_Temperature = 0;
+
 /* USER CODE END 0 */
 
 ADC_HandleTypeDef hadc1;
@@ -100,5 +107,42 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+/**
+ * @brief 测量片内温度函数，直接采样ADC运算结果，打印至串口
+ * 
+ */
+void InsideTemperature(void)
+{
+  HAL_ADC_Start(&hadc1);
+  HAL_ADC_PollForConversion(&hadc1,10);
+  AD_Value = HAL_ADC_GetValue(&hadc1);
+  // printf("ADC1 ADC Value: %d\r\n",AD_Value);
+  Vol_Value = AD_Value * (3.3/4096);
+
+  // printf("ADC1 Vol Value:%.2fV\r\n",Vol_Value);
+  ADC_Temperature = (1.43 - Vol_Value)/0.0043 + 25;
+  // printf("MCU Internal Temperature: %.2fC\r\n",ADC_Temperature);
+  printf("%.2f",ADC_Temperature);
+
+}
+
+/**
+ * @brief 测量片内温度函数，直接采样ADC运算结果，打印至串口——测试用
+ * 
+ */
+void InsideTemperature_Test(void)
+{
+  HAL_ADC_Start(&hadc1);
+  HAL_ADC_PollForConversion(&hadc1,10);
+  AD_Value = HAL_ADC_GetValue(&hadc1);
+  // printf("ADC1 ADC Value: %d\r\n",AD_Value);
+  Vol_Value = AD_Value * (3.3/4096);
+
+  // printf("ADC1 Vol Value:%.2fV\r\n",Vol_Value);
+  ADC_Temperature = (1.43 - Vol_Value)/0.0043 + 25;
+  printf("Internal Temperature: %.2fC\r\n",ADC_Temperature);
+
+}
 
 /* USER CODE END 1 */
