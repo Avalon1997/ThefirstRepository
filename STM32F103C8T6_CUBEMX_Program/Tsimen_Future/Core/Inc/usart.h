@@ -37,6 +37,19 @@ extern UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN Private defines */
 
+//-----Define the variable of USART DMA
+#define RX1BUFFERSIZE 16
+#define RX2BUFFERSIZE 6144
+
+extern uint8_t USART_RX1_BUFFER[];
+extern uint8_t USART_RX1_LEN;
+extern uint8_t USART_RX2_BUFFER[];
+extern uint8_t USART_RX2_LEN;
+extern uint8_t USART_RX2_LENDEMO;
+
+extern uint8_t DATA_CACHE1[];
+extern uint8_t DATA_CACHE2[];
+
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);

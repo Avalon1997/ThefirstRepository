@@ -22,6 +22,9 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "usart.h"
+#include <string.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -267,6 +270,21 @@ void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
 
+  //-----Determine whether it is an idle interrupt
+
+  if (__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET )
+  {
+    __HAL_UART_CLEAR_IDLEFLAG(&huart1);
+    HAL_UART_DMAStop(&huart1);
+    USART_RX1_LEN = RX1BUFFERSIZE - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
+
+    memcpy(DATA_CACHE1,USART_RX1_BUFFER,RX1BUFFERSIZE);
+    USART_RX1_LEN = 0;
+    memset(USART_RX1_BUFFER,0,RX1BUFFERSIZE);
+
+    HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
+  }
+
   /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
@@ -280,6 +298,21 @@ void TIM2_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
+
+  //-----Determine whether it is an idle interrupt
+  if (__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET )
+  {
+    __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+    HAL_UART_DMAStop(&huart2);
+    USART_RX2_LEN = RX2BUFFERSIZE - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
+    USART_RX2_LENDEMO = USART_RX2_LEN;
+    
+    memcpy(DATA_CACHE2,USART_RX2_BUFFER,RX2BUFFERSIZE);
+    USART_RX2_LEN;
+    memset(USART_RX2_BUFFER,0,RX2BUFFERSIZE);
+
+    HAL_UART_Receive_DMA(&huart2,USART_RX2_BUFFER,RX2BUFFERSIZE);
+  }
 
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);

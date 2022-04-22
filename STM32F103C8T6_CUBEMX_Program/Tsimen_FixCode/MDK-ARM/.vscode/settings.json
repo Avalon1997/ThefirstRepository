@@ -3,6 +3,8 @@
         "*.tcc": "c",
         "istream": "c",
         "streambuf": "c",
-        "tuple": "c"
+        "tuple": "c",
+        "usart.h": "c",
+        "string.h": "c"
     }
 }

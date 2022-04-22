@@ -23,6 +23,17 @@
 /* USER CODE BEGIN 0 */
 #include <stdio.h>
 #include <stdlib.h>
+
+//-----Define the variable of USART DMA
+uint8_t USART_RX1_BUFFER[] = {0};
+uint8_t USART_RX1_LEN = 0;
+uint8_t USART_RX2_BUFFER[] = {0};
+uint8_t USART_RX2_LEN = 0;
+uint8_t USART_RX2_LENDEMO = 0;
+
+uint8_t DATA_CACHE1[] = {0};
+uint8_t DATA_CACHE2[] = {0};
+
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;

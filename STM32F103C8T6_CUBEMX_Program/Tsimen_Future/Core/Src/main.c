@@ -25,7 +25,6 @@
 #include "usart.h"
 #include "gpio.h"
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "sht30_i2c_driver.h"
@@ -100,6 +99,12 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+
+/*--------------------------------------------------Start the usart DMA-------------------------------------------------------*/
+  // HAL_UART_Receive_DMA(&huart1,Rx1_Buffer,Rx1BufferSize);
+  // HAL_UART_Receive_DMA(&huart2,Rx2_Buffer,Rx2BufferSize);
+
+
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
   // HAL_Delay(1500);
@@ -113,7 +118,7 @@ int main(void)
   {
 
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
-    HAL_Delay(1000);
+    HAL_Delay(10);
 
     /*--------------------------------------------------Motor Part-------------------------------------------------------*/
     // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
@@ -129,9 +134,17 @@ int main(void)
     // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1700);
     // HAL_Delay(1000);
 
+
+
     /*--------------------------------------------------SHT30 Part-------------------------------------------------------*/
     Measure_TR_Test();
     InsideTemperature_Test();
+
+
+    // __set_PRIMASK(1);
+    // HAL_NVIC_SystemReset();
+
+
 
 
 
