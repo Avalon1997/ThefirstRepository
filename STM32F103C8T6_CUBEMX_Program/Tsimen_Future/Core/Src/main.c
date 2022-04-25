@@ -30,6 +30,7 @@
 #include "sht30_i2c_driver.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 /* USER CODE END Includes */
 
@@ -50,6 +51,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+uint8_t CACHE1[2] = {0x01,0x40};
+
 
 /* USER CODE END PV */
 
@@ -98,11 +101,12 @@ int main(void)
   MX_TIM2_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
 /*--------------------------------------------------Start the usart DMA-------------------------------------------------------*/
-  // HAL_UART_Receive_DMA(&huart1,Rx1_Buffer,Rx1BufferSize);
-  // HAL_UART_Receive_DMA(&huart2,Rx2_Buffer,Rx2BufferSize);
+  HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
+  HAL_UART_Receive_DMA(&huart2,USART_RX2_BUFFER,RX2BUFFERSIZE);
 
 
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
@@ -110,6 +114,8 @@ int main(void)
   // HAL_Delay(1500);
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
   // HAL_Delay(1500);
+
+  HAL_TIM_Base_Start_IT(&htim3);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -118,7 +124,7 @@ int main(void)
   {
 
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
-    HAL_Delay(10);
+    HAL_Delay(100);
 
     /*--------------------------------------------------Motor Part-------------------------------------------------------*/
     // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
@@ -134,11 +140,34 @@ int main(void)
     // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1700);
     // HAL_Delay(1000);
 
+  
+
 
 
     /*--------------------------------------------------SHT30 Part-------------------------------------------------------*/
-    Measure_TR_Test();
-    InsideTemperature_Test();
+    // Measure_TR_Test();
+    // InsideTemperature_Test();
+
+    /*--------------------------------------------------SHT30 Part-------------------------------------------------------*/
+    if (memcmp(DATA_CACHE1,CACHE1,sizeof(CACHE1)) == RESET)
+    {
+      // HAL_UART_Transmit(&huart1,"You pass the test!",18,0xFFFF);
+      printf("You pass the test!\r\n");
+      memset(DATA_CACHE1,0,sizeof(DATA_CACHE1));
+    }
+
+    if (DATA_CACHE1[0] == 0x01)
+    {
+
+      printf("You are the god!\r\n");
+      memset(DATA_CACHE1,0,sizeof(DATA_CACHE1));
+      
+    }
+
+
+
+
+
 
 
     // __set_PRIMASK(1);
@@ -208,7 +237,12 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeiodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  printf("Callback test OK !\r\n");
+  // Measure_TR_Test();
+  // InsideTemperature_Test();
+}
 /* USER CODE END 4 */
 
 /**

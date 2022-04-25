@@ -86,6 +86,8 @@ uint8_t U1_Spec_totaldata[] = {0x01,0x89,0x00,0x00,0x00,0x00,0x15,0xDC};      //
 // uint8_t U1_Spec_extemp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0xC1};         //get the external ambient temperature
 uint8_t U1_Spec_temp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0XC1};           //get the intemp and out temp and outhum.
 uint8_t U1_Spec_wave[] = {0x01,0x91};                                        //view the waveform
+// uint8_t U1_Spec_test1[] = {0x01,0x10};                                         //Test1
+// uint8_t U1_Spec_test2[] = {0x01,0x11};                                         //Test2
 
 
 //To communicate with the spectrometer.
@@ -103,7 +105,8 @@ uint8_t U2_Spec_vave[] = {0x3F,0x41,0x70,0xD0};                                 
 uint8_t U2_Spec_get_par[] = {0x78,0x62,0xBF};                                       //usart2 to get the calibration parameters
 uint8_t U2_Spec_vwavelength[] = {0x3F,0x53,0x7D,0x50};                              //usart2 to view all wavelength values corresponding to the current pixel range
 uint8_t U2_Spec_xenonoff[] = {0x31,0x00,0x20,0x14};                                 //usart2 to turn off the xenon
-uint8_t U2_Spec_xenonon[] = {0x31,0x01,0xE0,0xD5};                                  //usart2 to turn of the xenon
+uint8_t U2_Spec_xenonon[] = {0x31,0x01,0xE0,0xD5};                                  //usart2 to turn on the xenon
+uint8_t U2_Spec_xenononone[] = {0x31,0x81,0x40,0xD4};                               //usart2 to turn on the xenon in one time mode.
 uint8_t U2_Spec_getdata[] = {0x53,0x7D,0xFF};                                       //usart2 to get the spectrometer data
 
 
@@ -859,7 +862,7 @@ int main(void)
         }
 
         //sample signal condition
-        HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_xenononone,sizeof(U2_Spec_xenononone),0xFFFF);
         HAL_Delay(20);
         if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
         {
@@ -884,7 +887,7 @@ int main(void)
         }
 
         //reference signal condition
-        HAL_UART_Transmit(&huart2,U2_Spec_xenonon,sizeof(U2_Spec_xenonon),0xFFFF);
+        HAL_UART_Transmit(&huart2,U2_Spec_xenononone,sizeof(U2_Spec_xenononone),0xFFFF);
         HAL_Delay(20);
         if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
         {
@@ -929,6 +932,93 @@ int main(void)
           // HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
       // HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
     }
+
+    //Test the pulse
+    // else if (memcmp(Dec,U1_Spec_test1,sizeof(U1_Spec_test1)) == 0)
+    // {
+    //     //dark condition
+    //     HAL_UART_Transmit(&huart2,U2_Spec_xenonoff,sizeof(U2_Spec_xenonoff),0xFFFF);
+    //     HAL_Delay(20);
+    //     if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+    //     {
+    //       PWM_dark();
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       // memset(Dec,0,sizeof(Dec));
+    //       HAL_Delay(50);
+    //       HAL_UART_DMAStop(&huart2);
+    //       __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+    //       HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
+
+    //       HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       memset(Dec,0,sizeof(Dec));
+    //       __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+    //     }
+
+    //     //sample signal condition
+    //     HAL_UART_Transmit(&huart2,U2_Spec_xenononone,sizeof(U2_Spec_xenonon),0xFFFF);
+    //     HAL_Delay(20);
+    //     if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+    //     {
+    //       PWM_Reference();
+    //       HAL_Delay(500);
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       // memset(Dec,0,sizeof(Dec));
+    //       HAL_Delay(50);
+
+    //       HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+    //       HAL_UART_DMAStop(&huart2);
+    //       __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
+
+    //       HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       memset(Dec,0,sizeof(Dec));
+    //       __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+    //     }
+
+    //     //reference signal condition
+    //     HAL_UART_Transmit(&huart2,U2_Spec_xenononone,sizeof(U2_Spec_xenonon),0xFFFF);
+    //     HAL_Delay(20);
+    //     if (memcmp(Data,Spec_OK,sizeof(Spec_OK)) == 0)
+    //     {
+    //       PWM_Sample();
+    //       HAL_Delay(500);
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       // memset(Dec,0,sizeof(Dec));
+    //       HAL_Delay(50);
+    //       HAL_UART_Transmit(&huart2,U2_Spec_getdata,sizeof(U2_Spec_getdata),0xFFFF);
+    //       HAL_UART_DMAStop(&huart2);
+    //       __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive(&huart2,Data,Rx2BufferSize,2500);
+
+    //       HAL_UART_Transmit(&huart1,Data,2063,0xFFFF);
+    //       Rx2_lendemo = 0;
+    //       memset(Data,0,sizeof(Data));
+    //       memset(Dec,0,sizeof(Dec));
+    //       __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    //       HAL_UART_Receive_DMA(&huart2,Data,Rx2BufferSize);
+    //     }
+    // }
+
+    // else if (memcmp(Dec,U1_Spec_test2,sizeof(U1_Spec_test2)) == 0)
+    // {
+    //   HAL_UART_Transmit(&huart2,U2_Spec_xenononone,sizeof(U2_Spec_xenonon),0xFFFF);
+    //   HAL_Delay(20);
+    //   HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
+    //   Rx2_lendemo = 0;
+    //   memset(Data,0,sizeof(Data));
+    //   memset(Dec,0,sizeof(Dec));
+    // }
+
 
     //debug the motor
       // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);

@@ -25,14 +25,14 @@
 #include <stdlib.h>
 
 //-----Define the variable of USART DMA
-uint8_t USART_RX1_BUFFER[] = {0};
+uint8_t USART_RX1_BUFFER[RX1BUFFERSIZE] = {0};
 uint8_t USART_RX1_LEN = 0;
-uint8_t USART_RX2_BUFFER[] = {0};
+uint8_t USART_RX2_BUFFER[RX2BUFFERSIZE] = {0};
 uint8_t USART_RX2_LEN = 0;
 uint8_t USART_RX2_LENDEMO = 0;
 
-uint8_t DATA_CACHE1[] = {0};
-uint8_t DATA_CACHE2[] = {0};
+uint8_t DATA_CACHE1[RX1BUFFERSIZE] = {0};
+uint8_t DATA_CACHE2[RX2BUFFERSIZE] = {0};
 
 /* USER CODE END 0 */
 
@@ -68,7 +68,7 @@ void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-
+  __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);   //-----Open the IDLE
   /* USER CODE END USART1_Init 2 */
 
 }
@@ -97,7 +97,7 @@ void MX_USART2_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART2_Init 2 */
-
+  __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);   //-----Open the IDLE
   /* USER CODE END USART2_Init 2 */
 
 }
@@ -163,7 +163,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart1_tx);
 
     /* USART1 interrupt Init */
-    HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(USART1_IRQn, 1, 0);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
@@ -226,7 +226,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart2_tx);
 
     /* USART2 interrupt Init */
-    HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(USART2_IRQn, 1, 0);
     HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspInit 1 */
 

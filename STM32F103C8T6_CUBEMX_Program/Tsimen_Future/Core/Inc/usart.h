@@ -41,14 +41,14 @@ extern UART_HandleTypeDef huart2;
 #define RX1BUFFERSIZE 16
 #define RX2BUFFERSIZE 6144
 
-extern uint8_t USART_RX1_BUFFER[];
+extern uint8_t USART_RX1_BUFFER[RX1BUFFERSIZE];
 extern uint8_t USART_RX1_LEN;
-extern uint8_t USART_RX2_BUFFER[];
+extern uint8_t USART_RX2_BUFFER[RX2BUFFERSIZE];
 extern uint8_t USART_RX2_LEN;
 extern uint8_t USART_RX2_LENDEMO;
 
-extern uint8_t DATA_CACHE1[];
-extern uint8_t DATA_CACHE2[];
+extern uint8_t DATA_CACHE1[RX1BUFFERSIZE];
+extern uint8_t DATA_CACHE2[RX2BUFFERSIZE];
 
 /* USER CODE END Private defines */
 

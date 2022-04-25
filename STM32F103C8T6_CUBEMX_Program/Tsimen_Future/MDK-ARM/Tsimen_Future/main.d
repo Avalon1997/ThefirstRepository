@@ -40,4 +40,5 @@ tsimen_future\main.o: ../Core/Inc/gpio.h
 tsimen_future\main.o: ../Core/Inc/sht30_i2c_driver.h
 tsimen_future\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 tsimen_future\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+tsimen_future\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 tsimen_future\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

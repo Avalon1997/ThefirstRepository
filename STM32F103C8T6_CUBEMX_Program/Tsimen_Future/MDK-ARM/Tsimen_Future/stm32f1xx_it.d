@@ -35,3 +35,4 @@ tsimen_future\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_it.h
 tsimen_future\stm32f1xx_it.o: ../Core/Inc/usart.h
 tsimen_future\stm32f1xx_it.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 tsimen_future\stm32f1xx_it.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+tsimen_future\stm32f1xx_it.o: ../Core/Inc/adc.h
