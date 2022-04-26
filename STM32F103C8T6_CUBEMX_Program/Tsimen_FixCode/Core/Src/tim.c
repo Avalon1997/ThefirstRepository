@@ -147,27 +147,42 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 
 /* USER CODE BEGIN 1 */
 
+
 /**
- * @brief 
+ * @brief Turn the slice to the Reference Signal position.
  * 
  */
 void PWM_Reference(void)
 { 
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1850);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2050);
 }
 
 /**
- * @brief 
+ * @brief Turn the slice to the Sample Signal position.
  * 
  */
 void PWM_Sample(void)
 {
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2250);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2450);
 }
 
+/**
+ * @brief Turn the slice to the Dark Current position.
+ * 
+ */
 void PWM_dark(void)
 {
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1700);
 }
+
+/**
+ * @brief To set the slice
+ * 
+ */
+void PWM_start(void)
+{
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+}
+
 
 /* USER CODE END 1 */

@@ -46,6 +46,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 void PWM_Sample(void);
 void PWM_Reference(void);
 void PWM_dark(void);
+void PWM_start(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

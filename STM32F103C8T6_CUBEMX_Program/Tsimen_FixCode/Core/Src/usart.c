@@ -288,8 +288,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 /* USER CODE BEGIN 1 */
 
 /**
- * @brief 重定向fputc函数，以用来实现printf打印串口数据
- * 
+ * @brief Redirect the fputc to use the printf.
  * @param ch 
  * @param f 
  * @return int 
