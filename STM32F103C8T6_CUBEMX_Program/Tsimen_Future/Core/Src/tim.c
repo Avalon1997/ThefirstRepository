@@ -210,10 +210,14 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 
 /* USER CODE BEGIN 1 */
 
-// void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-// {
-//     Measure_TR_Test();
-//     InsideTemperature_Test();
-// }
+/**
+ * @brief Control the PWM pulse width
+ * 
+ * @param var 
+ */
+void PWM_PulseWidth(int var)
+{
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,var);
+}
 
 /* USER CODE END 1 */

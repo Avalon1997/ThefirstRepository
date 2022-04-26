@@ -315,7 +315,7 @@ void USART2_IRQHandler(void)
   /* USER CODE BEGIN USART2_IRQn 0 */
 
   //-----Determine whether it is an idle interrupt
-  if (__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET )
+  if (__HAL_UART_GET_FLAG(&huart2,UART_FLAG_IDLE) == SET )
   {
     __HAL_UART_CLEAR_IDLEFLAG(&huart2);
     HAL_UART_DMAStop(&huart2);

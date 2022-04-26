@@ -53,6 +53,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+uint16_t ModBus_CRC16( uint8_t *pdata, int len);
 
 /* USER CODE END EFP */
 
