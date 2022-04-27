@@ -53,15 +53,15 @@
 /* USER CODE BEGIN PV */
 
 //----- Miscellaneous variable definitions
-int CRC_j = 0, CRC_i = 0, WHILEA = 0;
+int CRC_j = 0, CRC_i = 0, WHILEA = 0, memv_i = 0;
 uint16_t crc = 0xFFFF, CRC16 = 0;
 uint8_t CRC_DATA[8] = {0};
-int PWM_DARK = 1700, PWM_REFERENCE = 2050, PWM_SAMPLE = 2450;
-
+int PWM_DARK = 750, PWM_REFERENCE = 970, PWM_SAMPLE = 550;
 
 //----- Master computer communication command (11 instructions)
 uint8_t USART1_Tsimen_Reset[]     = {0x01,0x01,0x00,0x00,0x00,0x00,0x0A,0x3C};    // Global reset
-uint8_t USART1_Tsimen_Ver[]       = {0x01,0x02,0x00,0x00,0x00,0x00,0x0A,0x78};    // Read the sensor version number
+uint8_t USART1_Tsimen_Version[]   = {'T','S','-','2','0','0','0','-','0','0','0','0','0','1'};        // Tsimen Code Version
+uint8_t USART1_Tsimen_Ver[]       = {0x01,0x02,0x00,0x00,0x00,0x00,0x0A,0x78};    // Read the sensor version
 uint8_t USART1_Tsimen_Int[]       = {0x01,0x03,0x00,0x00,0x01,0xF4,0xDD,0x45};    // Set the spectrometer integration time (example)
 uint8_t USART1_Tsimen_CheckInt[]  = {0x01,0x04,0x00,0x00,0x00,0x00,0x0A,0xF0};    // Check the current integration time of the spectrometer
 uint8_t USART1_Tsimen_Ave[]       = {0x01,0x05,0x00,0x32,0x00,0x00,0x05,0x6C};    // Set the spectrometer average Times (example)
@@ -71,9 +71,10 @@ uint8_t USART1_Tsimen_RefSignal[] = {0x01,0x08,0x00,0x00,0x00,0x00,0x0B,0xE0};  
 uint8_t USART1_Tsimen_SamSignal[] = {0x01,0x09,0x00,0x00,0x00,0x00,0xCB,0xDD};    // Read the spectrometer data under sample signal conditions
 uint8_t USART1_Tsimen_FullData[]  = {0x01,0x0A,0x00,0x00,0x00,0x00,0xCB,0x99};    // One-click acquisition of dark, parametric and sample spectrometer data
 uint8_t USART1_Tsimen_TempData[]  = {0x01,0x0B,0x00,0x00,0x00,0x00,0x0B,0xA4};    // Read temperature and humidity data
-uint8_t USART1_Tsimen_OK[]        = {0x01,0x80,0x7E};                             // OK code
-uint8_t USART1_Tsimen_ERROR[]     = {0xFF,0x00,0xFF};                             // ERROR code
-uint8_t USART1_Tsimen_SpecERROR[] = {0xFF,0XFF,0XFF,0xFF,0xFF,0XFF,0XFF,0xFF};    // Spectrometer has some problems, maybe it is broken
+uint8_t USART1_Tsimen_OK[]        = {0x01,0x52,0x49};                             // OK code
+uint8_t USART1_Tsimen_ERROR[]     = {0x01,0x46,0x41};                             // ERROR code
+uint8_t USART1_Tsimen_SpecERROR[] = {0x01,0x53,0x50,0x45,0x43,0x45,0x52};         // Spectrometer has some problems, maybe it is broken
+uint8_t USART1_Tsimen_CRCERROR[]  = {0x01,0x43,0x52,0x43,0x45,0x52};              // CRC ERROR
 
 //----- Spectrometer communication command ()
 uint8_t USART2_Spec_Reset[]       = {0x52,0xDB,0x3E};                             // Spec reset
@@ -87,29 +88,6 @@ uint8_t USART2_Spec_XenonOnOne[]  = {0x31,0x81,0x40,0xD4};                      
 uint8_t USART2_Spec_Data[]        = {0x53,0x7D,0xFF};                             // Read spec data
 uint8_t USART2_Spec_OK[]          = {0x06,0x42,0x3F};                             // OK code
 uint8_t USART2_Spec_ERROR[]       = {0x15,0x8F,0x7E};                             // ERROR code
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -164,18 +142,22 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
+
+
+
+
 /*--------------------------------------------------Start the usart DMA-------------------------------------------------------*/
   HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
   HAL_UART_Receive_DMA(&huart2,USART_RX2_BUFFER,RX2BUFFERSIZE);
 
 
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
-  // HAL_Delay(1500);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
+  HAL_Delay(1500);
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
   // HAL_Delay(1500);
 
-  HAL_TIM_Base_Start_IT(&htim3);
+  // HAL_TIM_Base_Start_IT(&htim3);
 
   /* USER CODE END 2 */
 
@@ -198,61 +180,214 @@ int main(void)
       if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
       {
         CRC16 = 0;
-        
+        // __set_PRIMASK(1);
+        // HAL_NVIC_SystemReset();
         PWM_PulseWidth(PWM_DARK);
-        
         HAL_UART_Transmit(&huart2,USART2_Spec_Reset,sizeof(USART2_Spec_Reset),0xFFFF);
-        
         HAL_Delay(1500);
-        while (WHILEA < 10)
-        {
-          if (memcmp(DATA_CACHE2,USART2_Spec_OK,3) ==  RESET)
-          {
-            HAL_UART_Transmit(&huart1,USART1_Tsimen_OK,sizeof(USART1_Tsimen_OK),0xFFFF);
-            break;
-          }
-          else if (memcmp(DATA_CACHE2,USART2_Spec_ERROR,3) == RESET)
-          {
-            HAL_UART_Transmit(&huart1,USART1_Tsimen_ERROR,sizeof(USART1_Tsimen_ERROR),0xFFFF);
-            break;
-          }
-          WHILEA++;
-        }
-
-        if (WHILEA == 10)
-        {
-          HAL_UART_Transmit(&huart1,USART1_Tsimen_SpecERROR,sizeof(USART1_Tsimen_SpecERROR),0xFFFF);
-        }
-        
-        WHILEA = 0;
-        USART_RX2_LENDEMO = 0;
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-        memset(DATA_CACHE2,0,RX2BUFFERSIZE);
-
+        WaitandClear();
       }
 
+      else
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
     }
 
+    //----- command two: Read the sensor Version
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_Ver,sizeof(USART1_Tsimen_Ver)) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0; //Reset the CRC16 virable
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_Version,sizeof(USART1_Tsimen_Version),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+      else 
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command three: Set the spectrometer integration time
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_Int,2) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        memv(USART2_Spec_Int,DATA_CACHE1,2,3,4);
+        CRC16 = ModBus_CRC16(USART2_Spec_Int,5);
+        USART2_Spec_Int[6] = CRC16&0xFF;
+        USART2_Spec_Int[5] = (CRC16>>8)&0xFF;
+        CRC16 = 0;
+        
+        HAL_UART_Transmit(&huart2,USART2_Spec_Int,sizeof(USART2_Spec_Int),0xFFFF);
+        HAL_Delay(1500);
+        WaitandClear();
+      }
 
+      else
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command four: Check the spectrometer integration time
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_CheckInt,sizeof(USART1_Tsimen_CheckInt)) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        HAL_UART_Transmit(&huart2,USART2_Spec_CheckInt,sizeof(USART2_Spec_CheckInt),0xFFFF);
+        HAL_Delay(1500);
+        WaitandClear();
+      }
 
+      else
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command five: Set the spectrometer average Times 
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_Ave,2) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        memv(USART2_Spec_Ave,DATA_CACHE1,2,3,2);
+        CRC16 = ModBus_CRC16(USART2_Spec_Ave,3);
+        USART2_Spec_Ave[4] = CRC16&0xFF;
+        USART2_Spec_Ave[3] = (CRC16>>8)&0xFF;
+        CRC16 = 0;
 
+        HAL_UART_Transmit(&huart2,USART2_Spec_Ave,sizeof(USART2_Spec_Ave),0xFFFF);
+        HAL_Delay(1500);
+        WaitandClear();
+      }
 
-    // __set_PRIMASK(1);
-    // HAL_NVIC_SystemReset();
+      else
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command six: Check the current average times of the spectrometer
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_CheckAve,sizeof(USART2_Spec_CheckAve)) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        HAL_UART_Transmit(&huart2,USART2_Spec_CheckAve,sizeof(USART2_Spec_CheckAve),0xFFFF);
+        HAL_Delay(1500);
+        WaitandClear();
+      }
 
+      else
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command seven: Read the spectrometer data under dark current conditions 
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_DarSignal,sizeof(USART1_Tsimen_DarSignal)) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        GetSpecData(USART2_Spec_XenonOff,PWM_DARK);
+      }
+      
+      else 
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command eight: Read the spectrometer data under reference signal conditions
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_RefSignal,sizeof(USART1_Tsimen_RefSignal)) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        GetSpecData(USART2_Spec_XenonOnOne,PWM_REFERENCE);
+      }
+      
+      else 
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command nine: Read the spectrometer data under sample signal conditions
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_SamSignal,sizeof(USART1_Tsimen_SamSignal)) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        GetSpecData(USART2_Spec_XenonOnOne,PWM_SAMPLE);
+      }
+      
+      else 
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command ten: One-click acquisition of dark, parametric and sample spectrometer data
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_FullData,sizeof(USART1_Tsimen_FullData)) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        GetSpecData(USART2_Spec_XenonOff,PWM_DARK);
+        GetSpecData(USART2_Spec_XenonOnOne,PWM_REFERENCE);
+        GetSpecData(USART2_Spec_XenonOnOne,PWM_SAMPLE);
+      }
 
+      else
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
+    //----- command eleven: Read temperature and humidity data
+    else if (memcmp(DATA_CACHE1,USART1_Tsimen_TempData,sizeof(USART1_Tsimen_TempData)) == RESET)
+    {
+      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+      {
+        CRC16 = 0;
+        Measure_TR();
+        InsideTemperature();
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
 
-
-
+      else
+      {
+        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+      }
+    }
 
     /* USER CODE END WHILE */
 
@@ -309,20 +444,6 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 /**
- * @brief 
- * 
- * @param htim 
- */
-void HAL_TIM_PeiodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  printf("Callback test OK !\r\n");
-  // Measure_TR_Test();
-  // InsideTemperature_Test();
-}
-
-
-
-/**
  * @brief CRC16 check code. The function is used for data verification when communicating with PC.
  *  
  * @param pdata 
@@ -349,11 +470,95 @@ uint16_t ModBus_CRC16( uint8_t *pdata, int len)     //polynomial: 8005
 return crc;
 }
 
+/**
+ * @brief Cut a specific length from the A array to the B array.
+ * 
+ * @param pdata target array
+ * @param ppdata truncated array
+ * @param st1 start bit of the destination array
+ * @param st2 start bit of truncated array
+ * @param length The length of the truncated array
+ */
+void memv(uint8_t *pdata,uint8_t *ppdata,int st1,int st2,int length)
+{
+  for (memv_i=0;memv_i<length;memv_i++)
+  {
+    pdata[memv_i+st1-1] = ppdata[memv_i+st2-1];
+  }
+}
 
+/**
+ * @brief Wait and clear the cache data
+ * 
+ */
+void WaitandClear(void)
+{
+        while (WHILEA < 10)
+        {
+          if (memcmp(DATA_CACHE2,USART2_Spec_OK,3) ==  RESET)
+          {
+            HAL_UART_Transmit(&huart1,USART1_Tsimen_OK,sizeof(USART1_Tsimen_OK),0xFFFF);
+            break;
+          }
+          else if (memcmp(DATA_CACHE2,USART2_Spec_ERROR,3) == RESET)
+          {
+            HAL_UART_Transmit(&huart1,USART1_Tsimen_ERROR,sizeof(USART1_Tsimen_ERROR),0xFFFF);
+            break;
+          }
+          WHILEA++;
+        }
 
+        if (WHILEA == 10)
+        {
+          HAL_UART_Transmit(&huart1,USART1_Tsimen_SpecERROR,sizeof(USART1_Tsimen_SpecERROR),0xFFFF);
+        }
+        
+        WHILEA = 0;
+        USART_RX2_LENDEMO = 0;
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+        memset(DATA_CACHE2,0,RX2BUFFERSIZE);
+}
 
+/**
+ * @brief Get the Spec Data object
+ * 
+ * @param specdata control the xenon's status
+ * @param a set the pulse width of the PWM_timer2
+ */
+void GetSpecData(uint8_t *specdata,int a)
+{
+  HAL_UART_Transmit(&huart2,specdata,sizeof(specdata),0xFFFF);
+  HAL_Delay(20);
 
-
+  if (memcmp(DATA_CACHE2,USART2_Spec_OK,sizeof(USART2_Spec_OK)) == RESET)
+  {
+    PWM_PulseWidth(a);
+    memset(DATA_CACHE2,0,RX2BUFFERSIZE);
+    HAL_Delay(20);
+    HAL_UART_DMAStop(&huart2);
+    __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    HAL_UART_Transmit(&huart2,USART2_Spec_Data,sizeof(USART2_Spec_Data),0xFFFF);
+    HAL_UART_Receive(&huart2,DATA_CACHE2,RX2BUFFERSIZE,3000);
+    HAL_UART_Transmit(&huart1,DATA_CACHE2,2063,0xFFFF);
+    USART_RX2_LENDEMO = 0;
+    memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    memset(DATA_CACHE2,0,RX2BUFFERSIZE);
+    __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    HAL_UART_Receive_DMA(&huart2,DATA_CACHE2,RX2BUFFERSIZE);
+  }
+  
+  else if (memcmp(DATA_CACHE2,USART2_Spec_ERROR,sizeof(USART2_Spec_ERROR)) == RESET)
+  {
+    HAL_UART_Transmit(&huart1,USART1_Tsimen_ERROR,sizeof(USART1_Tsimen_ERROR),0xFFFF);
+    memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    memset(DATA_CACHE2,0,RX2BUFFERSIZE);
+  }
+  else 
+  {
+    HAL_UART_Transmit(&huart1,USART1_Tsimen_SpecERROR,sizeof(USART1_Tsimen_SpecERROR),0xFFFF);
+    memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+  }
+}
 
 
 /* USER CODE END 4 */
