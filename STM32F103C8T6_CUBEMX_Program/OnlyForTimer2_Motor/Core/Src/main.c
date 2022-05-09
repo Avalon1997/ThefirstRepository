@@ -98,12 +98,15 @@ int main(void)
     HAL_Delay(5000);
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1000);
+    
     HAL_Delay(5000);
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+
     HAL_Delay(5000);
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2000);
+
     HAL_Delay(5000);
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);

@@ -53,7 +53,7 @@
 /* USER CODE BEGIN PV */
 
 //----- Miscellaneous variable definitions
-int CRC_j = 0, CRC_i = 0, WHILEA = 0, memv_i = 0;
+int CRC_j = 0, CRC_i = 0, WHILEA = 0, memv_i = 0, A = 0 ;
 uint32_t WAIT_TIME = 0x00000000;
 uint16_t crc = 0xFFFF, CRC16 = 0;
 uint8_t CRC_DATA[8] = {0}, CHECKDATA[8] = {0}, SPECTRAL_DATA[2063] = {0};
@@ -75,6 +75,7 @@ uint8_t USART1_Tsimen_FullData[]  = {0x01,0x0A,0x00,0x00,0x00,0x00,0xCB,0x99};  
 uint8_t USART1_Tsimen_TempData[]  = {0x01,0x0B,0x00,0x00,0x00,0x00,0x0B,0xA4};      // Read temperature and humidity data
 uint8_t USART1_Tsimen_OK[]        = {0x01,0x52,0x49};                               // OK code
 uint8_t USART1_Tsimen_ERROR[]     = {0x01,0x46,0x41};                               // ERROR code
+uint8_t USART1_Tsimen_SpecOK[]    = {0x01,0x53,0x50,0x45,0x43,0x4f,0x4b};           // Handle with the Spectrometer
 uint8_t USART1_Tsimen_SpecERROR[] = {0x01,0x53,0x50,0x45,0x43,0x45,0x52};           // Spectrometer has some problems, maybe it is broken
 uint8_t USART1_Tsimen_CRCERROR[]  = {0x01,0x43,0x52,0x43,0x45,0x52};                // CRC ERROR
 
@@ -147,9 +148,9 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+  STM32_Init();
+  Spec_Init();
 
-
-  Sensor_Init();
 
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
   // HAL_Delay(1500);
@@ -164,7 +165,7 @@ int main(void)
   {
 
     //----- Working LED
-    HAL_GPIO_TogglePin(GPIOC,LED_Pin);
+    HAL_GPIO_TogglePin(GPIOB,LED_Pin);
     HAL_Delay(100);
 
 
@@ -399,9 +400,6 @@ int main(void)
       }
     }
 
-
-
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -583,10 +581,10 @@ void GetSpecData(uint8_t *specdata,int a)
 }
 
 /**
- * @brief To Init the Whole Sensor
+ * @brief Init the STM32 System
  * 
  */
-void Sensor_Init(void)
+void STM32_Init(void)
 {
   /*--------------------------------------------------Init the usart DMA-------------------------------------------------------*/
   HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
@@ -595,24 +593,22 @@ void Sensor_Init(void)
   /*--------------------------------------------------Init the PWM-------------------------------------------------------*/
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,PWM_DARK);
+}
 
-  /*--------------------------------------------------Init the Spectrometer-------------------------------------------------------*/
+/**
+ * @brief Init the Spectrometer
+ * 
+ */
+void Spec_Init(void)
+{
   HAL_UART_Transmit(&huart2,USART2_Spec_Reset,sizeof(USART2_Spec_Reset),0xFFFF);
   HAL_Delay(1500);
+  Judge_SpecStatus();
   HAL_UART_Transmit(&huart2,USART2_Spec_Int_Default,sizeof(USART2_Spec_Int_Default),0xFFFF);
   HAL_Delay(30);
   HAL_UART_Transmit(&huart2,USART2_Spec_Ave_Default,sizeof(USART2_Spec_Ave_Default),0xFFFF);
   HAL_Delay(30);
   Config_WaitTime();
-
-  /*--------------------------------------------------Init the Spectrometer-------------------------------------------------------*/
-
- 
-
-
-
-
-
 }
 
 /**
@@ -625,6 +621,32 @@ void Config_WaitTime(void)
   WAIT_TIME = (USART2_Spec_Int[1]<<24) | (USART2_Spec_Int[2]<<16) | (USART2_Spec_Int[3]<<8) | USART2_Spec_Int[4] ;
   WAIT_TIME = WAIT_TIME * (uint32_t)((USART2_Spec_Ave[1]<<8) | USART2_Spec_Ave[2]) ;
   WAIT_TIME = WAIT_TIME / 1000 ;
+}
+
+/**
+ * @brief To judge the spec status, if the spec is incorrect, send message to the master PC
+ * 
+ */
+void Judge_SpecStatus(void)
+{
+  A = 20 ; 
+  while (A!=1)
+  {
+    if (memcmp(DATA_CACHE2,USART2_Spec_OK,sizeof(USART2_Spec_OK)) == RESET)
+    {
+      HAL_UART_Transmit(&huart1,USART1_Tsimen_SpecOK,sizeof(USART1_Tsimen_SpecOK),0xFFFF);
+      USART_RX2_LENDEMO = 0;
+      memset(DATA_CACHE2,0,10);
+      break;
+    }
+    A-- ;
+  }
+
+  if (A == 1)
+  {
+    HAL_UART_Transmit(&huart1,USART1_Tsimen_SpecERROR,sizeof(USART1_Tsimen_SpecERROR),0xFFFF);
+  }
+  A = 0 ; 
 }
 
 /* USER CODE END 4 */

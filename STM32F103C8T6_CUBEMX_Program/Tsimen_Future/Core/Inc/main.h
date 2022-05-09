@@ -57,14 +57,16 @@ uint16_t ModBus_CRC16( uint8_t *pdata, int len);
 void memv(uint8_t *pdata,uint8_t *ppdata,int st1,int st2,int length);
 void WaitandClear(void);
 void GetSpecData(uint8_t *specdata,int a);
-void Sensor_Init(void);
 void Config_WaitTime(void);
+void STM32_Init(void);
+void Spec_Init(void);
+void Judge_SpecStatus(void);
 
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED_Pin GPIO_PIN_13
-#define LED_GPIO_Port GPIOC
+#define LED_Pin GPIO_PIN_1
+#define LED_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
