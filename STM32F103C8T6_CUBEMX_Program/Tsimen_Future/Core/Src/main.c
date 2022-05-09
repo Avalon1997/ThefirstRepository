@@ -54,42 +54,45 @@
 
 //----- Miscellaneous variable definitions
 int CRC_j = 0, CRC_i = 0, WHILEA = 0, memv_i = 0;
+uint32_t WAIT_TIME = 0x00000000;
 uint16_t crc = 0xFFFF, CRC16 = 0;
-uint8_t CRC_DATA[8] = {0};
+uint8_t CRC_DATA[8] = {0}, CHECKDATA[8] = {0}, SPECTRAL_DATA[2063] = {0};
 int PWM_DARK = 750, PWM_REFERENCE = 970, PWM_SAMPLE = 550;
 
 //----- Master computer communication command (11 instructions)
-uint8_t USART1_Tsimen_Reset[]     = {0x01,0x01,0x00,0x00,0x00,0x00,0x0A,0x3C};    // Global reset
-uint8_t USART1_Tsimen_Version[]   = {'T','S','-','2','0','0','0','-','0','0','0','0','0','1'};        // Tsimen Code Version
-uint8_t USART1_Tsimen_Ver[]       = {0x01,0x02,0x00,0x00,0x00,0x00,0x0A,0x78};    // Read the sensor version
-uint8_t USART1_Tsimen_Int[]       = {0x01,0x03,0x00,0x00,0x01,0xF4,0xDD,0x45};    // Set the spectrometer integration time (example)
-uint8_t USART1_Tsimen_CheckInt[]  = {0x01,0x04,0x00,0x00,0x00,0x00,0x0A,0xF0};    // Check the current integration time of the spectrometer
-uint8_t USART1_Tsimen_Ave[]       = {0x01,0x05,0x00,0x32,0x00,0x00,0x05,0x6C};    // Set the spectrometer average Times (example)
-uint8_t USART1_Tsimen_CheckAve[]  = {0x01,0x06,0x00,0x00,0x00,0x00,0xCA,0x89};    // Check the current average times of the spectrometer
-uint8_t USART1_Tsimen_DarSignal[] = {0x01,0x07,0x00,0x00,0x00,0x00,0x0A,0xB4};    // Read the spectrometer data under dark current conditions
-uint8_t USART1_Tsimen_RefSignal[] = {0x01,0x08,0x00,0x00,0x00,0x00,0x0B,0xE0};    // Read the spectrometer data under reference signal conditions
-uint8_t USART1_Tsimen_SamSignal[] = {0x01,0x09,0x00,0x00,0x00,0x00,0xCB,0xDD};    // Read the spectrometer data under sample signal conditions
-uint8_t USART1_Tsimen_FullData[]  = {0x01,0x0A,0x00,0x00,0x00,0x00,0xCB,0x99};    // One-click acquisition of dark, parametric and sample spectrometer data
-uint8_t USART1_Tsimen_TempData[]  = {0x01,0x0B,0x00,0x00,0x00,0x00,0x0B,0xA4};    // Read temperature and humidity data
-uint8_t USART1_Tsimen_OK[]        = {0x01,0x52,0x49};                             // OK code
-uint8_t USART1_Tsimen_ERROR[]     = {0x01,0x46,0x41};                             // ERROR code
-uint8_t USART1_Tsimen_SpecERROR[] = {0x01,0x53,0x50,0x45,0x43,0x45,0x52};         // Spectrometer has some problems, maybe it is broken
-uint8_t USART1_Tsimen_CRCERROR[]  = {0x01,0x43,0x52,0x43,0x45,0x52};              // CRC ERROR
+uint8_t USART1_Tsimen_Reset[]     = {0x01,0x01,0x00,0x00,0x00,0x00,0x0A,0x3C};      // Global reset
+// uint8_t USART1_Tsimen_Version[]   = {'T','S','-','2','0','0','0','-','0','0','0','0','0','1'};        // Tsimen Code Version
+uint8_t USART1_Tsimen_Version[]   = "TS-2000-000001";                               // Tsimen Code Version
+uint8_t USART1_Tsimen_Ver[]       = {0x01,0x02,0x00,0x00,0x00,0x00,0x0A,0x78};      // Read the sensor version
+uint8_t USART1_Tsimen_Int[]       = {0x01,0x03,0x00,0x00,0x01,0xF4,0xDD,0x45};      // Set the spectrometer integration time (example)
+uint8_t USART1_Tsimen_CheckInt[]  = {0x01,0x04,0x00,0x00,0x00,0x00,0x0A,0xF0};      // Check the current integration time of the spectrometer
+uint8_t USART1_Tsimen_Ave[]       = {0x01,0x05,0x00,0x32,0x00,0x00,0x05,0x6C};      // Set the spectrometer average Times (example)
+uint8_t USART1_Tsimen_CheckAve[]  = {0x01,0x06,0x00,0x00,0x00,0x00,0xCA,0x89};      // Check the current average times of the spectrometer
+uint8_t USART1_Tsimen_DarSignal[] = {0x01,0x07,0x00,0x00,0x00,0x00,0x0A,0xB4};      // Read the spectrometer data under dark current conditions
+uint8_t USART1_Tsimen_RefSignal[] = {0x01,0x08,0x00,0x00,0x00,0x00,0x0B,0xE0};      // Read the spectrometer data under reference signal conditions
+uint8_t USART1_Tsimen_SamSignal[] = {0x01,0x09,0x00,0x00,0x00,0x00,0xCB,0xDD};      // Read the spectrometer data under sample signal conditions
+uint8_t USART1_Tsimen_FullData[]  = {0x01,0x0A,0x00,0x00,0x00,0x00,0xCB,0x99};      // One-click acquisition of dark, parametric and sample spectrometer data
+uint8_t USART1_Tsimen_TempData[]  = {0x01,0x0B,0x00,0x00,0x00,0x00,0x0B,0xA4};      // Read temperature and humidity data
+uint8_t USART1_Tsimen_OK[]        = {0x01,0x52,0x49};                               // OK code
+uint8_t USART1_Tsimen_ERROR[]     = {0x01,0x46,0x41};                               // ERROR code
+uint8_t USART1_Tsimen_SpecERROR[] = {0x01,0x53,0x50,0x45,0x43,0x45,0x52};           // Spectrometer has some problems, maybe it is broken
+uint8_t USART1_Tsimen_CRCERROR[]  = {0x01,0x43,0x52,0x43,0x45,0x52};                // CRC ERROR
 
 //----- Spectrometer communication command ()
-uint8_t USART2_Spec_Reset[]       = {0x52,0xDB,0x3E};                             // Spec reset
-uint8_t USART2_Spec_Int[]         = {0x69,0x00,0x00,0x01,0xF4,0x1E,0x78};         // Set spec int time
-uint8_t USART2_Spec_CheckInt[]    = {0x3F,0x69,0x6E,0xD0};                        // Check spec int time
-uint8_t USART2_Spec_Ave[]         = {0x41,0x00,0x32,0x01,0xA0};                   // Set spec average
-uint8_t USART2_Spec_CheckAve[]    = {0x3F,0x41,0x70,0xD0};                        // Check spec average
-uint8_t USART2_Spec_XenonOff[]    = {0x31,0x00,0x20,0x14};                        // Turn the xenon off
-uint8_t USART2_Spec_XenonOnCon[]  = {0x31,0x01,0xE0,0xD5};                        // Turn the xenon on under continuous mode
-uint8_t USART2_Spec_XenonOnOne[]  = {0x31,0x81,0x40,0xD4};                        // Turn the xenon on under signal mode
-uint8_t USART2_Spec_Data[]        = {0x53,0x7D,0xFF};                             // Read spec data
-uint8_t USART2_Spec_OK[]          = {0x06,0x42,0x3F};                             // OK code
-uint8_t USART2_Spec_ERROR[]       = {0x15,0x8F,0x7E};                             // ERROR code
-
-
+uint8_t USART2_Spec_Reset[]       = {0x52,0xBD,0x3E};                               // Spec reset
+uint8_t USART2_Spec_Int[]         = {0x69,0x00,0x00,0x01,0xF4,0x1E,0x78};           // Set spec int time
+uint8_t USART2_Spec_Int_Default[] = {0x69,0x00,0x00,0x01,0xF4,0x1E,0x78};           // Default spec int time
+uint8_t USART2_Spec_CheckInt[]    = {0x3F,0x69,0x6E,0xD0};                          // Check spec int time
+uint8_t USART2_Spec_Ave[]         = {0x41,0x00,0x14,0xDB,0x21};                     // Set spec average
+uint8_t USART2_Spec_Ave_Default[] = {0x41,0x00,0x14,0xDB,0x21};                     // Default spec average
+uint8_t USART2_Spec_CheckAve[]    = {0x3F,0x41,0x70,0xD0};                          // Check spec average
+uint8_t USART2_Spec_XenonOff[]    = {0x31,0x00,0x20,0x14};                          // Turn the xenon off
+uint8_t USART2_Spec_XenonOnCon[]  = {0x31,0x01,0xE0,0xD5};                          // Turn the xenon on under continuous mode
+uint8_t USART2_Spec_XenonOnOne[]  = {0x31,0x81,0x40,0xD4};                          // Turn the xenon on under signal mode
+uint8_t USART2_Spec_Data[]        = {0x53,0x7D,0xFF};                               // Read spec data
+uint8_t USART2_Spec_OK[]          = {0x06,0x42,0x3F};                               // OK code
+uint8_t USART2_Spec_ERROR[]       = {0x15,0x8F,0x7E};                               // ERROR code
+uint8_t USART2_Spec_FormData[]    = {0x06,0xAA,0x55,0xBB,0x44,0xCC,0x33,0xDD,0x22}; // Spectrometer Form Data
 
 
 /* USER CODE END PV */
@@ -121,7 +124,10 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  memset(I2CRXBuffer,0,sizeof(I2CRXBuffer));
+  memset(CRC_DATA,0,sizeof(CRC_DATA));
+  memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+  memset(DATA_CACHE2,0,RX2BUFFERSIZE);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -143,17 +149,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
+  Sensor_Init();
 
-
-
-/*--------------------------------------------------Start the usart DMA-------------------------------------------------------*/
-  HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
-  HAL_UART_Receive_DMA(&huart2,USART_RX2_BUFFER,RX2BUFFERSIZE);
-
-
-  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
-  HAL_Delay(1500);
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
   // HAL_Delay(1500);
 
@@ -185,6 +182,11 @@ int main(void)
         PWM_PulseWidth(PWM_DARK);
         HAL_UART_Transmit(&huart2,USART2_Spec_Reset,sizeof(USART2_Spec_Reset),0xFFFF);
         HAL_Delay(1500);
+        HAL_UART_Transmit(&huart2,USART2_Spec_Int_Default,sizeof(USART2_Spec_Int_Default),0xFFFF);
+        HAL_Delay(30);
+        HAL_UART_Transmit(&huart2,USART2_Spec_Ave_Default,sizeof(USART2_Spec_Ave_Default),0xFFFF);
+        HAL_Delay(30);
+        Config_WaitTime();
         WaitandClear();
       }
 
@@ -224,10 +226,10 @@ int main(void)
         USART2_Spec_Int[6] = CRC16&0xFF;
         USART2_Spec_Int[5] = (CRC16>>8)&0xFF;
         CRC16 = 0;
-        
         HAL_UART_Transmit(&huart2,USART2_Spec_Int,sizeof(USART2_Spec_Int),0xFFFF);
-        HAL_Delay(1500);
+        HAL_Delay(30);
         WaitandClear();
+        Config_WaitTime();
       }
 
       else
@@ -245,8 +247,12 @@ int main(void)
       {
         CRC16 = 0;
         HAL_UART_Transmit(&huart2,USART2_Spec_CheckInt,sizeof(USART2_Spec_CheckInt),0xFFFF);
-        HAL_Delay(1500);
-        WaitandClear();
+        HAL_Delay(30);
+        memv(CHECKDATA,DATA_CACHE2,1,2,4);
+        HAL_UART_Transmit(&huart1,CHECKDATA,4,0xFFFF);
+        USART_RX2_LENDEMO = 0;
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+        memset(DATA_CACHE2,0,RX2BUFFERSIZE);
       }
 
       else
@@ -268,10 +274,10 @@ int main(void)
         USART2_Spec_Ave[4] = CRC16&0xFF;
         USART2_Spec_Ave[3] = (CRC16>>8)&0xFF;
         CRC16 = 0;
-
         HAL_UART_Transmit(&huart2,USART2_Spec_Ave,sizeof(USART2_Spec_Ave),0xFFFF);
-        HAL_Delay(1500);
+        HAL_Delay(30);
         WaitandClear();
+        Config_WaitTime();
       }
 
       else
@@ -289,8 +295,12 @@ int main(void)
       {
         CRC16 = 0;
         HAL_UART_Transmit(&huart2,USART2_Spec_CheckAve,sizeof(USART2_Spec_CheckAve),0xFFFF);
-        HAL_Delay(1500);
-        WaitandClear();
+        HAL_Delay(30);
+        memv(CHECKDATA,DATA_CACHE2,1,2,2);
+        HAL_UART_Transmit(&huart1,CHECKDATA,2,0xFFFF);
+        USART_RX2_LENDEMO = 0;
+        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+        memset(DATA_CACHE2,0,RX2BUFFERSIZE);
       }
 
       else
@@ -388,6 +398,9 @@ int main(void)
         memset(DATA_CACHE1,0,RX1BUFFERSIZE);
       }
     }
+
+
+
 
     /* USER CODE END WHILE */
 
@@ -528,22 +541,31 @@ void WaitandClear(void)
 void GetSpecData(uint8_t *specdata,int a)
 {
   HAL_UART_Transmit(&huart2,specdata,sizeof(specdata),0xFFFF);
-  HAL_Delay(20);
+  HAL_Delay(30);
 
   if (memcmp(DATA_CACHE2,USART2_Spec_OK,sizeof(USART2_Spec_OK)) == RESET)
   {
     PWM_PulseWidth(a);
+
     memset(DATA_CACHE2,0,RX2BUFFERSIZE);
-    HAL_Delay(20);
-    HAL_UART_DMAStop(&huart2);
-    __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    // HAL_UART_DMAStop(&huart2);
+    // __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
+    HAL_Delay(500);
+
     HAL_UART_Transmit(&huart2,USART2_Spec_Data,sizeof(USART2_Spec_Data),0xFFFF);
-    HAL_UART_Receive(&huart2,DATA_CACHE2,RX2BUFFERSIZE,3000);
+    while (memcmp(DATA_CACHE2,USART2_Spec_FormData,9) != RESET)
+    {
+      HAL_Delay(20);
+    }
+
+    HAL_Delay(300);
     HAL_UART_Transmit(&huart1,DATA_CACHE2,2063,0xFFFF);
+
     USART_RX2_LENDEMO = 0;
     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
     memset(DATA_CACHE2,0,RX2BUFFERSIZE);
-    __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    HAL_Delay(20);
     HAL_UART_Receive_DMA(&huart2,DATA_CACHE2,RX2BUFFERSIZE);
   }
   
@@ -560,6 +582,50 @@ void GetSpecData(uint8_t *specdata,int a)
   }
 }
 
+/**
+ * @brief To Init the Whole Sensor
+ * 
+ */
+void Sensor_Init(void)
+{
+  /*--------------------------------------------------Init the usart DMA-------------------------------------------------------*/
+  HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
+  HAL_UART_Receive_DMA(&huart2,USART_RX2_BUFFER,RX2BUFFERSIZE);
+
+  /*--------------------------------------------------Init the PWM-------------------------------------------------------*/
+  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,PWM_DARK);
+
+  /*--------------------------------------------------Init the Spectrometer-------------------------------------------------------*/
+  HAL_UART_Transmit(&huart2,USART2_Spec_Reset,sizeof(USART2_Spec_Reset),0xFFFF);
+  HAL_Delay(1500);
+  HAL_UART_Transmit(&huart2,USART2_Spec_Int_Default,sizeof(USART2_Spec_Int_Default),0xFFFF);
+  HAL_Delay(30);
+  HAL_UART_Transmit(&huart2,USART2_Spec_Ave_Default,sizeof(USART2_Spec_Ave_Default),0xFFFF);
+  HAL_Delay(30);
+  Config_WaitTime();
+
+  /*--------------------------------------------------Init the Spectrometer-------------------------------------------------------*/
+
+ 
+
+
+
+
+
+}
+
+/**
+ * @brief Config the wait time
+ * 
+ */
+void Config_WaitTime(void)
+{
+  WAIT_TIME = 0;
+  WAIT_TIME = (USART2_Spec_Int[1]<<24) | (USART2_Spec_Int[2]<<16) | (USART2_Spec_Int[3]<<8) | USART2_Spec_Int[4] ;
+  WAIT_TIME = WAIT_TIME * (uint32_t)((USART2_Spec_Ave[1]<<8) | USART2_Spec_Ave[2]) ;
+  WAIT_TIME = WAIT_TIME / 1000 ;
+}
 
 /* USER CODE END 4 */
 

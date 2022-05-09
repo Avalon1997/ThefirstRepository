@@ -57,6 +57,8 @@ uint16_t ModBus_CRC16( uint8_t *pdata, int len);
 void memv(uint8_t *pdata,uint8_t *ppdata,int st1,int st2,int length);
 void WaitandClear(void);
 void GetSpecData(uint8_t *specdata,int a);
+void Sensor_Init(void);
+void Config_WaitTime(void);
 
 /* USER CODE END EFP */
 

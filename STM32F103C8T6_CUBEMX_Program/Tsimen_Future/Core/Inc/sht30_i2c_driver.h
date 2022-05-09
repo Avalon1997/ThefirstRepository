@@ -51,6 +51,7 @@ typedef enum
 
 uint8_t SHT30_ValGet (uint8_t* dat);
 uint8_t SHT30_Dat_To_Float(uint8_t* const dat,float* temperature,float* humidity);
+extern uint8_t I2CRXBuffer[6];
 
 int Measure_TR(void);
 void StringOut(char str,int a);
