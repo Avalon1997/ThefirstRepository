@@ -59,7 +59,7 @@ void WaitandClear(void);
 void GetSpecData(uint8_t *specdata,int a);
 void Config_WaitTime(void);
 void STM32_Init(void);
-void Spec_Init(void);
+void SPEC_Init(void);
 void Judge_SpecStatus(void);
 
 /* USER CODE END EFP */

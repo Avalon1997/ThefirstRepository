@@ -57,7 +57,7 @@ int CRC_j = 0, CRC_i = 0, WHILEA = 0, memv_i = 0, A = 0 ;
 uint32_t WAIT_TIME = 0x00000000;
 uint16_t crc = 0xFFFF, CRC16 = 0;
 uint8_t CRC_DATA[8] = {0}, CHECKDATA[8] = {0}, SPECTRAL_DATA[2063] = {0};
-int PWM_DARK = 750, PWM_REFERENCE = 970, PWM_SAMPLE = 550;
+int PWM_DARK = 950, PWM_REFERENCE = 1130, PWM_SAMPLE = 700;
 
 //----- Master computer communication command (11 instructions)
 uint8_t USART1_Tsimen_Reset[]     = {0x01,0x01,0x00,0x00,0x00,0x00,0x0A,0x3C};      // Global reset
@@ -73,6 +73,7 @@ uint8_t USART1_Tsimen_RefSignal[] = {0x01,0x08,0x00,0x00,0x00,0x00,0x0B,0xE0};  
 uint8_t USART1_Tsimen_SamSignal[] = {0x01,0x09,0x00,0x00,0x00,0x00,0xCB,0xDD};      // Read the spectrometer data under sample signal conditions
 uint8_t USART1_Tsimen_FullData[]  = {0x01,0x0A,0x00,0x00,0x00,0x00,0xCB,0x99};      // One-click acquisition of dark, parametric and sample spectrometer data
 uint8_t USART1_Tsimen_TempData[]  = {0x01,0x0B,0x00,0x00,0x00,0x00,0x0B,0xA4};      // Read temperature and humidity data
+uint8_t USART1_Tsimen_Jump[]      = {0x01,0x0C,0x00,0x00,0x00,0x00,0xCB,0x11};      // Send message to the STM32 for                                                              w'd jumping out of loop.
 uint8_t USART1_Tsimen_OK[]        = {0x01,0x52,0x49};                               // OK code
 uint8_t USART1_Tsimen_ERROR[]     = {0x01,0x46,0x41};                               // ERROR code
 uint8_t USART1_Tsimen_SpecOK[]    = {0x01,0x53,0x50,0x45,0x43,0x4f,0x4b};           // Handle with the Spectrometer
@@ -149,7 +150,7 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   STM32_Init();
-  Spec_Init();
+  SPEC_Init();
 
 
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
@@ -166,7 +167,7 @@ int main(void)
 
     //----- Working LED
     HAL_GPIO_TogglePin(GPIOB,LED_Pin);
-    HAL_Delay(100);
+    HAL_Delay(50);
 
 
     /*--------------------------------------------------Main Part-------------------------------------------------------*/
@@ -554,11 +555,21 @@ void GetSpecData(uint8_t *specdata,int a)
     while (memcmp(DATA_CACHE2,USART2_Spec_FormData,9) != RESET)
     {
       HAL_Delay(20);
+      if (memcmp(DATA_CACHE1,USART1_Tsimen_Jump,sizeof(USART1_Tsimen_Jump)) == RESET)
+      {
+        CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+        if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+        {
+          CRC16 = 0;
+          HAL_UART_Transmit(&huart1,USART1_Tsimen_OK,sizeof(USART1_Tsimen_OK),0xFFFF);
+          break;
+        }
+      }
     }
-
     HAL_Delay(300);
     HAL_UART_Transmit(&huart1,DATA_CACHE2,2063,0xFFFF);
 
+    //----- clear variables
     USART_RX2_LENDEMO = 0;
     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
     memset(DATA_CACHE2,0,RX2BUFFERSIZE);
@@ -599,7 +610,7 @@ void STM32_Init(void)
  * @brief Init the Spectrometer
  * 
  */
-void Spec_Init(void)
+void SPEC_Init(void)
 {
   HAL_UART_Transmit(&huart2,USART2_Spec_Reset,sizeof(USART2_Spec_Reset),0xFFFF);
   HAL_Delay(1500);

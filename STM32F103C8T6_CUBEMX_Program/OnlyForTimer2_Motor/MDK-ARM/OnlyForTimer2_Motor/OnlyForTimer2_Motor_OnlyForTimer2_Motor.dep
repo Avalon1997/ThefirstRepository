@@ -1,9 +1,11 @@
 Dependencies for Project 'OnlyForTimer2_Motor', Target 'OnlyForTimer2_Motor': (DO NOT MODIFY !)
-F (startup_stm32f103xb.s)(0x6278B54C)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"--pd "__UVISION_VERSION SETA 518" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1"--list startup_stm32f103xb.lst --xref -o onlyfortimer2_motor\startup_stm32f103xb.o --depend onlyfortimer2_motor\startup_stm32f103xb.d)
-F (../Core/Src/main.c)(0x6278D8B8)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\main.o --omf_browse onlyfortimer2_motor\main.crf --depend onlyfortimer2_motor\main.d)
-I (../Core/Inc/main.h)(0x6278B548)
+F (startup_stm32f103xb.s)(0x627A170D)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"--pd "__UVISION_VERSION SETA 518" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1"--list startup_stm32f103xb.lst --xref -o onlyfortimer2_motor\startup_stm32f103xb.o --depend onlyfortimer2_motor\startup_stm32f103xb.d)
+F (..\Core\Src\sht30_i2c_driver.c)(0x627A1314)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\sht30_i2c_driver.o --omf_browse onlyfortimer2_motor\sht30_i2c_driver.crf --depend onlyfortimer2_motor\sht30_i2c_driver.d)
+I (../Core/Inc/sht30_i2c_driver.h)(0x627A119F)
+I (../Core/Inc/I2C.h)(0x627A170A)
+I (../Core/Inc/main.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -25,16 +27,17 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
-I (../Core/Inc/tim.h)(0x6278B548)
-I (../Core/Inc/gpio.h)(0x6278B548)
-F (../Core/Src/gpio.c)(0x6278B548)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\gpio.o --omf_browse onlyfortimer2_motor\gpio.crf --depend onlyfortimer2_motor\gpio.d)
-I (../Core/Inc/gpio.h)(0x6278B548)
-I (../Core/Inc/main.h)(0x6278B548)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
+I (../Core/Inc/usart.h)(0x627A170A)
+F (../Core/Src/main.c)(0x627B8BBF)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\main.o --omf_browse onlyfortimer2_motor\main.crf --depend onlyfortimer2_motor\main.d)
+I (../Core/Inc/main.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -56,14 +59,24 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
-F (../Core/Src/tim.c)(0x6278B548)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\tim.o --omf_browse onlyfortimer2_motor\tim.crf --depend onlyfortimer2_motor\tim.d)
-I (../Core/Inc/tim.h)(0x6278B548)
-I (../Core/Inc/main.h)(0x6278B548)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+I (../Core/Inc/dma.h)(0x627A170A)
+I (../Core/Inc/i2c.h)(0x627A170A)
+I (../Core/Inc/tim.h)(0x627A170A)
+I (../Core/Inc/usart.h)(0x627A170A)
+I (../Core/Inc/gpio.h)(0x627A170A)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x569DEA3A)
+I (../Core/Inc/sht30_i2c_driver.h)(0x627A119F)
+F (../Core/Src/gpio.c)(0x627A170A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\gpio.o --omf_browse onlyfortimer2_motor\gpio.crf --depend onlyfortimer2_motor\gpio.d)
+I (../Core/Inc/gpio.h)(0x627A170A)
+I (../Core/Inc/main.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -85,13 +98,16 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
-F (../Core/Src/stm32f1xx_it.c)(0x6278B548)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_it.o --omf_browse onlyfortimer2_motor\stm32f1xx_it.crf --depend onlyfortimer2_motor\stm32f1xx_it.d)
-I (../Core/Inc/main.h)(0x6278B548)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+F (../Core/Src/dma.c)(0x627A170A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\dma.o --omf_browse onlyfortimer2_motor\dma.crf --depend onlyfortimer2_motor\dma.d)
+I (../Core/Inc/dma.h)(0x627A170A)
+I (../Core/Inc/main.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -113,14 +129,16 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_it.h)(0x6278B548)
-F (../Core/Src/stm32f1xx_hal_msp.c)(0x6278B548)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_msp.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_msp.crf --depend onlyfortimer2_motor\stm32f1xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x6278B548)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+F (../Core/Src/i2c.c)(0x627A170A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\i2c.o --omf_browse onlyfortimer2_motor\i2c.crf --depend onlyfortimer2_motor\i2c.d)
+I (../Core/Inc/i2c.h)(0x627A170A)
+I (../Core/Inc/main.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -142,12 +160,138 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+F (../Core/Src/tim.c)(0x627A170A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\tim.o --omf_browse onlyfortimer2_motor\tim.crf --depend onlyfortimer2_motor\tim.d)
+I (../Core/Inc/tim.h)(0x627A170A)
+I (../Core/Inc/main.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x61DBA834)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+F (../Core/Src/usart.c)(0x627A170A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\usart.o --omf_browse onlyfortimer2_motor\usart.crf --depend onlyfortimer2_motor\usart.d)
+I (../Core/Inc/usart.h)(0x627A170A)
+I (../Core/Inc/main.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x61DBA834)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
+F (../Core/Src/stm32f1xx_it.c)(0x627A170B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_it.o --omf_browse onlyfortimer2_motor\stm32f1xx_it.crf --depend onlyfortimer2_motor\stm32f1xx_it.d)
+I (../Core/Inc/main.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x61DBA834)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+I (../Core/Inc/stm32f1xx_it.h)(0x627A170B)
+F (../Core/Src/stm32f1xx_hal_msp.c)(0x627A170B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_msp.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_msp.crf --depend onlyfortimer2_motor\stm32f1xx_hal_msp.d)
+I (../Core/Inc/main.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x61DBA834)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_gpio_ex.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_gpio_ex.crf --depend onlyfortimer2_motor\stm32f1xx_hal_gpio_ex.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -169,12 +313,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
-F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_tim.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_tim.crf --depend onlyfortimer2_motor\stm32f1xx_hal_tim.d)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_i2c.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_i2c.crf --depend onlyfortimer2_motor\stm32f1xx_hal_i2c.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -196,39 +342,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
-F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_tim_ex.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_tim_ex.crf --depend onlyfortimer2_motor\stm32f1xx_hal_tim_ex.d)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
-I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
-I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
-I (../Drivers/CMSIS/Include/core_cm3.h)(0x61DBA834)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
-I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61DBA834)
-I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
-I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
-I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
-I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c)(0x61DBA83F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal.crf --depend onlyfortimer2_motor\stm32f1xx_hal.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -250,12 +371,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_rcc.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_rcc.crf --depend onlyfortimer2_motor\stm32f1xx_hal_rcc.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -277,12 +400,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_rcc_ex.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_rcc_ex.crf --depend onlyfortimer2_motor\stm32f1xx_hal_rcc_ex.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -304,12 +429,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_gpio.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_gpio.crf --depend onlyfortimer2_motor\stm32f1xx_hal_gpio.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -331,12 +458,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c)(0x61DBA83F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_dma.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_dma.crf --depend onlyfortimer2_motor\stm32f1xx_hal_dma.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -358,12 +487,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c)(0x61DBA83F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_cortex.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_cortex.crf --depend onlyfortimer2_motor\stm32f1xx_hal_cortex.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -385,12 +516,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_pwr.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_pwr.crf --depend onlyfortimer2_motor\stm32f1xx_hal_pwr.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -412,12 +545,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_flash.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_flash.crf --depend onlyfortimer2_motor\stm32f1xx_hal_flash.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -439,12 +574,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_flash_ex.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_flash_ex.crf --depend onlyfortimer2_motor\stm32f1xx_hal_flash_ex.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -466,12 +603,14 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c)(0x61DBA83F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_exti.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_exti.crf --depend onlyfortimer2_motor\stm32f1xx_hal_exti.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
@@ -493,9 +632,98 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_tim.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_tim.crf --depend onlyfortimer2_motor\stm32f1xx_hal_tim.d)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x61DBA834)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_tim_ex.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_tim_ex.crf --depend onlyfortimer2_motor\stm32f1xx_hal_tim_ex.d)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x61DBA834)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
+F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c)(0x61DBA840)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\stm32f1xx_hal_uart.o --omf_browse onlyfortimer2_motor\stm32f1xx_hal_uart.crf --depend onlyfortimer2_motor\stm32f1xx_hal_uart.d)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x61DBA834)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
+I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stddef.h)(0x569DEA3A)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)
 F (../Core/Src/system_stm32f1xx.c)(0x61DBA83F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I d:\git_repository\STM32F103C8T6_CUBEMX_Program\OnlyForTimer2_Motor\MDK-ARM\RTE-I "D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "D:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o onlyfortimer2_motor\system_stm32f1xx.o --omf_browse onlyfortimer2_motor\system_stm32f1xx.crf --depend onlyfortimer2_motor\system_stm32f1xx.d)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61DBA83F)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x61DBA83F)
@@ -506,7 +734,7 @@ I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61DBA834)
 I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61DBA834)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61DBA83F)
-I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6278B548)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x627A170B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61DBA83F)
@@ -520,6 +748,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61DBA83F)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61DBA83F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x61DBA83F)

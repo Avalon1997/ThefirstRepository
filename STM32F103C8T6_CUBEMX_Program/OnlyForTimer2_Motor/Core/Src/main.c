@@ -18,12 +18,17 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
+#include "i2c.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include <string.h>
+#include "sht30_i2c_driver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -73,7 +78,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  memset(I2CRXBuffer,0,sizeof(I2CRXBuffer));
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -86,30 +91,40 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_DMA_Init();
+  MX_USART1_UART_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
+  // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
+
+  // HAL_TIM_Base_Start_IT(&htim3);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    HAL_Delay(5000);
+    HAL_Delay(2000);
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1000);
-    
-    HAL_Delay(5000);
-    HAL_GPIO_TogglePin(GPIOC,LED_Pin);
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
 
-    HAL_Delay(5000);
-    HAL_GPIO_TogglePin(GPIOC,LED_Pin);
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2000);
+    // HAL_Delay(5000);
+    // HAL_GPIO_TogglePin(GPIOC,LED_Pin);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
 
-    HAL_Delay(5000);
+    // HAL_Delay(5000);
+    // HAL_GPIO_TogglePin(GPIOC,LED_Pin);
+    // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2000);
+
+    HAL_Delay(2000);
     HAL_GPIO_TogglePin(GPIOC,LED_Pin);
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+
+    // Measure_TR();
+    // printf("Runing...\r\n");
+    // HAL_Delay(1000);
 
     /* USER CODE END WHILE */
 
@@ -157,6 +172,19 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if (htim == &htim3)
+  {
+    HAL_TIM_Base_Stop_IT(&htim3);
+    HAL_GPIO_TogglePin(GPIOC,LED_Pin);
+    Measure_TR();
+    // printf("Something is wrong!!!\r\n");
+    HAL_TIM_Base_Start_IT(&htim3);
+  }
+  UNUSED(htim);
+}
 
 /* USER CODE END 4 */
 
