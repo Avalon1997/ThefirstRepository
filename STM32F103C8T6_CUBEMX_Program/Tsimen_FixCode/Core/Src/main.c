@@ -80,7 +80,7 @@ uint8_t U1_Spec_get_par[] = {0x01,0x67,0x00,0x00,0x00,0x00,0x02,0x34};        //
 uint8_t U1_Spec_vwavelength[] = {0x01,0x6D,0x00,0x00,0x00,0x00,0x03,0xAC};    //view all wavelength values corresponding to the current pixel range
 uint8_t U1_Spec_darkdata[] = {0x01,0x86,0x00,0x00,0x00,0x00,0x14,0x88};       //get the spectrometer data under dark current
 uint8_t U1_Spec_referdata[] = {0x01,0x87,0x00,0x00,0x00,0x00,0xD4,0xB5};      //get the spectrometer data under reference signal
-uint8_t U1_Spec_samdata[] = {0x01,0x88,0x00,0x00,0x00,0x00,   0xD5,0xE1};        //get the spectrometer data under sample signal
+uint8_t U1_Spec_samdata[] = {0x01,0x88,0x00,0x00,0x00,0x00,0xD5,0xE1};        //get the spectrometer data under sample signal
 uint8_t U1_Spec_totaldata[] = {0x01,0x89,0x00,0x00,0x00,0x00,0x15,0xDC};      //get the spectrometer data under three conditions
 // uint8_t U1_SPec_intemp[] = {0x01,0x91,0x00,0x00,0x00,0x00,0x17,0xFC};         //get the internal ambient temperature
 // uint8_t U1_Spec_extemp[] = {0x01,0x90,0x00,0x00,0x00,0x00,0xD7,0xC1};         //get the external ambient temperature
@@ -192,8 +192,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,500);
   // HAL_Delay(700);
-  PWM_start();
-  HAL_Delay(700);
+  // PWM_start();
+  // HAL_Delay(700);
   // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
   PWM_dark();
   HAL_Delay(700);
@@ -253,10 +253,10 @@ int main(void)
           //   HAL_GPIO_TogglePin(GPIOC,LED_Pin);
           // }
           // HAL_UART_Transmit(&huart1,Data,Rx2_lendemo,0xFFFF);
-          __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
-          HAL_Delay(700);
-          __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
-          HAL_Delay(700);
+          // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2500);
+          // HAL_Delay(700);
+          // __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,1500);
+          // HAL_Delay(700);
           // HAL_Delay(30);
           Rx2_lendemo = 0;
           memset(Data,0,sizeof(Data));

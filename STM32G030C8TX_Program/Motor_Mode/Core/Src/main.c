@@ -116,9 +116,9 @@ int main(void)
     
     //----- Motor part
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,500);
-    HAL_Delay(1000);
+    HAL_Delay(2000);
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,2500);
-    HAL_Delay(1000);
+    HAL_Delay(2000);
 
 
 

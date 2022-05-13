@@ -3,16 +3,16 @@
         {
             "name": "TsimenV2_TR",
             "includePath": [
-                "d:\\git_repository\\STM32CUBEMX_Program\\TsimenV2_TR\\Core\\Inc",
-                "d:\\git_repository\\STM32CUBEMX_Program\\TsimenV2_TR\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "d:\\git_repository\\STM32CUBEMX_Program\\TsimenV2_TR\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "d:\\git_repository\\STM32CUBEMX_Program\\TsimenV2_TR\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "d:\\git_repository\\STM32CUBEMX_Program\\TsimenV2_TR\\Drivers\\CMSIS\\Include",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\TsimenV2_TR\\Core\\Inc",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\TsimenV2_TR\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\TsimenV2_TR\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\TsimenV2_TR\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\TsimenV2_TR\\Drivers\\CMSIS\\Include",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include\\rw",
-                "d:\\git_repository\\STM32CUBEMX_Program\\TsimenV2_TR\\MDK-ARM",
-                "d:\\git_repository\\STM32CUBEMX_Program\\TsimenV2_TR\\Core\\Src",
-                "d:\\git_repository\\STM32CUBEMX_Program\\TsimenV2_TR\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\TsimenV2_TR\\MDK-ARM",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\TsimenV2_TR\\Core\\Src",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\TsimenV2_TR\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
