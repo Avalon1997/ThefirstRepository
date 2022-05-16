@@ -1,0 +1,6 @@
+/obj
+/include/.vs
+/bin/*.log
+/bin/*.out
+/src/.vs
+/release
