@@ -137,12 +137,12 @@ void Measure_TR(void)
                 
                 // StringOut('a',1);
                 
-                sprintf(th,"%f",Temperature);
-                HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
-                sprintf(th,"%f",Humidity);
-                HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
+                // sprintf(th,"%f",Temperature);
+                // HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
+                // sprintf(th,"%f",Humidity);
+                // HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
 
-                //  printf("Temperature:%.2fC,Humidity:%.2f%%\r\n",Temperature,Humidity);
+                 printf("Temperature:%.2fC,\r\nHumidity:%.2f%%\r\n",Temperature,Humidity);
                 //  printf("%.2f%.2f",Temperature,Humidity);
                  break;
             }

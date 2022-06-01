@@ -24,16 +24,7 @@ onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dm
 onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
-onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h
 onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
-onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
-onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
-onlyfortimer2_motor\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
-onlyfortimer2_motor\main.o: ../Core/Inc/dma.h
-onlyfortimer2_motor\main.o: ../Core/Inc/i2c.h
-onlyfortimer2_motor\main.o: ../Core/Inc/tim.h
-onlyfortimer2_motor\main.o: ../Core/Inc/usart.h
 onlyfortimer2_motor\main.o: ../Core/Inc/gpio.h
 onlyfortimer2_motor\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 onlyfortimer2_motor\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-onlyfortimer2_motor\main.o: ../Core/Inc/sht30_i2c_driver.h

@@ -3,16 +3,16 @@
         {
             "name": "SHT30_Transmit",
             "includePath": [
-                "d:\\git_repository\\STM32CUBEMX_Program\\SHT30_Transmit\\Core\\Inc",
-                "d:\\git_repository\\STM32CUBEMX_Program\\SHT30_Transmit\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "d:\\git_repository\\STM32CUBEMX_Program\\SHT30_Transmit\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "d:\\git_repository\\STM32CUBEMX_Program\\SHT30_Transmit\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "d:\\git_repository\\STM32CUBEMX_Program\\SHT30_Transmit\\Drivers\\CMSIS\\Include",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\SHT30_Transmit\\Core\\Inc",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\SHT30_Transmit\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\SHT30_Transmit\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\SHT30_Transmit\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\SHT30_Transmit\\Drivers\\CMSIS\\Include",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\Program Files\\Keil_v5\\ARM\\ARMCC\\include\\rw",
-                "d:\\git_repository\\STM32CUBEMX_Program\\SHT30_Transmit\\MDK-ARM",
-                "d:\\git_repository\\STM32CUBEMX_Program\\SHT30_Transmit\\Core\\Src",
-                "d:\\git_repository\\STM32CUBEMX_Program\\SHT30_Transmit\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\SHT30_Transmit\\MDK-ARM",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\SHT30_Transmit\\Core\\Src",
+                "d:\\git_repository\\STM32F103C8T6_CUBEMX_Program\\SHT30_Transmit\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

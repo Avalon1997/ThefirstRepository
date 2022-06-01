@@ -1,5 +1,0 @@
-#ifndef __COEFFICIENT_CALIBRATION
-#define __COEFFICIENT_CALIBRATION
-
-
-#endif

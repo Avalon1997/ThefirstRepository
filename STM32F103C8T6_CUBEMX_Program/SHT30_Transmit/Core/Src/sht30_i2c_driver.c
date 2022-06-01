@@ -123,9 +123,9 @@ uint8_t SHT30_Dat_To_Float(uint8_t* const dat,float* temperature,float* humidity
  */
 void Measure_TR(void)
 {
-    int j;
-       for(j=0;j<100;j++)
-    {   
+    // int j;
+    //    for(j=0;j<100;j++)
+    // {   
         if(SHT30_ValGet(I2CRXBuffer) == HAL_OK)
         {
             Error = SHT30_Dat_To_Float(I2CRXBuffer,&Temperature,&Humidity);
@@ -140,22 +140,22 @@ void Measure_TR(void)
                 // HAL_UART_Transmit(&huart1,(uint8_t *)th,5,0xFFFF);
 
                  printf("Temperature:%.2fC,Humidity:%.2f%%\r\n",Temperature,Humidity);
-                 break;
+                //  break;
             }
         
             else
             {
                 printf("CRC Error\r\n");
-                break;
+                // break;
             }
         }
-    }
+    // }
 
-    if (j == 100)
-    {
+    // if (j == 100)
+    // {
         printf("SHT30_ValGet Error\r\n");
         printf("Please check on the equipment\r\n");
-    }
+    // }
     
 }
 
