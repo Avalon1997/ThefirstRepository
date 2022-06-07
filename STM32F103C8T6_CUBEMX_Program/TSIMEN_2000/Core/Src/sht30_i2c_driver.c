@@ -6,7 +6,7 @@
 
 uint8_t I2CRXBuffer[6];
 uint8_t Error = 0;
-uint8_t ErrorMessage[] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+uint8_t ErrorMessage[] = "00.0000.00";
 float Temperature = 0,Humidity = 0;
 
 uint8_t intbuffer[4];
@@ -128,7 +128,7 @@ int Measure_TR(void)
 {
     int j=0,i=0;
     
-    for(j=0;j<100;j++)
+    for(j=0;j<20;j++)
     {   
         if(SHT30_ValGet(I2CRXBuffer) == HAL_OK)
         {
@@ -149,15 +149,15 @@ int Measure_TR(void)
         }
     }
 
-    if (i == 100)
+    if (i == 20)
     {
-        printf("CRC Error\r\n");
+        printf("99.9999.99");
         return 0;
     }
 
-    else if (j == 100)
+    else if (j == 20)
     {
-        HAL_UART_Transmit(&huart1,ErrorMessage,8,0xFFFF);
+        HAL_UART_Transmit(&huart1,ErrorMessage,10,0xFFFF);
         j = 0;
         return 0;
     }

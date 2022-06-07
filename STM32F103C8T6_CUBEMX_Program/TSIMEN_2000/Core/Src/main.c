@@ -138,7 +138,7 @@ int main(void)
   memset(I2CRXBuffer,0,sizeof(I2CRXBuffer));
   memset(CRC_DATA,0,sizeof(CRC_DATA));
   memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-  memset(DATA_CACHE2,0,6144);
+  memset(DATA_CACHE2,0,RX2BUFFERSIZE);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -197,7 +197,7 @@ int main(void)
         HAL_Delay(30);
         HAL_UART_Transmit(&huart2,USART2_Spec_Ave_Default,sizeof(USART2_Spec_Ave_Default),0xFFFF);
         HAL_Delay(30);
-        Config_WaitTime();
+        // Config_WaitTime();
         WaitandClear();
       }
 
@@ -240,7 +240,7 @@ int main(void)
         HAL_UART_Transmit(&huart2,USART2_Spec_Int,sizeof(USART2_Spec_Int),0xFFFF);
         HAL_Delay(30);
         WaitandClear();
-        Config_WaitTime();
+        // Config_WaitTime();
       }
 
       else
@@ -263,7 +263,7 @@ int main(void)
         HAL_UART_Transmit(&huart1,CHECKDATA,4,0xFFFF);
         USART_RX2_LENDEMO = 0;
         memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-        memset(DATA_CACHE2,0,6144);
+        memset(DATA_CACHE2,0,RX2BUFFERSIZE);
       }
 
       else
@@ -288,7 +288,7 @@ int main(void)
         HAL_UART_Transmit(&huart2,USART2_Spec_Ave,sizeof(USART2_Spec_Ave),0xFFFF);
         HAL_Delay(30);
         WaitandClear();
-        Config_WaitTime();
+        // Config_WaitTime();
       }
 
       else
@@ -311,7 +311,7 @@ int main(void)
         HAL_UART_Transmit(&huart1,CHECKDATA,2,0xFFFF);
         USART_RX2_LENDEMO = 0;
         memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-        memset(DATA_CACHE2,0,6144);
+        memset(DATA_CACHE2,0,RX2BUFFERSIZE);
       }
 
       else
@@ -328,7 +328,11 @@ int main(void)
       if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
       {
         CRC16 = 0;
+        HAL_UART_DMAStop(&huart1);
+        __HAL_UART_DISABLE_IT(&huart1,UART_IT_IDLE);
         GetSpecData(USART2_Spec_XenonOff,PWM_DARK);
+        __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
+        HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
       }
       
       else 
@@ -345,7 +349,11 @@ int main(void)
       if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
       {
         CRC16 = 0;
+        HAL_UART_DMAStop(&huart1);
+        __HAL_UART_DISABLE_IT(&huart1,UART_IT_IDLE);
         GetSpecData(USART2_Spec_XenonOnOne,PWM_REFERENCE);
+        __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
+        HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
       }
       
       else 
@@ -362,7 +370,11 @@ int main(void)
       if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
       {
         CRC16 = 0;
+        HAL_UART_DMAStop(&huart1);
+        __HAL_UART_DISABLE_IT(&huart1,UART_IT_IDLE);
         GetSpecData(USART2_Spec_XenonOnOne,PWM_SAMPLE);
+        __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
+        HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
       }
       
       else 
@@ -379,9 +391,13 @@ int main(void)
       if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
       {
         CRC16 = 0;
+        HAL_UART_DMAStop(&huart1);
+        __HAL_UART_DISABLE_IT(&huart1,UART_IT_IDLE);
         GetSpecData(USART2_Spec_XenonOff,PWM_DARK);
         GetSpecData(USART2_Spec_XenonOnOne,PWM_REFERENCE);
         GetSpecData(USART2_Spec_XenonOnOne,PWM_SAMPLE);
+        __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
+        HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
       }
 
       else
@@ -398,8 +414,16 @@ int main(void)
       if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
       {
         CRC16 = 0;
+        HAL_UART_DMAStop(&huart1);
+        __HAL_UART_DISABLE_IT(&huart1,UART_IT_IDLE);
+        HAL_UART_DMAStop(&huart2);
+        __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
         Measure_TR();
         InsideTemperature();
+        __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
+        HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
+        __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+        HAL_UART_Receive_DMA(&huart2,USART_RX2_BUFFER,RX2BUFFERSIZE);
         memset(DATA_CACHE1,0,RX1BUFFERSIZE);
       }
 
@@ -411,99 +435,99 @@ int main(void)
     }
 
     //----- command twelve: Read the wavelenth
-    else if (memcmp(DATA_CACHE1,USART1_Tsimen_WL,sizeof(USART1_Tsimen_WL)) == RESET)
-    {
-      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
-      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
-      {
-        CRC16 = 0;
+    // else if (memcmp(DATA_CACHE1,USART1_Tsimen_WL,sizeof(USART1_Tsimen_WL)) == RESET)
+    // {
+    //   CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+    //   if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+    //   {
+    //     CRC16 = 0;
 
-        //Counter the wavelenth and Send them to the master
-        for (Dou_i=1;Dou_i<1025;Dou_i++)
-        {
-          Wavelength = 
-          Wave_Coefficient[0]*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i+
-          Wave_Coefficient[1]*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i+
-          Wave_Coefficient[2]*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i+
-          Wave_Coefficient[3]*(long long int)Dou_i*(long long int)Dou_i+
-          Wave_Coefficient[4]*(long long int)Dou_i+
-          Wave_Coefficient[5];
-          // // DoubleBuf[7] = *((uint8_t*)&Wavelength);
-          // // DoubleBuf[6] = *((uint8_t*)&Wavelength+1);
-          // // DoubleBuf[5] = *((uint8_t*)&Wavelength+2);
-          // // DoubleBuf[4] = *((uint8_t*)&Wavelength+3);
-          // // DoubleBuf[3] = *((uint8_t*)&Wavelength+4);
-          // // DoubleBuf[2] = *((uint8_t*)&Wavelength+5);
-          // // DoubleBuf[1] = *((uint8_t*)&Wavelength+6);
-          // // DoubleBuf[0] = *((uint8_t*)&Wavelength+7);
-          // // HAL_UART_Transmit(&huart1,DoubleBuf,sizeof(DoubleBuf),0xFFFF);
-          printf("%lf\r\n",Wavelength);
-        }
+    //     //Counter the wavelenth and Send them to the master
+    //     for (Dou_i=1;Dou_i<1025;Dou_i++)
+    //     {
+    //       Wavelength = 
+    //       Wave_Coefficient[0]*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i+
+    //       Wave_Coefficient[1]*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i+
+    //       Wave_Coefficient[2]*(long long int)Dou_i*(long long int)Dou_i*(long long int)Dou_i+
+    //       Wave_Coefficient[3]*(long long int)Dou_i*(long long int)Dou_i+
+    //       Wave_Coefficient[4]*(long long int)Dou_i+
+    //       Wave_Coefficient[5];
+    //       // // DoubleBuf[7] = *((uint8_t*)&Wavelength);
+    //       // // DoubleBuf[6] = *((uint8_t*)&Wavelength+1);
+    //       // // DoubleBuf[5] = *((uint8_t*)&Wavelength+2);
+    //       // // DoubleBuf[4] = *((uint8_t*)&Wavelength+3);
+    //       // // DoubleBuf[3] = *((uint8_t*)&Wavelength+4);
+    //       // // DoubleBuf[2] = *((uint8_t*)&Wavelength+5);
+    //       // // DoubleBuf[1] = *((uint8_t*)&Wavelength+6);
+    //       // // DoubleBuf[0] = *((uint8_t*)&Wavelength+7);
+    //       // // HAL_UART_Transmit(&huart1,DoubleBuf,sizeof(DoubleBuf),0xFFFF);
+    //       printf("%lf\r\n",Wavelength);
+    //     }
 
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-      }
+    //     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    //   }
 
-      else
-      {
-        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-      }
-    }
+    //   else
+    //   {
+    //     HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+    //     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    //   }
+    // }
 
     //----- command thirteen: Set the wavelength cofficient
-    else if (memcmp(DATA_CACHE1,USART1_Tsimen_SetWL,2) == RESET)
-    {
-      CRC16 = ModBus_CRC16(DATA_CACHE1,50);
-      if (DATA_CACHE1[51]==(uint8_t)CRC16&0xFF && DATA_CACHE1[50]==(uint8_t)(CRC16>>8)&0xFF)
-      {
-        CRC16 = 0;
-        Receive_WavelengthCoefficient(DATA_CACHE1,50);
-        HAL_UART_Transmit(&huart1,USART1_Tsimen_OK,sizeof(USART1_Tsimen_OK),0xFFFF);
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-      }
+    // else if (memcmp(DATA_CACHE1,USART1_Tsimen_SetWL,2) == RESET)
+    // {
+    //   CRC16 = ModBus_CRC16(DATA_CACHE1,50);
+    //   if (DATA_CACHE1[51]==(uint8_t)CRC16&0xFF && DATA_CACHE1[50]==(uint8_t)(CRC16>>8)&0xFF)
+    //   {
+    //     CRC16 = 0;
+    //     Receive_WavelengthCoefficient(DATA_CACHE1,50);
+    //     HAL_UART_Transmit(&huart1,USART1_Tsimen_OK,sizeof(USART1_Tsimen_OK),0xFFFF);
+    //     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    //   }
 
-      else
-      {
-        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-      }
-    }
+    //   else
+    //   {
+    //     HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+    //     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    //   }
+    // }
 
     //----- command fouteen: Read the wavelength cofficient
-    else if (memcmp(DATA_CACHE1,USART1_Tsimen_WC,sizeof(USART1_Tsimen_WC)) == RESET)
-    {
-      CRC16 = ModBus_CRC16(DATA_CACHE1,6);
-      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
-      {
-        CRC16 = 0;
-        Send_WavelengthCoefficient(Wave_Coefficient,6);
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-      }
+    // else if (memcmp(DATA_CACHE1,USART1_Tsimen_WC,sizeof(USART1_Tsimen_WC)) == RESET)
+    // {
+    //   CRC16 = ModBus_CRC16(DATA_CACHE1,6);
+    //   if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+    //   {
+    //     CRC16 = 0;
+    //     Send_WavelengthCoefficient(Wave_Coefficient,6);
+    //     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    //   }
 
-      else
-      {
-        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-      }
-    }
+    //   else
+    //   {
+    //     HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+    //     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    //   }
+    // }
 
     // ----- command fifteen: Set the energy cofficient
-    else if (memcmp(DATA_CACHE1,USART1_Tsimen_SetWL,2) == RESET)
-    {
-      CRC16 = ModBus_CRC16(DATA_CACHE1,26);
-      if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
-      {
-        CRC16 = 0;
+    // else if (memcmp(DATA_CACHE1,USART1_Tsimen_SetWL,2) == RESET)
+    // {
+    //   CRC16 = ModBus_CRC16(DATA_CACHE1,26);
+    //   if (DATA_CACHE1[7]==(uint8_t)CRC16&0xFF && DATA_CACHE1[6]==(uint8_t)(CRC16>>8)&0xFF)
+    //   {
+    //     CRC16 = 0;
         
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-      }
+    //     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    //   }
 
-      else
-      {
-        HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
-        memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-      }
-    }
+    //   else
+    //   {
+    //     HAL_UART_Transmit(&huart1,USART1_Tsimen_CRCERROR,sizeof(USART1_Tsimen_CRCERROR),0xFFFF);
+    //     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
+    //   }
+    // }
 
 
 
@@ -634,7 +658,7 @@ void WaitandClear(void)
         WHILEA = 0;
         USART_RX2_LENDEMO = 0;
         memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-        memset(DATA_CACHE2,0,6144);
+        memset(DATA_CACHE2,0,RX2BUFFERSIZE);
 }
 
 /**
@@ -652,12 +676,13 @@ void GetSpecData(uint8_t *specdata,int a)
   {
     PWM_PulseWidth(a);
 
-    memset(DATA_CACHE2,0,6144);
+    memset(DATA_CACHE2,0,RX2BUFFERSIZE);
     // HAL_UART_DMAStop(&huart2);
     // __HAL_UART_DISABLE_IT(&huart2,UART_IT_IDLE);
     HAL_Delay(500);
 
     HAL_UART_Transmit(&huart2,USART2_Spec_Data,sizeof(USART2_Spec_Data),0xFFFF);
+    // HAL_UART_DMAStop(&huart1);
     while (memcmp(DATA_CACHE2,USART2_Spec_FormData,9) != RESET)
     {
       HAL_Delay(20);
@@ -678,17 +703,19 @@ void GetSpecData(uint8_t *specdata,int a)
     //----- clear variables
     USART_RX2_LENDEMO = 0;
     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-    memset(DATA_CACHE2,0,6144);
+    memset(DATA_CACHE2,0,RX2BUFFERSIZE);
     // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    // __HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE);
+    // HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
     HAL_Delay(20);
-    HAL_UART_Receive_DMA(&huart2,DATA_CACHE2,6144);
+    // HAL_UART_Receive_DMA(&huart2,DATA_CACHE2,RX2BUFFERSIZE);
   }
   
   else if (memcmp(DATA_CACHE2,USART2_Spec_ERROR,sizeof(USART2_Spec_ERROR)) == RESET)
   {
     HAL_UART_Transmit(&huart1,USART1_Tsimen_ERROR,sizeof(USART1_Tsimen_ERROR),0xFFFF);
     memset(DATA_CACHE1,0,RX1BUFFERSIZE);
-    memset(DATA_CACHE2,0,6144);
+    memset(DATA_CACHE2,0,RX2BUFFERSIZE);
   }
   else 
   {
@@ -705,7 +732,7 @@ void STM32_Init(void)
 {
   /*--------------------------------------------------Init the usart DMA-------------------------------------------------------*/
   HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
-  HAL_UART_Receive_DMA(&huart2,USART_RX2_BUFFER,6144);
+  HAL_UART_Receive_DMA(&huart2,USART_RX2_BUFFER,RX2BUFFERSIZE);
 
   /*--------------------------------------------------Init the PWM-------------------------------------------------------*/
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
@@ -725,7 +752,7 @@ void SPEC_Init(void)
   HAL_Delay(30);
   HAL_UART_Transmit(&huart2,USART2_Spec_Ave_Default,sizeof(USART2_Spec_Ave_Default),0xFFFF);
   HAL_Delay(30);
-  Config_WaitTime();
+  // Config_WaitTime();
 }
 
 /**

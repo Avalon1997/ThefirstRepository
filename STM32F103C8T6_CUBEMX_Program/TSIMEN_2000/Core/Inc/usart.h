@@ -39,16 +39,17 @@ extern UART_HandleTypeDef huart2;
 
 //-----Define the variable of USART DMA
 #define RX1BUFFERSIZE 100
+#define RX2BUFFERSIZE 3000
 
 
 extern uint8_t USART_RX1_BUFFER[];
 extern uint16_t USART_RX1_LEN;
-extern uint8_t USART_RX2_BUFFER[6144];
+extern uint8_t USART_RX2_BUFFER[RX2BUFFERSIZE];
 extern uint16_t USART_RX2_LEN;
 extern uint8_t USART_RX2_LENDEMO;
 
 extern uint8_t DATA_CACHE1[];
-extern uint8_t DATA_CACHE2[6144];
+extern uint8_t DATA_CACHE2[RX2BUFFERSIZE];
 
 /* USER CODE END Private defines */
 

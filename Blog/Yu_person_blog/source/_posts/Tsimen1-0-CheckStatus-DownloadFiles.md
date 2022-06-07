@@ -141,7 +141,7 @@ excerpt: 查看计蒙运行状态 / 下载光谱数据 / 接线方式 / ...
 
 按照如下图所示接线颜色一一对应即可。
 
-![接线对照图](./Tsimen1-0-CheckStatus-DownloadFiles/Lines_2022-05-18_13-30-46.png)
+![接线对照图](./Tsimen1-0-CheckStatus-DownloadFiles/Status_2022-06-06_16-42-25.png)
 
 
 
