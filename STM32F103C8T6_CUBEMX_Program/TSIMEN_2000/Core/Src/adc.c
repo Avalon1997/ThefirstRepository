@@ -21,13 +21,15 @@
 #include "adc.h"
 
 /* USER CODE BEGIN 0 */
-
+ 
 //---- Include
 #include <stdio.h>
+#include "usart.h"
 
 //---- Variable define
 int AD_Value = 0;
 float Vol_Value = 0,ADC_Temperature = 0;
+char adth[5] = {0};
 
 /* USER CODE END 0 */
 
@@ -109,7 +111,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 /* USER CODE BEGIN 1 */
 
 /**
- * @brief 测量片内温度函数，直接采样ADC运算结果，打印至串口
+ * @brief To get the MCU temperature
  * 
  */
 void InsideTemperature(void)
@@ -123,12 +125,14 @@ void InsideTemperature(void)
   // printf("ADC1 Vol Value:%.2fV\r\n",Vol_Value);
   ADC_Temperature = (1.43 - Vol_Value)/0.0043 + 25;
   // printf("MCU Internal Temperature: %.2fC\r\n",ADC_Temperature);
-  printf("%.2f",ADC_Temperature);
+  // printf("%.2f",ADC_Temperature);
+  sprintf(adth,"%f",ADC_Temperature);
+  HAL_UART_Transmit(&huart1,(uint8_t* )adth,5,0xFFFF);
 
 }
 
 /**
- * @brief 测量片内温度函数，直接采样ADC运算结果，打印至串口—�?�测试用
+ * @brief To get the MCU temperature, but only for test
  * 
  */
 void InsideTemperature_Test(void)

@@ -1,5 +1,6 @@
 --cpu Cortex-M3
 "tsimen_2000\startup_stm32f103xb.o"
+"tsimen_2000\sht30_i2c_driver.o"
 "tsimen_2000\main.o"
 "tsimen_2000\gpio.o"
 "tsimen_2000\adc.o"
@@ -9,7 +10,6 @@
 "tsimen_2000\usart.o"
 "tsimen_2000\stm32f1xx_it.o"
 "tsimen_2000\stm32f1xx_hal_msp.o"
-"tsimen_2000\sht30_i2c_driver.o"
 "tsimen_2000\stm32f1xx_hal_gpio_ex.o"
 "tsimen_2000\stm32f1xx_hal_adc.o"
 "tsimen_2000\stm32f1xx_hal_adc_ex.o"

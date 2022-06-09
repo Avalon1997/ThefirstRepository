@@ -1,0 +1,74 @@
+######## Stellar Theme Info
+
+
+######## Head tags ########
+open_graph:
+  enable: true
+  twitter_id: # for open_graph meta
+
+
+######### Sidebar #########
+sidebar:
+  logo:
+    title: '[<img no-lazy height="48px" src="img/Sunflower&GirlRound.png"/>](/)'
+  menu:
+    post: '[btn.blog](/)'
+    # wiki: '[btn.wiki](/wiki/)'
+    notes: '[笔记](/notes/)'
+    # friends: '[友链](/friends/)'
+    about: '[关于](/about/)'
+  widget_layout:
+    index: [welcome, recent] # for home/wiki/categories/tags/archives/404 pages
+    page: [welcome, toc] # for pages using 'layout:page'
+    post: [toc, repo_info] # for pages using 'layout:post'
+    wiki: [toc, repo_info, wiki_more] # for pages using 'layout:wiki'
+  widgets:
+    # Recent update
+    recent:
+      layout: recent
+      rss: # /atom.xml # npm i hexo-generator-feed
+      limit: 5 # Count of posts
+    # TOC (valid only in layout:post/wiki)
+    toc:
+      layout: toc
+      list_number: false
+      min_depth: 2
+      max_depth: 5
+      fallback: recent # Use a backup widget when toc does not exist.
+    # welcome
+    welcome:
+      layout: markdown
+      title: '欢迎，旅行者：'
+      content: | # support markdown
+        欢迎光临旅社
+        <br>
+        **第一步**
+        如此
+        <br>
+        **第二步**
+        如此
+        <br>
+        如此
+
+
+######## Comments ########
+comments:
+
+  service: beaudar
+  beaudar:
+    repo: xaoxuu/blog-comments
+
+
+
+# # About Page
+# about:
+#   enable: true
+
+
+
+
+
+
+
+
+

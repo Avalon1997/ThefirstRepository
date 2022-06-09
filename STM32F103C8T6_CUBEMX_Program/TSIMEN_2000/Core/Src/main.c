@@ -154,9 +154,9 @@ int main(void)
   MX_ADC1_Init();
   MX_I2C1_Init();
   MX_TIM2_Init();
-  MX_TIM3_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   STM32_Init();
   SPEC_Init();
@@ -394,7 +394,9 @@ int main(void)
         HAL_UART_DMAStop(&huart1);
         __HAL_UART_DISABLE_IT(&huart1,UART_IT_IDLE);
         GetSpecData(USART2_Spec_XenonOff,PWM_DARK);
+        HAL_Delay(50);
         GetSpecData(USART2_Spec_XenonOnOne,PWM_REFERENCE);
+        HAL_Delay(50);
         GetSpecData(USART2_Spec_XenonOnOne,PWM_SAMPLE);
         __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
         HAL_UART_Receive_DMA(&huart1,USART_RX1_BUFFER,RX1BUFFERSIZE);
